@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <>
       <Container fluid className="bg-[#46a679]">
-        <div className="flex flex-col justify-center text-white py-4 px-96 items-center gap-3">
+        <div className="flex flex-col justify-center text-white py-4 items-center gap-3">
           <img
             alt=""
             src="https://mayur-panchal-0410.github.io/Themenu.github.io/page1img/sslogo.png"
@@ -17,8 +17,9 @@ const Footer = () => {
           <div className="text-3xl font-bold">ABOUT US</div>
           <div className="text-md flex text-center">
             Serving yummy Indian, Italian, and Chinese fast food delicacies in a
-            breathtakingly gorgeous ambience! We offer party decorations to make
-            your special moments extra special!
+            breathtakingly gorgeous ambience! <br />
+            We offer party decorations to make your special moments extra
+            special!
           </div>
           <div className="text-3xl font-bold">Average Cost</div>
           <div className="text-md flex text-center">

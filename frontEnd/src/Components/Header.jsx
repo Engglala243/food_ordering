@@ -11,14 +11,14 @@ import "./Header.css";
 const Header = () => {
   return (
     <>
-      <div className="upper-head h-[6.3rem] shadow-md ">
+      <div className="upper-head h-[6.3rem] border-1 border-t-[#46a679]">
         <Container fluid className="bg-[#46a679]">
           <div className="flex justify-center text-white p-2">
             Enjoy Yummy Licious Fast Food!
           </div>
         </Container>
-        <Navbar className="p-0">
-          <Navbar.Brand href="#home" className="mx-3 flex items-center ">
+        <Navbar className="p-0 bg-white">
+          <Navbar.Brand href="#home" className="mx-3 flex items-center">
             <img
               alt=""
               src={Logo}
@@ -38,9 +38,6 @@ const Header = () => {
             <h2 className="text-2xl font-bold text-white md:text-4xl">
               Captivating Heading
             </h2>
-            <p className="mt-2 text-base text-white md:text-lg">
-              Engaging subtext that complements the image.
-            </p>
           </div>
         </Carousel.Item>
         <Carousel.Item>
@@ -49,9 +46,6 @@ const Header = () => {
             <h2 className="text-2xl font-bold text-white md:text-4xl">
               Captivating Heading
             </h2>
-            <p className="mt-2 text-base text-white md:text-lg">
-              Engaging subtext that complements the image.
-            </p>
           </div>
         </Carousel.Item>
         <Carousel.Item>
@@ -60,9 +54,6 @@ const Header = () => {
             <h2 className="text-2xl font-bold text-white md:text-4xl">
               Captivating Heading
             </h2>
-            <p className="mt-2 text-base text-white md:text-lg">
-              Engaging subtext that complements the image.
-            </p>
           </div>
         </Carousel.Item>
       </Carousel>
