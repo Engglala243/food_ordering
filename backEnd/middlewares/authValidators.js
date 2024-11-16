@@ -1,7 +1,10 @@
 const Joi = require("joi");
+const JoiPhoneNumber = require("joi-phone-number");
 const { authError } = require("../utils/customResponse");
 
-const registerSchema = Joi.object({
+const myCustomJoi = Joi.extend(JoiPhoneNumber);
+
+const userRegisterSchema = Joi.object({
   first_name: Joi.string().min(3).max(30).required(),
   last_name: Joi.string().min(3).max(30).required(),
   email: Joi.string().email().required(),
@@ -19,7 +22,30 @@ const registerSchema = Joi.object({
     }),
 });
 
-const loginSchema = Joi.object({
+const restaurantRegisterSchema = myCustomJoi.object({
+  restaurant_name: myCustomJoi.string().min(3).max(30).required(),
+  street: myCustomJoi.string().min(3).max(100).required(),
+  country: myCustomJoi.string().min(3).max(25).required(),
+  city: myCustomJoi.string().min(3).max(25).required(),
+  phone: myCustomJoi.string().phoneNumber().required(),
+  email: myCustomJoi.string().email().required(),
+  password: myCustomJoi
+    .string()
+    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+    .min(8)
+    .max(75)
+    .required(),
+  confirm_password: myCustomJoi
+    .string()
+    .valid(Joi.ref("password"))
+    .required()
+    .messages({
+      "any.only": "Confirm password must match password",
+      "any.required": "Confirm password is required",
+    }),
+});
+
+const userLoginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
@@ -29,7 +55,16 @@ const loginSchema = Joi.object({
 });
 
 const validateRegister = (req, res, next) => {
-  const { error } = registerSchema.validate(req.body);
+  const { error } = userRegisterSchema.validate(req.body);
+  if (error) {
+    const response = authError(error);
+    return res.status(422).send(response);
+  }
+  next();
+};
+
+const validateRestaurantRegister = (req, res, next) => {
+  const { error } = restaurantRegisterSchema.validate(req.body);
   if (error) {
     const response = authError(error);
     return res.status(422).send(response);
@@ -38,7 +73,7 @@ const validateRegister = (req, res, next) => {
 };
 
 const validateLogin = (req, res, next) => {
-  const { error } = loginSchema.validate(req.body);
+  const { error } = userLoginSchema.validate(req.body);
   if (error) {
     const response = authError(error);
     return res.status(422).send(response);
@@ -47,6 +82,7 @@ const validateLogin = (req, res, next) => {
 };
 
 module.exports = {
+  validateRestaurantRegister,
   validateRegister,
   validateLogin,
 };

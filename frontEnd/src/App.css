@@ -18,3 +18,7 @@ input:focus {
   outline: none; /* Removes default outline */
   border: none; /* Removes border if needed */
 }
+
+body {
+  outline: 1px solid transparent; /* Transparent outline */
+}

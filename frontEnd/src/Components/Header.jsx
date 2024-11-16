@@ -5,8 +5,6 @@ import Logo from "../assets/images/logo.png";
 import Head01 from "../assets/images/head01.jpg";
 import Head02 from "../assets/images/head02.jpg";
 import Head03 from "../assets/images/head03.jpg";
-import Carousel from "react-bootstrap/Carousel";
-import "./Header.css";
 
 const Header = () => {
   return (
@@ -31,32 +29,6 @@ const Header = () => {
           </Navbar.Brand>
         </Navbar>
       </div>
-      <Carousel className="carousel-content h-[90.67vh]">
-        <Carousel.Item>
-          <img src={Head01} className="head-img" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold text-white md:text-4xl">
-              Captivating Heading
-            </h2>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={Head02} className="head-img" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold text-white md:text-4xl">
-              Captivating Heading
-            </h2>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={Head03} className="head-img" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold text-white md:text-4xl">
-              Captivating Heading
-            </h2>
-          </div>
-        </Carousel.Item>
-      </Carousel>
     </>
   );
 };

@@ -31,19 +31,19 @@ const Footer = () => {
             <br />
             Happily Serving You Everyday!!
           </div>{" "}
-          <hr class="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
+          <hr className="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
           <div className="text-3xl font-bold">CONTACT US</div>
           <div className="text-md flex text-center">
             Khandwa Road (Indore) <br />
             Near By Swami Narayan Mandir
           </div>
           <div className="text-3xl font-bold">FOLLOW US</div>
-          <hr class="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
+          <hr className="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
           <div className="text-md flex text-center gap-x-4">
             <FaInstagram className="text-5xl" />
             <FaTwitter className="text-5xl" />
           </div>
-          <hr class="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
+          <hr className="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
           <div className="flex text-center text-sm text-gray-200 flex-col">
             © 2024 Shiv Sagar Food Villa
             <div className="font-bold">

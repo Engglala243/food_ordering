@@ -8,12 +8,9 @@ const { APIData, customResponse } = require("../utils/customResponse");
 const { APIError, AppError } = require("../utils/customErrors");
 const { uploadFile } = require("../middlewares/fileUpload");
 const itemSchema = require("../schema/itemSchema");
-const mysql = require("mysql");
-const config = require("../db/config");
 
-const fetchItems = async (req, res, next) => {
-  const hotelId = req.query.id;
-  console.log(req.query.id);
+const fetchResturants = async (req, res, next) => {
+  const restrau_Id = req.query.id;
   try {
     const query = `SELECT 
         m.name AS menu_name,
@@ -31,7 +28,7 @@ const fetchItems = async (req, res, next) => {
         restaurants h ON r.restaurant_id = h.restaurant_id
     WHERE 
         h.restaurant_id = ?;`;
-    const itemData = await customRecord(query, [hotelId]);
+    const itemData = await customRecord(query, [restrau_Id]);
 
     const transformedData = itemData.reduce((acc, item) => {
       // If this menu category doesn't exist yet, create it with an empty array
@@ -51,8 +48,14 @@ const fetchItems = async (req, res, next) => {
     }, {});
 
     APIData(transformedData)(req, res);
+    if (Object.values(transformedData).length == 0) {
+      console.log(`Hotel Id:${restrau_Id}, Data not Found!`);
+    } else {
+      console.log(`Hotel Id:${restrau_Id}, Data fetched successfully!`);
+    }
   } catch (err) {
     next(new APIError("Data not Found", 200, false, null));
+    console.log(`Hotel Id:${restrau_Id}, Data not Found!`);
   }
 };
 
@@ -66,16 +69,7 @@ const insertItems = async (req, res, next) => {
 
   const images_path = JSON.stringify(imagesPath);
 
-  const {
-    name,
-    description,
-    min_entries,
-    max_entries,
-    quantity,
-    start_date,
-    end_date,
-    ticket_price,
-  } = req.body;
+  const { restaurant_name, address, email, password } = req.body;
 
   const item = {
     name,
@@ -110,6 +104,6 @@ const insertItems = async (req, res, next) => {
 };
 
 module.exports = {
-  fetchItems,
+  fetchResturants,
   insertItems,
 };
