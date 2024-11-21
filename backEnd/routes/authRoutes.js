@@ -14,11 +14,7 @@ const router = express.Router();
 
 router.post("/register", validateRegister, register);
 router.post("/login", validateLogin, login);
-router.post(
-  "/restaurant/register",
-  validateRestaurantRegister,
-  restau_register,
-);
+router.post("/restaurant/register",validateRestaurantRegister,restau_register);
 router.post("/restaurant/login", validateLogin, restau_login);
 
 module.exports = router;

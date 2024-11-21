@@ -25,7 +25,9 @@ const userRegisterSchema = Joi.object({
 const restaurantRegisterSchema = myCustomJoi.object({
   restaurant_name: myCustomJoi.string().min(3).max(30).required(),
   street: myCustomJoi.string().min(3).max(100).required(),
-  country: myCustomJoi.string().min(3).max(25).required(),
+  state: myCustomJoi.string().min(1).max(100).required(),
+  pincode: myCustomJoi.string().min(4).max(10).required(),
+  country: myCustomJoi.string().min(1).max(25).required(),
   city: myCustomJoi.string().min(3).max(25).required(),
   phone: myCustomJoi.string().phoneNumber().required(),
   email: myCustomJoi.string().email().required(),

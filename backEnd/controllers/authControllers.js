@@ -48,22 +48,26 @@ const register = async (req, res, next) => {
 };
 
 const restau_register = async (req, res, next) => {
-  const { restaurant_name, street, country, city, phone, email, password } =
+  const { restaurant_name, street, pincode, state, country, city, phone, email, password } =
     req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const createdBy = restaurant_name;
 
-  const address = `${street}, ${country}, ${city}`;
+  // const address = `${street}, ${country}, ${city}`;
 
   const restaurant = {
     uuid: uuidv4(),
     restaurant_name,
-    address,
     email,
     phone,
     password: hashedPassword,
     created_by: createdBy,
+    city,
+    country,
+    pincode,
+    state,
+    street
   };
 
   try {
