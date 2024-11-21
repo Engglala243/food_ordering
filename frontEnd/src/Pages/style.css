@@ -1,6 +1,5 @@
 .head-img {
   width: 100vw;
-  height: 90.67vh;
   object-fit: cover;
   background-position: center;
   /* Make the background image cover the area of the <div>, and clip the excess */
