@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Dancing_Script"; /* Replace with your font name */
+  src: url("./assets/fonts/DancingScript-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "BiteChocolate"; /* Replace with your font name */
+  src: url("./assets/fonts/BiteChocolate-2RGl.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Quicksand"; /* Replace with your font name */
+  src: url("./assets/fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
+}
+
+input:focus {
+  outline: none; /* Removes default outline */
+  border: none; /* Removes border if needed */
+}
+
+body {
+  outline: 1px solid transparent; /* Transparent outline */
+}
