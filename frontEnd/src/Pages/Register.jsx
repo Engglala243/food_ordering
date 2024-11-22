@@ -5,16 +5,97 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
+import emailjs from "emailjs-com";
 
 const Register = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cityName, setCityName] = useState("");
+  const [otp, setOtp] = useState("");
+  const [enteredOtp, setEnteredOtp] = useState("");
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
 
   useEffect(() => {
     const allCountries = Country.getAllCountries();
     setCountries(allCountries);
   }, []);
+
+  // const formik = useFormik({
+  //   initialValues: {
+  //     restaurant_name: "",
+  //     phone: "",
+  //     password: "",
+  //     confirm_password: "",
+  //     country: "",
+  //     state: "",
+  //     city: "",
+  //     street: "",
+  //     email: "",
+  //     pincode: "",
+  //   },
+  //   validationSchema: Yup.object({
+  //     restaurant_name: Yup.string()
+  //       .required("Restaurant name is required!")
+  //       .min(3, "Too short.")
+  //       .max(25, "Too long!"),
+  //     street: Yup.string()
+  //       .required("Street is required!")
+  //       .min(3, "Too short.")
+  //       .max(100, "Too long!"),
+  //     country: Yup.string().required("Country is required!"),
+  //     state: Yup.string().required("State is required!"),
+  //     pincode: Yup.string()
+  //       .required("PIN code is required")
+  //       .matches(/^[0-9]{6}$/, "PIN code must be 6 digits"),
+  //     phone: Yup.string()
+  //       .required("Phone number is required")
+  //       .matches(
+  //         /^\+?[1-9]\d{1,14}$/,
+  //         "Phone number must be valid and include country code (e.g., +123456789)"
+  //       ),
+  //     email: Yup.string()
+  //       .email("Invalid email format.")
+  //       .required("Email is required."),
+  //     password: Yup.string()
+  //       .min(8, "Should be at least 8 characters!")
+  //       .max(100, "Too Long!")
+  //       .required("Required!"),
+  //     confirm_password: Yup.string()
+  //       .min(8, "Should be at least 8 characters!")
+  //       .max(100, "Too Long!")
+  //       .oneOf([Yup.ref("password"), null], "Password should match!")
+  //       .required("Required!"),
+  //   }),
+  //   onSubmit: (values, { resetForm }) => {
+  //     const registerData = {
+  //       restaurant_name: values.restaurant_name,
+  //       email: values.email,
+  //       phone: values.phone,
+  //       password: values.password,
+  //       confirm_password: values.confirm_password,
+  //       country: values.country,
+  //       state: values.state,
+  //       street: values.street,
+  //       city: cityName,
+  //       pincode: values.pincode,
+  //     };
+
+  //     console.log(registerData, "<===Register Data")
+
+  //     axios
+  //       .post("http://localhost:5000/auth/restaurant/register", registerData)
+  //       .then((response) => {
+  //         console.log(response.data);
+  //       });
+        
+  //     setTimeout(() => {
+  //       resetForm();
+  //     }, 1000);
+  //   },
+  // });
+
+  // *****************************************************
 
   const formik = useFormik({
     initialValues: {
@@ -62,33 +143,64 @@ const Register = () => {
         .oneOf([Yup.ref("password"), null], "Password should match!")
         .required("Required!"),
     }),
+    
     onSubmit: (values, { resetForm }) => {
-      const registerData = {
-        restaurant_name: values.restaurant_name,
-        email: values.email,
-        phone: values.phone,
-        password: values.password,
-        confirm_password: values.confirm_password,
-        country: values.country,
-        state: values.state,
-        street: values.street,
-        city: cityName,
-        pincode: values.pincode,
-      };
+      if (!isOtpVerified) {
+        alert("Please verify your email before registering.");
+        return;
+      }
 
-      console.log(registerData, "<===Register Data")
+      const registerData = {
+        ...values,
+        city: cityName,
+      };
 
       axios
         .post("http://localhost:5000/auth/restaurant/register", registerData)
         .then((response) => {
           console.log(response.data);
         });
-        
-      setTimeout(() => {
-        resetForm();
-      }, 1000);
+
+      resetForm();
     },
   });
+
+  const handleSendOtp = (error) => {
+    if (!formik.values.email) {
+      alert("Please enter your email to send the OTP.");
+      return;
+    }
+
+    const generatedOtp = Math.random().toString(36).substring(2, 8);
+    setOtp(generatedOtp);
+
+    const templateParams = {
+      to_email: formik.values.email,
+      message: `Your OTP for verification is: ${generatedOtp}`,
+    };
+    console.log(error, "<=========error");
+    console.log(generatedOtp, "<=========GOOD");
+
+    emailjs.send('service_shh1qjq', 'template_caahy5j', templateParams, 'DmbJWFOqMCWQR0Fkr')
+      .then(() => {
+        alert("OTP sent to your email.");
+        setIsOtpSent(true);
+      })
+      .catch((error) => {
+        console.error("Error sending OTP:", error);
+      });
+  };
+
+  const handleVerifyOtp = () => {
+    if (enteredOtp === otp) {
+      alert("Email verified successfully!");
+      setIsOtpVerified(true);
+    } else {
+      alert("Invalid OTP. Please try again.");
+    }
+  };
+
+  // *****************************************************
 
   const handleCountryChange = (e) => {
     const selectedCountry = e.target.value;
@@ -167,6 +279,35 @@ const Register = () => {
                   </p>
                 )}
               </div>
+
+              {!isOtpVerified && (
+              <>
+                <button
+                  type="button"
+                  onClick={handleSendOtp}
+                  className="bg-blue-500 text-white px-2 py-1 mt-12 ml-14 rounded-md"
+                  disabled={isOtpSent}
+                >
+                  {isOtpSent ? "OTP Sent" : "Send OTP"}
+                </button>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={enteredOtp}
+                    onChange={(e) => setEnteredOtp(e.target.value)}
+                    className="form-input w-full px-3 py-2 border rounded-md"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleVerifyOtp}
+                    className="bg-green-500 text-white px-4 py-2 mt-2 rounded-md"
+                  >
+                    Verify OTP
+                  </button>
+                </div>
+              </>
+            )}
 
               <div>
                 <label htmlFor="phone" className="form-label">
@@ -313,12 +454,15 @@ const Register = () => {
           </div>
 
           <div className="text-center">
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full"
-            >
-              Register Restaurant
-            </button>
+          <button
+            type="submit"
+            className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full ${
+              !isOtpVerified ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={!isOtpVerified}
+          >
+            Register Restaurant
+          </button>
           </div>
         </form>
       </div>
