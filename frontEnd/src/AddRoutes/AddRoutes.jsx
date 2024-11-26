@@ -15,6 +15,7 @@ import RestaurantRegister from "../Pages/RestaurantRegister";
 import RestaurantLogin from "../Pages/RestaurantLogin";
 import UserLogin from "../Pages/UserLogin";
 import UserRegister from "../Pages/UserRegister";
+import Test from "../Pages/Test";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,8 +28,9 @@ const router = createBrowserRouter([
       { path: "/restaurant/register", element: <RestaurantRegister /> },
       { path: "/user/login", element: <UserLogin /> },
       { path: "/user/register", element: <UserRegister /> },
-      { path: "/restaurant", element: <Restaurant/>},
+      { path: "/restaurant", element: <Restaurant /> },
       { path: "/menu", element: <Menu /> },
+      { path: "/test", element: <Test /> },
     ],
   },
 ]);
