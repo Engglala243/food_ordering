@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import Head02 from "../assets/images/head02.jpg";
 import { CiSearch } from "react-icons/ci";
@@ -32,6 +33,8 @@ const Explore = () => {
 
 export default Explore;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 import React from "react";
 import Head02 from "../assets/images/head02.jpg";
 import { CiSearch } from "react-icons/ci";
@@ -64,4 +67,7 @@ const Explore = () => {
 };
 
 export default Explore;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

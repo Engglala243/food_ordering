@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -12,6 +13,8 @@ export default {
 }
 
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -24,4 +27,7 @@ export default {
   plugins: [],
 }
 
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

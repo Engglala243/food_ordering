@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const {
   customRecord,
   createTable,
@@ -109,6 +110,8 @@ module.exports = {
   insertItems,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const {
   customRecord,
   createTable,
@@ -218,4 +221,7 @@ module.exports = {
   fetchResturants,
   insertItems,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

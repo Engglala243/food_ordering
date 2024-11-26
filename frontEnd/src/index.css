@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,6 +13,8 @@
   }
 }
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,4 +27,7 @@
     @apply p-10 bg-gray-200 flex items-center flex-col font-bold w-52 text-center shadow-md rounded-md;
   }
 }
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

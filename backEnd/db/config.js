@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const config = {
   host: process.env.HOST,
   user: process.env.DBUSER,
@@ -13,6 +14,8 @@ const config = {
 
 module.exports = config;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const config = {
   host: process.env.HOST,
   user: process.env.DBUSER,
@@ -25,5 +28,9 @@ const config = {
   },
 };
 
+<<<<<<< HEAD
 module.exports = config;
 >>>>>>> master
+=======
+module.exports = config;
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

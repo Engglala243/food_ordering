@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 @font-face {
   font-family: "Dancing_Script"; /* Replace with your font name */
   src: url("./assets/fonts/DancingScript-VariableFont_wght.ttf")
@@ -24,6 +25,8 @@ body {
   outline: 1px solid transparent; /* Transparent outline */
 }
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 @font-face {
   font-family: "Dancing_Script"; /* Replace with your font name */
   src: url("./assets/fonts/DancingScript-VariableFont_wght.ttf")
@@ -48,4 +51,7 @@ input:focus {
 body {
   outline: 1px solid transparent; /* Transparent outline */
 }
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

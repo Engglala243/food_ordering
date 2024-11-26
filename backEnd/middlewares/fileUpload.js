@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const multer = require("multer");
 const path = require("path");
 const { AppError } = require("../utils/customErrors");
@@ -48,6 +49,8 @@ module.exports = (fieldName, maxCount) => {
   };
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const multer = require("multer");
 const path = require("path");
 const { AppError } = require("../utils/customErrors");
@@ -96,4 +99,7 @@ module.exports = (fieldName, maxCount) => {
     });
   };
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const itemSchema = `CREATE TABLE IF NOT EXISTS items (
   id int NOT NULL,
   name varchar(100) NOT NULL,
@@ -22,6 +23,8 @@ const itemSchema = `CREATE TABLE IF NOT EXISTS items (
 
 module.exports = itemSchema;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const itemSchema = `CREATE TABLE IF NOT EXISTS items (
   id int NOT NULL,
   name varchar(100) NOT NULL,
@@ -44,4 +47,7 @@ const itemSchema = `CREATE TABLE IF NOT EXISTS items (
 ) `;
 
 module.exports = itemSchema;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

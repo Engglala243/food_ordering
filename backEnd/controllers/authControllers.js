@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { v4: uuidv4 } = require("uuid");
 const jwt = require("jsonwebtoken");
 const userSchema = require("../schema/userSchema");
@@ -160,6 +161,8 @@ module.exports = {
   restau_login,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const { v4: uuidv4 } = require("uuid");
 const jwt = require("jsonwebtoken");
 const userSchema = require("../schema/userSchema");
@@ -208,6 +211,7 @@ const register = async (req, res, next) => {
   }
 };
 
+<<<<<<< HEAD
 const restau_register = async (req, res, next) => {
   const {
     restaurant_name,
@@ -220,6 +224,44 @@ const restau_register = async (req, res, next) => {
     email,
     password,
   } = req.body;
+=======
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const existingUser = await checkRecordExists("users", "email", email);
+
+    if (existingUser) {
+      if (!existingUser.password) {
+        res.status(401).json({ error: "Invalid credentials" });
+        return;
+      }
+
+      const passwordMatch = await bcrypt.compare(
+        password,
+        existingUser.password,
+      );
+
+      if (passwordMatch) {
+        res.status(200).json({
+          uuid: existingUser.uuid,
+          email: existingUser.email,
+          access_token: generateAccessToken(existingUser.uuid),
+        });
+      } else {
+        res.status(401).json({ error: "Invalid credentials " });
+      }
+    } else {
+      res.status(401).json({ error: "Invalid credentials" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const restau_register = async (req, res, next) => {
+  const { restaurant_name, street, pincode, state, country, city, phone, email, password } =
+    req.body;
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const createdBy = restaurant_name;
@@ -237,7 +279,11 @@ const restau_register = async (req, res, next) => {
     country,
     pincode,
     state,
+<<<<<<< HEAD
     street,
+=======
+    street
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
   };
 
   try {
@@ -293,6 +339,7 @@ const restau_login = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -325,6 +372,9 @@ const login = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+=======
+
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 
 module.exports = {
   register,
@@ -332,4 +382,7 @@ module.exports = {
   restau_register,
   restau_login,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

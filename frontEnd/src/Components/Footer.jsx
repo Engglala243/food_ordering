@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Logo from "../assets/images/logo.png";
@@ -59,6 +60,8 @@ const Footer = () => {
 
 export default Footer;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Logo from "../assets/images/logo.png";
@@ -67,7 +70,11 @@ import { FaTwitter, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
+<<<<<<< HEAD
       <Container fluid className="bg-[#289C4F]">
+=======
+      <Container fluid className="bg-[#46a679]">
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
         <div className="flex flex-col justify-center text-white py-4 items-center gap-3">
           <img
             alt=""
@@ -118,4 +125,7 @@ const Footer = () => {
 };
 
 export default Footer;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

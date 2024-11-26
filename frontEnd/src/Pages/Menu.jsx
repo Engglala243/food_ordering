@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 
 const Menu = () => {
@@ -36,6 +37,8 @@ const Menu = () => {
 
 export default Menu;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 import React from "react";
 
 const Menu = () => {
@@ -72,4 +75,7 @@ const Menu = () => {
 };
 
 export default Menu;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

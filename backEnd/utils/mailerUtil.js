@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -15,6 +16,8 @@ module.exports = {
   transporter,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -30,4 +33,7 @@ const transporter = nodemailer.createTransport({
 module.exports = {
   transporter,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

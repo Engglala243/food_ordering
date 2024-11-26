@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import Head01 from "../assets/images/head01.jpg";
 import "./style.css";
@@ -34,6 +35,8 @@ const Landing = () => {
 
 export default Landing;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 import React from "react";
 import Head01 from "../assets/images/head01.jpg";
 import "./style.css";
@@ -68,4 +71,7 @@ const Landing = () => {
 };
 
 export default Landing;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

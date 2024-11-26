@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Joi = require("joi");
 const JoiPhoneNumber = require("joi-phone-number");
 const { authError } = require("../utils/customResponse");
@@ -88,6 +89,8 @@ module.exports = {
   validateLogin,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const Joi = require("joi");
 const JoiPhoneNumber = require("joi-phone-number");
 const { authError } = require("../utils/customResponse");
@@ -177,4 +180,7 @@ module.exports = {
   validateRegister,
   validateLogin,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

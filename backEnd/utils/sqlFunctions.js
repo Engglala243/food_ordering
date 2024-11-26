@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const mysql = require("mysql2");
 const config = require("../db/config");
 const { query } = require("express");
@@ -78,6 +79,8 @@ module.exports = {
   customRecord,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const mysql = require("mysql2");
 const config = require("../db/config");
 const { query } = require("express");
@@ -156,4 +159,7 @@ module.exports = {
   selectRecord,
   customRecord,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

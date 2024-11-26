@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
@@ -45,6 +46,8 @@ app.use("/public", express.static("public"));
 
 app.use(errorHandler);
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
@@ -90,4 +93,7 @@ app.use("/public", express.static("public"));
 //
 
 app.use(errorHandler);
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

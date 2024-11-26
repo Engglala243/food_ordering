@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
@@ -84,6 +85,8 @@ const Login = () => {
 
 export default Login;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 import React from "react";
 import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
@@ -111,7 +114,11 @@ const Login = () => {
         password: values.password,
       };
       axios
+<<<<<<< HEAD
         .post("http://localhost:5000/auth/login", loginData)
+=======
+        .post("http://localhost:5000/auth/restaurant/login", loginData)
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
         .then((response) => {
           console.log(response.data.access_token);
 
@@ -168,4 +175,7 @@ const Login = () => {
 };
 
 export default Login;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

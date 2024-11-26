@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const express = require("express");
 const {
   fetchResturants,
@@ -17,6 +18,8 @@ router.post("/additem", uploadImages("images", 4), insertItems);
 
 module.exports = router;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const express = require("express");
 const {
   fetchResturants,
@@ -34,4 +37,7 @@ router.get("/data", fetchResturants);
 router.post("/additem", uploadImages("images", 4), insertItems);
 
 module.exports = router;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

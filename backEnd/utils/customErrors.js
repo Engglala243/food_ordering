@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 class AppError extends Error {
   constructor(message, statusCode, isOperational) {
     super(message);
@@ -25,6 +26,8 @@ module.exports = {
   APIError,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 class AppError extends Error {
   constructor(message, statusCode, isOperational) {
     super(message);
@@ -50,4 +53,7 @@ module.exports = {
   AppError,
   APIError,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

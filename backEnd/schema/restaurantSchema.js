@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const restaurantSchema = `CREATE TABLE IF NOT EXISTS restaurants (
   restaurant_id int(11) NOT NULL,
   name varchar(255) DEFAULT NULL,
@@ -16,6 +17,8 @@ const restaurantSchema = `CREATE TABLE IF NOT EXISTS restaurants (
 
 module.exports = restaurantSchema;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const restaurantSchema = `CREATE TABLE IF NOT EXISTS restaurants (
   restaurant_id int(11) NOT NULL,
   name varchar(255) DEFAULT NULL,
@@ -32,4 +35,7 @@ const restaurantSchema = `CREATE TABLE IF NOT EXISTS restaurants (
 )`;
 
 module.exports = restaurantSchema;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import js from '@eslint/js'
 import globals from 'globals'
 import react from 'eslint-plugin-react'
@@ -38,6 +39,8 @@ export default [
   },
 ]
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 import js from '@eslint/js'
 import globals from 'globals'
 import react from 'eslint-plugin-react'
@@ -76,4 +79,7 @@ export default [
     },
   },
 ]
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

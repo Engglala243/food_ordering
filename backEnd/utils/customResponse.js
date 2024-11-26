@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const APIData = (data) => {
   return (req, res) => {
     if (Object.values(data).length > 0)
@@ -44,6 +45,8 @@ module.exports = {
   customResponse,
 };
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const APIData = (data) => {
   return (req, res) => {
     if (Object.values(data).length > 0)
@@ -88,4 +91,7 @@ module.exports = {
   authError,
   customResponse,
 };
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee

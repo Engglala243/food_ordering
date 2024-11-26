@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { AppError, APIError } = require("../utils/customErrors.js");
 
 const errorHandler = (err, req, res, next) => {
@@ -35,6 +36,8 @@ const errorHandler = (err, req, res, next) => {
 
 module.exports = errorHandler;
 =======
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
 const { AppError, APIError } = require("../utils/customErrors.js");
 
 const errorHandler = (err, req, res, next) => {
@@ -70,4 +73,7 @@ const errorHandler = (err, req, res, next) => {
 };
 
 module.exports = errorHandler;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
