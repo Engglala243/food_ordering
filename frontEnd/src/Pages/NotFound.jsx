@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 
 const NotFound = () => {
@@ -8,4 +9,16 @@ const NotFound = () => {
   )
 }
 
+=======
+import React from 'react'
+
+const NotFound = () => {
+  return (
+    <div>
+      ERROR 404...
+    </div>
+  )
+}
+
+>>>>>>> master
 export default NotFound;

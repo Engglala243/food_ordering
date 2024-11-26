@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import './App.css'
 import AddRoutes from './AddRoutes/AddRoutes'
 
@@ -10,3 +11,21 @@ function App() {
 }
 
 export default App
+=======
+import "./App.css";
+import AddRoutes from "./AddRoutes/AddRoutes";
+import { store } from "./store";
+import { Provider } from "react-redux";
+
+function App() {
+  return (
+    <>
+      <Provider store={store}>
+        <AddRoutes />
+      </Provider>
+    </>
+  );
+}
+
+export default App;
+>>>>>>> master

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const config = {
   host: process.env.HOST,
   user: process.env.DBUSER,
@@ -11,3 +12,18 @@ const config = {
 };
 
 module.exports = config;
+=======
+const config = {
+  host: process.env.HOST,
+  user: process.env.DBUSER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  port: process.env.DBPORT,
+  ssl: {
+    rejectUnauthorized: true,
+    ca: `${process.env.DBSSL}`,
+  },
+};
+
+module.exports = config;
+>>>>>>> master

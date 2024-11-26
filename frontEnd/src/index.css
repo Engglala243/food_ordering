@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,3 +11,17 @@
     @apply p-10 bg-gray-200 flex items-center flex-col font-bold w-52 text-center shadow-md rounded-md;
   }
 }
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .diamond-img {
+    @apply w-64 border border-purple-300 rounded-lg transform rotate-45 -mr-1 shadow-lg;
+  }
+  .service-div {
+    @apply p-10 bg-gray-200 flex items-center flex-col font-bold w-52 text-center shadow-md rounded-md;
+  }
+}
+>>>>>>> master
