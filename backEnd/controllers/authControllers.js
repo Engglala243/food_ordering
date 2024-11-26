@@ -17,15 +17,14 @@ const generateAccessToken = (uuid) => {
 };
 
 const register = async (req, res, next) => {
-  const { first_name, last_name, email, password } = req.body;
+  const { name, email, password } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const createdBy = first_name;
+  const createdBy = name;
 
   const user = {
     uuid: uuidv4(),
-    first_name,
-    last_name,
+    name,
     email,
     password: hashedPassword,
     created_by: createdBy,
@@ -48,8 +47,17 @@ const register = async (req, res, next) => {
 };
 
 const restau_register = async (req, res, next) => {
-  const { restaurant_name, street, pincode, state, country, city, phone, email, password } =
-    req.body;
+  const {
+    restaurant_name,
+    street,
+    pincode,
+    state,
+    country,
+    city,
+    phone,
+    email,
+    password,
+  } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const createdBy = restaurant_name;
@@ -67,7 +75,7 @@ const restau_register = async (req, res, next) => {
     country,
     pincode,
     state,
-    street
+    street,
   };
 
   try {

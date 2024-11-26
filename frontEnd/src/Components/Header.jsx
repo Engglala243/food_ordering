@@ -21,13 +21,8 @@ const Header = ({ headingName }) => {
               width="50"
               className="d-inline-block align-top"
             />
-<<<<<<< HEAD
             <div className="font-bold d-inline-block text-[1rem] mx-1.5">
               {headingName}
-=======
-            <div className="font-bold d-inline-block text-sm md:text-[1rem] mx-1.5 text-white">
-              Shiv Sagar Restaurant
->>>>>>> c57e5fafa6042a844a0608b031c6a14d83739062
             </div>
           </Navbar.Brand>
         </Navbar>

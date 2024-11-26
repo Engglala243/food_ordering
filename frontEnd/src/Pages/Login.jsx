@@ -25,7 +25,7 @@ const Login = () => {
         password: values.password,
       };
       axios
-        .post("http://localhost:5000/auth/restaurant/login", loginData)
+        .post("http://localhost:5000/auth/login", loginData)
         .then((response) => {
           console.log(response.data.access_token);
 
