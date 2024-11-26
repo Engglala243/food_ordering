@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 .head-img {
   width: 100vw;
   height: 90.67vh;
@@ -9,19 +7,3 @@
   background-size: cover;
   filter: brightness(60%);
 }
-=======
-=======
->>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
-.head-img {
-  width: 100vw;
-  height: 90.67vh;
-  object-fit: cover;
-  background-position: center;
-  /* Make the background image cover the area of the <div>, and clip the excess */
-  background-size: cover;
-  filter: brightness(60%);
-}
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> afc081a49aea813fc597ed46cce39843d9982fee
