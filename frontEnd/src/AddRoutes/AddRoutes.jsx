@@ -8,12 +8,13 @@ import Home from "../Pages/Home";
 import Landing from "../Pages/Landing";
 import NotFound from "../Pages/NotFound";
 import Dashboard from "../Pages/Dashboard";
-import Login from "../Pages/Login";
 import { ToastContainer } from "react-toastify";
-import Register from "../Pages/Register";
 import Restaurant from "../Pages/Restaurant";
 import Menu from "../Pages/Menu";
-
+import RestaurantRegister from "../Pages/RestaurantRegister";
+import RestaurantLogin from "../Pages/RestaurantLogin";
+import UserLogin from "../Pages/UserLogin";
+import UserRegister from "../Pages/UserRegister";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,9 +22,11 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Landing /> },
-      { path: "/dashboard", element: <Dashboard /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
+      { path: "/dashboard", element: <Home /> },
+      { path: "/restaurant/login", element: <RestaurantLogin /> },
+      { path: "/restaurant/register", element: <RestaurantRegister /> },
+      { path: "/user/login", element: <UserLogin /> },
+      { path: "/user/register", element: <UserRegister /> },
       { path: "/restaurant", element: <Restaurant/>},
       { path: "/menu", element: <Menu /> },
     ],

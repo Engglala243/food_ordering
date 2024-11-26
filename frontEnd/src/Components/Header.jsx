@@ -7,13 +7,13 @@ const Header = ({ headingName }) => {
   headingName = "We-Menu";
   return (
     <>
-      <Container fluid className="bg-[#51FF00]">
+      <Container fluid className="bg-[#46a679]">
         <div className="flex justify-center text-black p-2 text-xs md:text-sm text-center">
           Enjoy Yummy Licious Fast Food!
         </div>
       </Container>
       <div className="upper-head border-1 border-[#289C4F]">
-        <Navbar className="p-0 bg-[#289C4F]">
+        <Navbar className="p-0 bg-[#ecefed]">
           <Navbar.Brand href="#home" className="mx-3 flex items-center">
             <img
               alt="Logo"

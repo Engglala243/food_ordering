@@ -6,7 +6,7 @@ import { FaTwitter, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <Container fluid className="bg-[#289C4F]">
+      <Container fluid className="bg-[#46a679]">
         <div className="flex flex-col justify-center text-white py-4 items-center gap-3">
           <img
             alt=""

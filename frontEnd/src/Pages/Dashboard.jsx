@@ -97,7 +97,7 @@ const Dashboard = ({ headingName }) => {
           <div key={form.id}>
             <hr className="w-96 my-4" />
             <div className="font-bold">Dish {form.id}</div>
-            <label className="my-label">Dish Name:</label>
+            <label className="my-label p-2">Dish Name:</label>
             <input
               className="my-input"
               type="text"
@@ -107,7 +107,7 @@ const Dashboard = ({ headingName }) => {
             {formik.touched.dish_name && formik.errors.dish_name && (
               <div className="error-div">{formik.errors.dish_name}</div>
             )}
-            <label className="my-label">Description:</label>
+            <label className="my-label p-2">Description:</label>
             <input
               className="my-input"
               type="text"
@@ -118,7 +118,7 @@ const Dashboard = ({ headingName }) => {
               formik.errors.dish_description && (
                 <div className="error-div">{formik.errors.dish_description}</div>
               )}
-            <label className="my-label">Price:</label>
+            <label className="my-label p-2">Price:</label>
             <input
               className="my-input"
               type="number"
@@ -128,7 +128,7 @@ const Dashboard = ({ headingName }) => {
             {formik.touched.dish_price && formik.errors.dish_price && (
               <div className="error-div">{formik.errors.dish_price}</div>
             )}
-            <label className="my-label">Item Image:</label>
+            <label className="my-label p-2">Item Image:</label>
             <input
               className="my-file-input"
               type="file"
@@ -148,7 +148,7 @@ const Dashboard = ({ headingName }) => {
         </button>
         <button
           type="submit"
-          className="submit-btn bg-blue-800 text-white rounded-md p-2 mt-4"
+          className="submit-btn w-32 bg-blue-800 text-white rounded-md p-2 mt-3"
         >
           Submit
         </button>
