@@ -16,6 +16,8 @@ import RestaurantLogin from "../Pages/RestaurantLogin";
 import UserLogin from "../Pages/UserLogin";
 import UserRegister from "../Pages/UserRegister";
 import Test from "../Pages/Test";
+import RestaurantMenu from "../Pages/RestaurantMenu";
+import Cart from "../Pages/cart";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,12 +25,14 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Landing /> },
-      { path: "/dashboard", element: <Home /> },
+      { path: "/dashboard", element: <Dashboard /> },
       { path: "/restaurant/login", element: <RestaurantLogin /> },
       { path: "/restaurant/register", element: <RestaurantRegister /> },
       { path: "/user/login", element: <UserLogin /> },
       { path: "/user/register", element: <UserRegister /> },
       { path: "/restaurant", element: <Restaurant /> },
+      { path: "/restaurant/menu", element: <RestaurantMenu /> },
+      { path: "/restaurant/cart", element: <Cart /> },
       { path: "/menu", element: <Menu /> },
       { path: "/test", element: <Test /> },
     ],
