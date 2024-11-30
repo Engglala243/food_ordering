@@ -17,7 +17,7 @@ import UserLogin from "../Pages/UserLogin";
 import UserRegister from "../Pages/UserRegister";
 import Test from "../Pages/Test";
 import RestaurantMenu from "../Pages/RestaurantMenu";
-import Cart from "../Pages/cart";
+import Cart from "../Pages/Cart";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       { path: "/restaurant", element: <Restaurant /> },
       { path: "/restaurant/menu", element: <RestaurantMenu /> },
       { path: "/restaurant/cart", element: <Cart /> },
-      { path: "/menu", element: <Menu /> },
+      { path: "/menu/:id", element: <Menu /> },
       { path: "/test", element: <Test /> },
     ],
   },

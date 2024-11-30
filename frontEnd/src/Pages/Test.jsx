@@ -4,10 +4,15 @@ import { increment, decrement } from "../features/Counter";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const Test = () => {
   const dispatch = useDispatch();
   const count = useSelector((state) => state.counter);
+
+  const handleNotification = () => {
+    toast.success("Cool Notification!");
+  };
 
   return (
     <>
@@ -27,7 +32,14 @@ const Test = () => {
         >
           Decrement
         </button>
+        <button
+          className="bg-blue-800 p-2 rounded-md text-white"
+          onClick={handleNotification}
+        >
+          Notification Shit
+        </button>
       </div>
+      {/* Same as */}
     </>
   );
 };

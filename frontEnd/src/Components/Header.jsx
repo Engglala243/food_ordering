@@ -12,7 +12,7 @@ const Header = ({ headingName }) => {
           Enjoy Yummy Licious Fast Food!
         </div>
       </Container>
-      <div className="upper-head border-1 border-[#289C4F]">
+      <div className="upper-head border-1">
         <Navbar className="p-0 bg-[#ecefed]">
           <Navbar.Brand href="#home" className="mx-3 flex items-center">
             <img

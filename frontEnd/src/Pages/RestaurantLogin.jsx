@@ -27,13 +27,12 @@ const RestaurantLogin = () => {
       axios
         .post("http://localhost:5000/auth/restaurant/login", loginData)
         .then((response) => {
-          alert("Login Success")
-          console.log(response.data.access_token);
-          window.location.href = "/";
+          alert("Login Success");
+          console.log(response.data);
         })
         .catch((err) => {
-          alert("Please enter correct email & password")
-          console.log(err)
+          alert("Please enter correct email & password");
+          console.log(err);
         });
       setTimeout(() => {
         resetForm();
@@ -44,7 +43,9 @@ const RestaurantLogin = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-center mb-4">Restaurant Login</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">
+          Restaurant Login
+        </h2>
         <hr className="mb-6" />
         <form className="space-y-4" onSubmit={formik.handleSubmit}>
           {/* Email Input */}
@@ -86,7 +87,9 @@ const RestaurantLogin = () => {
               />
             </div>
             {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500 text-sm">{formik.errors.password}</div>
+              <div className="text-red-500 text-sm">
+                {formik.errors.password}
+              </div>
             ) : null}
           </div>
 
@@ -102,7 +105,10 @@ const RestaurantLogin = () => {
         </form>
         <div className="mt-4 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <a href="/restaurant/register" className="text-green-500 hover:underline">
+          <a
+            href="/restaurant/register"
+            className="text-green-500 hover:underline"
+          >
             Register Here
           </a>
         </div>

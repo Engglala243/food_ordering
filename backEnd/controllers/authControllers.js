@@ -65,6 +65,7 @@ const login = async (req, res) => {
       if (passwordMatch) {
         res.status(200).json({
           uuid: existingUser.uuid,
+          user_id: existingUser.id,
           email: existingUser.email,
           access_token: generateAccessToken(existingUser.uuid),
         });
@@ -80,8 +81,17 @@ const login = async (req, res) => {
 };
 
 const restau_register = async (req, res, next) => {
-  const { restaurant_name, street, pincode, state, country, city, phone, email, password } =
-    req.body;
+  const {
+    restaurant_name,
+    street,
+    pincode,
+    state,
+    country,
+    city,
+    phone,
+    email,
+    password,
+  } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const createdBy = restaurant_name;
@@ -99,7 +109,7 @@ const restau_register = async (req, res, next) => {
     country,
     pincode,
     state,
-    street
+    street,
   };
 
   try {
@@ -141,6 +151,7 @@ const restau_login = async (req, res) => {
       if (passwordMatch) {
         res.status(200).json({
           uuid: existingUser.uuid,
+          restaurant_id: existingUser.restaurant_id,
           email: existingUser.email,
           access_token: generateAccessToken(existingUser.uuid),
         });
@@ -154,8 +165,6 @@ const restau_login = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
 
 module.exports = {
   register,
