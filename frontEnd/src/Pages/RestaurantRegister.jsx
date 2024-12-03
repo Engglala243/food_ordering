@@ -52,7 +52,7 @@ const RestaurantRegister = () => {
         .required("Phone number is required")
         .matches(
           /^\+?[1-9]\d{1,14}$/,
-          "Phone number must be valid and include country code (e.g., +123456789)"
+          "Phone number must be valid and include country code (e.g., +123456789)",
         ),
       email: Yup.string()
         .email("Invalid email format.")
@@ -67,7 +67,7 @@ const RestaurantRegister = () => {
         .oneOf([Yup.ref("password"), null], "Password should match!")
         .required("Required!"),
     }),
-    
+
     onSubmit: (values, { resetForm }) => {
       if (!isOtpVerified) {
         alert("Please verify your email before registering.");
@@ -82,7 +82,7 @@ const RestaurantRegister = () => {
       axios
         .post("http://localhost:5000/auth/restaurant/register", registerData)
         .then((response) => {
-          alert("Registration  successful.")
+          alert("Registration  successful.");
           console.log(response.data);
         });
 
@@ -106,7 +106,13 @@ const RestaurantRegister = () => {
     console.log(error, "<=========error");
     console.log(generatedOtp, "<=========GOOD");
 
-    emailjs.send('service_shh1qjq', 'template_caahy5j', templateParams, 'DmbJWFOqMCWQR0Fkr')
+    emailjs
+      .send(
+        "service_shh1qjq",
+        "template_caahy5j",
+        templateParams,
+        "DmbJWFOqMCWQR0Fkr",
+      )
       .then(() => {
         alert("OTP sent to your email.");
         setIsOtpSent(true);
@@ -142,7 +148,7 @@ const RestaurantRegister = () => {
     if (pincode.length === 6) {
       try {
         const response = await axios.get(
-          `https://api.postalpincode.in/pincode/${pincode}`
+          `https://api.postalpincode.in/pincode/${pincode}`,
         );
         if (response.data[0].Status === "Success") {
           const cityData = response.data[0].PostOffice[0];
@@ -162,7 +168,6 @@ const RestaurantRegister = () => {
         </h2>
 
         <form onSubmit={formik.handleSubmit} className="space-y-6">
-          
           <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
             <h3 className="text-xl font-semibold text-blue-800 mb-4 pb-2">
               Basic Details
@@ -204,32 +209,32 @@ const RestaurantRegister = () => {
               </div>
 
               {!isOtpVerified && (
-              <div className="flex space-x-4 px-1 py-1">
-                <button
-                  type="button"
-                  onClick={handleSendOtp}
-                  className="bg-blue-500 text-white px-2 py-1 rounded-md"
-                  disabled={isOtpSent}
-                >
-                  {isOtpSent ? "OTP Sent" : "Send OTP"}
-                </button>
-                <input
-                  type="text"
-                  placeholder="Enter OTP"
-                  value={enteredOtp}
-                  onChange={(e) => setEnteredOtp(e.target.value)}
-                  className="w-full px-3 py-1 border rounded-md"
-                />
-                <button
-                  type="button"
-                  onClick={handleVerifyOtp}
-                  className="bg-green-500 text-white px-2 py-1 rounded-md"
-                  disabled={!isOtpSent}
-                >
-                  Verify
-                </button>
-              </div>
-            )}
+                <div className="flex space-x-4 px-1 py-1">
+                  <button
+                    type="button"
+                    onClick={handleSendOtp}
+                    className="bg-blue-500 text-white px-2 py-1 rounded-md"
+                    disabled={isOtpSent}
+                  >
+                    {isOtpSent ? "OTP Sent" : "Send OTP"}
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={enteredOtp}
+                    onChange={(e) => setEnteredOtp(e.target.value)}
+                    className="w-full px-3 py-1 border rounded-md"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleVerifyOtp}
+                    className="bg-green-500 text-white px-2 py-1 rounded-md"
+                    disabled={!isOtpSent}
+                  >
+                    Verify
+                  </button>
+                </div>
+              )}
 
               <div>
                 <label htmlFor="phone" className="form-label">
@@ -287,7 +292,6 @@ const RestaurantRegister = () => {
             </h3>
 
             <div className="grid md:grid-cols-2 gap-4">
-
               <div className="md:col-span-2">
                 <label htmlFor="street" className="form-label">
                   Street
@@ -376,15 +380,15 @@ const RestaurantRegister = () => {
           </div>
 
           <div className="text-center">
-          <button
-            type="submit"
-            className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full ${
-              !isOtpVerified ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={!isOtpVerified}
-          >
-            Register Restaurant
-          </button>
+            <button
+              type="submit"
+              className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full ${
+                !isOtpVerified ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={!isOtpVerified}
+            >
+              Register Restaurant
+            </button>
           </div>
         </form>
       </div>

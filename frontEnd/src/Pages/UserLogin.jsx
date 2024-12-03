@@ -3,6 +3,7 @@ import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const UserLogin = () => {
   const formik = useFormik({
@@ -27,13 +28,14 @@ const UserLogin = () => {
       axios
         .post("http://localhost:5000/auth/login", loginData)
         .then((response) => {
-          alert("Login successful")
-          console.log(response.data.access_token);
+          toast("Login successful");
+          localStorage.setItem("user_id", response.data.user_id);
+
           window.location.href = "/";
         })
         .catch((err) => {
-          alert("Please enter correct email & password")
-          console.log(err)
+          alert("Please enter correct email & password");
+          console.log(err);
         });
       setTimeout(() => {
         resetForm();
@@ -86,7 +88,9 @@ const UserLogin = () => {
               />
             </div>
             {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500 text-sm">{formik.errors.password}</div>
+              <div className="text-red-500 text-sm">
+                {formik.errors.password}
+              </div>
             ) : null}
           </div>
 

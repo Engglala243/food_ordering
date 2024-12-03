@@ -28,8 +28,6 @@ const Login = () => {
         .post("http://localhost:5000/auth/restaurant/login", loginData)
         .then((response) => {
           console.log(response.data.access_token);
-
-          window.location.href = "/";
         })
         .catch((err) => console.log(err));
       setTimeout(() => {
