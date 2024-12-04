@@ -82,8 +82,6 @@ const Menu = () => {
       ) : (
         <>
           <div className="container py-4">
-            <div>Initial Index: {initialIndex}</div>
-            <div>Max Dishes: {MAX_DISHES * currentPage}</div>
             <div className="bg-gray-200 p-4 rounded-md">
               <div className="text-2xl">{dishData.restaurant_name}</div>
               <div className="text-lg">{dishData.restaurant_address}</div>
@@ -118,7 +116,9 @@ const Menu = () => {
                           <div className="text-xl font-bold">
                             {data.dish_name}
                           </div>
-                          <div className="text-lg">{data.dish_description}</div>
+                          <div className="text-lg w-96">
+                            {data.dish_description}
+                          </div>
                           <div className="text-lg">
                             <b>Price</b>:{data.dish_price}
                           </div>
@@ -130,6 +130,7 @@ const Menu = () => {
                           type="number"
                           className="rounded-md w-14 h-10 text-center"
                           min="0"
+                          defaultValue="0"
                         />
                         <button className="text-base bg-blue-600 p-2 px-4 rounded-md text-white">
                           Add to Cart
@@ -144,6 +145,7 @@ const Menu = () => {
               <button
                 className="bg-gray-200 px-2 py-1 rounded-md w-auto"
                 onClick={() => handlePage("prev")}
+                disabled={currentPage === 1}
               >
                 Prev
               </button>
@@ -153,6 +155,9 @@ const Menu = () => {
               <button
                 className="bg-gray-200 px-2 py-1 rounded-md w-auto"
                 onClick={() => handlePage("next")}
+                disabled={
+                  currentPage === Math.ceil(menuCategoryLength / MAX_DISHES)
+                }
               >
                 Next
               </button>

@@ -7,6 +7,7 @@ const connectDB = require("./db/db");
 const router = require("./routes/index.js");
 const errorHandler = require("./middlewares/errorHandler.js");
 const bodyParser = require("body-parser");
+const { verifyToken } = require("./middlewares/verifyToken.js");
 
 const app = express();
 
