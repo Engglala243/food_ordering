@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const initialState = {
-  cartItems: [],
+  cartItems: localStorage.getItem("cart") || [],
   quantity: 0,
   total: 0,
   isLoading: true,

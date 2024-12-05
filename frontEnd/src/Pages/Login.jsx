@@ -3,8 +3,12 @@ import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../features/AuthSlice.jsx";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,6 +32,10 @@ const Login = () => {
         .post("http://localhost:5000/auth/restaurant/login", loginData)
         .then((response) => {
           console.log(response.data.access_token);
+          localStorage.setItem("user_id", response.data);
+          localStorage.setItem("user_info", response.data);
+          localStorage.setItem("access_token", response.data);
+          dispatch(loginUser());
         })
         .catch((err) => console.log(err));
       setTimeout(() => {

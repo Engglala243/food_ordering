@@ -13,6 +13,7 @@ const Menu = () => {
   const [menuCategory, setMenuCategory] = useState("");
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
+  const [cart, setCart] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
   const MAX_DISHES = 8;
@@ -39,6 +40,12 @@ const Menu = () => {
         });
         navigate("/");
       });
+  };
+
+  const addToCart = (item) => {
+    const updatedCart = [...cart, { ...item, quantity: 1 }];
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const handleMenuCategory = (category) => {
@@ -132,7 +139,10 @@ const Menu = () => {
                           min="0"
                           defaultValue="0"
                         />
-                        <button className="text-base bg-blue-600 p-2 px-4 rounded-md text-white">
+                        <button
+                          className="text-base bg-blue-600 p-2 px-4 rounded-md text-white"
+                          onClick={() => addToCart(data)}
+                        >
                           Add to Cart
                         </button>
                       </div>
