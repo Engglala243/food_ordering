@@ -10,7 +10,6 @@ import { loginUser, logoutUser } from "../features/AuthSlice.jsx";
 const UserLogin = () => {
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.auth.isLoggedIn);
-  const userInfo = useSelector((state) => state.auth.userInfo);
   const userId = useSelector((state) => state.auth.userId);
   const accessToken = useSelector((state) => state.auth.accessToken);
 
@@ -55,7 +54,6 @@ const UserLogin = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-4">User Login</h2>
-        <div>user info: {userInfo}</div>
         <div>user id: {userId}</div>
         <div>user access token: {accessToken}</div>
         <div>

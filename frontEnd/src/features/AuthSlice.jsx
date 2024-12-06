@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 
 const initialState = {
   userId: localStorage.getItem("user_id") || false,
-  userInfo: localStorage.getItem("user_info") || null,
   isLoggedIn: localStorage.getItem("user_id") ? true : false,
   accessToken: localStorage.getItem("access_token") || null,
 };
@@ -15,14 +14,12 @@ const authSlice = createSlice({
     loginUser: (state) => {
       state.isLoggedIn = true;
       state.userId = localStorage.getItem("user_id");
-      state.userInfo = localStorage.getItem("user_info");
       state.accessToken = localStorage.getItem("access_token");
     },
     logoutUser: (state) => {
       if (state.isLoggedIn) {
         state.isLoggedIn = false;
         state.userId = false;
-        state.userInfo = null;
         state.accessToken = null;
         localStorage.clear();
         toast.success("You have successfully logout");
