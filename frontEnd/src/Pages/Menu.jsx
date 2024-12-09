@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Spinner from "../Components/Spinner";
+import { addToCart } from "../features/CartSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Menu = () => {
+  const dispatch = useDispatch();
   const [dishData, setDishData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,7 +16,7 @@ const Menu = () => {
   const [menuCategory, setMenuCategory] = useState("");
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
-  const [cart, setCart] = useState([]);
+  const cart = useSelector(state => state.cart.cartItems);
   const params = useParams();
   const navigate = useNavigate();
   const MAX_DISHES = 8;
@@ -42,11 +45,11 @@ const Menu = () => {
       });
   };
 
-  const addToCart = (item) => {
-    const updatedCart = [...cart, { ...item, quantity: 1 }];
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
+  // const addToCart = (item) => {
+  //   const updatedCart = [...cart, { ...item, quantity: 1 }];
+  //   setCart(updatedCart);
+  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
+  // };
 
   const handleMenuCategory = (category) => {
     setMenuCategory(category);
@@ -72,6 +75,7 @@ const Menu = () => {
     }
   };
 
+
   useEffect(() => {
     getDishData();
     console.log(hasMoreData, "<=== Has More Data");
@@ -82,6 +86,7 @@ const Menu = () => {
     setCurrentPage(1);
   }, [menuCategory]);
 
+  console.log(cart, "<=== Cart");
   return (
     <>
       {isLoading ? (
@@ -141,7 +146,7 @@ const Menu = () => {
                         />
                         <button
                           className="text-base bg-blue-600 p-2 px-4 rounded-md text-white"
-                          onClick={() => addToCart(data)}
+                          onClick={() => dispatch(addToCart(data))}
                         >
                           Add to Cart
                         </button>

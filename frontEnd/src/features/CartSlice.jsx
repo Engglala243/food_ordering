@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const initialState = {
-  cartItems: localStorage.getItem("cart") || [],
+  cartItems: JSON.parse(localStorage.getItem("cart")) || [],
   quantity: 0,
   total: 0,
   isLoading: true,
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
       const cartItem = state.cartItems.find(
         (item) => item.id === action.payload.id,
       );
-      cartItem.amount = Number(action.payload.amount);
+      cartItem.quantity = Number(action.payload.quantity);
       cartSlice.caseReducers.calculateTotals(state);
     },
     calculateTotals: (state) => {
@@ -40,16 +40,29 @@ const cartSlice = createSlice({
       state.total = total;
     },
     addToCart: (state, action) => {
+      console.log(action.payload,"<<<<<Payload data");
+      const dishData = {
+        ...action.payload,
+        quantity: 1,
+      }
+      
       const cartItem = state.cartItems.find(
-        (item) => item.id === action.payload.id,
+        (item) => item.dish_id === dishData.dish_id,
       );
+
+      console.log(cartItem, "<===Boolean value")
+      const cartData = state.cartItems;
       if (!cartItem) {
-        state.cartItems.push(action.payload);
+        console.log("Yeh run hua!")
+        console.log(state.cartItems, "<===State of Cart before push");
+        state.cartItems = [...cartData, dishData];
       } else {
-        cartItem.amount += action.payload.amount;
+        cartItem.quantity += dishData.quantity;
       }
       cartSlice.caseReducers.calculateTotals(state);
       toast.success("Product added to the cart!");
+      const localCart = JSON.stringify(state.cartItems);
+      localStorage.setItem("cart", localCart); 
     },
   },
 });

@@ -38,6 +38,7 @@ const UserLogin = () => {
           localStorage.setItem("user_id", response.data.user_id);
           localStorage.setItem("user_info", response.data);
           localStorage.setItem("access_token", response.data.access_token);
+
           dispatch(loginUser());
         })
         .catch((err) => {
@@ -49,7 +50,7 @@ const UserLogin = () => {
       }, 1000);
     },
   });
-
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
