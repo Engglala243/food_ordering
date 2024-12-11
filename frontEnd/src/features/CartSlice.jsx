@@ -40,29 +40,24 @@ const cartSlice = createSlice({
       state.total = total;
     },
     addToCart: (state, action) => {
-      console.log(action.payload,"<<<<<Payload data");
-      const dishData = {
-        ...action.payload,
-        quantity: 1,
-      }
-      
+      console.log(action, "<<<<<restaurant_id data");
+
       const cartItem = state.cartItems.find(
-        (item) => item.dish_id === dishData.dish_id,
+        (item) => item.dish_id === action.payload.dish_id,
       );
 
-      console.log(cartItem, "<===Boolean value")
+      console.log(cartItem, "<===Boolean value");
       const cartData = state.cartItems;
       if (!cartItem) {
-        console.log("Yeh run hua!")
         console.log(state.cartItems, "<===State of Cart before push");
-        state.cartItems = [...cartData, dishData];
+        state.cartItems = [...cartData, action.payload];
       } else {
-        cartItem.quantity += dishData.quantity;
+        cartItem.quantity += action.payload.quantity;
       }
       cartSlice.caseReducers.calculateTotals(state);
       toast.success("Product added to the cart!");
       const localCart = JSON.stringify(state.cartItems);
-      localStorage.setItem("cart", localCart); 
+      localStorage.setItem("cart", localCart);
     },
   },
 });

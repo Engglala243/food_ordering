@@ -16,7 +16,7 @@ const Menu = () => {
   const [menuCategory, setMenuCategory] = useState("");
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
-  const cart = useSelector(state => state.cart.cartItems);
+  const cart = useSelector((state) => state.cart.cartItems);
   const params = useParams();
   const navigate = useNavigate();
   const MAX_DISHES = 8;
@@ -74,7 +74,6 @@ const Menu = () => {
       }
     }
   };
-
 
   useEffect(() => {
     getDishData();
@@ -146,7 +145,15 @@ const Menu = () => {
                         />
                         <button
                           className="text-base bg-blue-600 p-2 px-4 rounded-md text-white"
-                          onClick={() => dispatch(addToCart(data))}
+                          onClick={() =>
+                            dispatch(
+                              addToCart({
+                                ...data,
+                                quantity: 1,
+                                restaurant_id: dishData.restaurant_id,
+                              }),
+                            )
+                          }
                         >
                           Add to Cart
                         </button>
