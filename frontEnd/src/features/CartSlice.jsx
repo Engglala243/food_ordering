@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const initialState = {
   cartItems: JSON.parse(localStorage.getItem("cart")) || [],
@@ -40,7 +41,16 @@ const cartSlice = createSlice({
       state.total = total;
     },
     addToCart: (state, action) => {
-      console.log(action, "<<<<<restaurant_id data");
+      const access_token = localStorage.getItem("access_token");
+      axios
+        .post("http://localhost:5000/item/cart", action.payload, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        })
+        .catch((err) => {
+          console.log("POST request error: ", err);
+        });
 
       const cartItem = state.cartItems.find(
         (item) => item.dish_id === action.payload.dish_id,

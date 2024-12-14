@@ -1,10 +1,6 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "../features/Counter";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Test = () => {
   const dispatch = useDispatch();
