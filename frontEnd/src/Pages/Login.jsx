@@ -1,4 +1,3 @@
-import React from "react";
 import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";

@@ -1,4 +1,3 @@
-import React from "react";
 import "./Spinner.css"; // Import CSS for styling
 
 const Spinner = () => {

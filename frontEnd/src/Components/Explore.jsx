@@ -1,4 +1,3 @@
-import React from "react";
 import Head02 from "../assets/images/head02.jpg";
 import { CiSearch } from "react-icons/ci";
 

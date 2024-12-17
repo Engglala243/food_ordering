@@ -1,4 +1,3 @@
-import React from "react";
 import Head01 from "../assets/images/head01.jpg";
 import "./style.css";
 import Explore from "../Components/Explore";

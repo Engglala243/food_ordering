@@ -1,4 +1,3 @@
-import React from "react";
 import Container from "react-bootstrap/Container";
 import Logo from "../assets/images/logo.png";
 import { FaTwitter, FaInstagram } from "react-icons/fa";

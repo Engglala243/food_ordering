@@ -9,7 +9,7 @@ const {
 const router = express.Router();
 const { verifyToken } = require("../middlewares/verifyToken.js");
 
-router.get("/data", fetchResturants);
+router.get("/menu/data", fetchResturants);
 router.get("/cart/:user_id", fetchCart);
 router.post("/cart/insert", verifyToken, insertCart);
 router.post("/cart/update", verifyToken, updateCart);

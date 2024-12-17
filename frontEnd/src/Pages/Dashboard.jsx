@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import { document } from "postcss";
+
 const Dashboard = ({ headingName }) => {
   const [forms, setForms] = useState([
     {
@@ -116,7 +116,9 @@ const Dashboard = ({ headingName }) => {
             />
             {formik.touched.dish_description &&
               formik.errors.dish_description && (
-                <div className="error-div">{formik.errors.dish_description}</div>
+                <div className="error-div">
+                  {formik.errors.dish_description}
+                </div>
               )}
             <label className="my-label p-2">Price:</label>
             <input

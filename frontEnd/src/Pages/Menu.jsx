@@ -1,4 +1,3 @@
-import React, { useId } from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
@@ -24,7 +23,7 @@ const Menu = () => {
 
   const getDishData = () => {
     axios
-      .get(`http://localhost:5000/item/data?id=${params.id}`)
+      .get(`http://localhost:5000/menu/data?id=${params.id}`)
       .then((response) => {
         if (response.data.data === null) {
           toast.error("Restaurant data not found!", {
@@ -42,15 +41,10 @@ const Menu = () => {
         toast.error("Restaurant data not found!", {
           position: "top-center",
         });
+        console.log(`Error: ${error}`);
         navigate("/");
       });
   };
-
-  // const addToCart = (item) => {
-  //   const updatedCart = [...cart, { ...item, quantity: 1 }];
-  //   setCart(updatedCart);
-  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
-  // };
 
   const handleMenuCategory = (category) => {
     setMenuCategory(category);
