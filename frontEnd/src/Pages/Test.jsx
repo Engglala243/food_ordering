@@ -1,14 +1,33 @@
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "../features/Counter";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Test = () => {
+  const [cartData, setCartData] = useState([]);
   const dispatch = useDispatch();
   const count = useSelector((state) => state.counter);
 
   const handleNotification = () => {
     toast.success("Cool Notification!");
   };
+
+  const getCartData = () => {
+    axios
+      .get("http://localhost:5000/cart/1")
+      .then((resp) => {
+        console.log(resp.data);
+        setCartData(resp.data);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  };
+
+  useEffect(() => {
+    getCartData();
+  }, []);
 
   return (
     <>

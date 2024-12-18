@@ -43,7 +43,7 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const access_token = localStorage.getItem("access_token");
       axios
-        .post("http://localhost:5000/item/cart", action.payload, {
+        .post("http://localhost:5000/cart/insert", action.payload, {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },

@@ -13,6 +13,18 @@ const UserLogin = () => {
   const userId = useSelector((state) => state.auth.userId);
   const accessToken = useSelector((state) => state.auth.accessToken);
 
+  const getCartData = async (user_id) => {
+    axios
+      .get(`http://localhost:5000/cart/${user_id}`)
+      .then((resp) => {
+        const cartData = JSON.stringify(resp.data.data);
+        localStorage.setItem("cart", cartData);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -36,9 +48,9 @@ const UserLogin = () => {
         .post("http://localhost:5000/auth/login", loginData)
         .then((response) => {
           localStorage.setItem("user_id", response.data.user_id);
-          localStorage.setItem("user_info", response.data);
+          localStorage.setItem("user_info", JSON.stringify(response.data));
           localStorage.setItem("access_token", response.data.access_token);
-
+          getCartData(response.data.user_id);
           dispatch(loginUser());
         })
         .catch((err) => {
@@ -50,7 +62,7 @@ const UserLogin = () => {
       }, 1000);
     },
   });
-  
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">

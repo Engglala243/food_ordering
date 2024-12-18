@@ -13,7 +13,22 @@ const { query } = require("express");
 const fetchCart = async (req, res, next) => {
   const user_id = req.params.user_id;
   try {
-    const query = `SELECT * from cart WHERE user_id = ?`;
+    const query = `
+                  SELECT 
+                    c.restaurant_id,
+                    c.dish_id,
+                    c.quantity,
+                    d.name AS dish_name,
+                    d.description AS dish_description,
+                    d.dish_image,
+                    d.price AS dish_price
+                  FROM 
+                    cart c
+                  JOIN 
+                    dishes d ON c.dish_id = d.dish_id
+                  WHERE 
+                    c.user_id = ?;
+                  `;
     const cartData = await customRecord(query, user_id);
     console.log(cartData, "<===Cart Data from SQL");
     APIData(cartData)(req, res);
