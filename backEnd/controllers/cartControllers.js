@@ -51,11 +51,19 @@ const insertCart = async (req, res, next) => {
     const query = `SELECT * from cart WHERE user_id = ?`;
     const cartData = await customRecord(query, user_id);
 
+    // checking if the user cart is empty, and if it then it'll
+    // directly insert the item in the table through it else statement
     if (cartData.length > 0) {
+      // checking for already existing restaurant for maintaing
+      // single restaurant cart data record only, else it'll
+      // delete the user_id record and then insert the data
       if (cartData[0].restaurant_id === restaurant_id) {
-        const dishExists = await checkRecordExists("cart", "dish_id", dish_id);
-        console.log(dishExists, "<===Dish Existence");
-        if (!dishExists) {
+        let query = `SELECT * FROM cart WHERE user_id = ? AND dish_id = ?`;
+        dishExists = await customRecord(query, [user_id, dish_id]);
+
+        // if dishExists it'll increase the quantity by 1 or
+        // it'll insert the record for the first time
+        if (dishExists.length === 0) {
           await insertRecord("cart", cartEntry);
           customResponse(
             "Cart Data Inserted successfully",
@@ -63,8 +71,6 @@ const insertCart = async (req, res, next) => {
             true,
           )(req, res);
         } else {
-          let query;
-
           if (quantity === -1) {
             query = `UPDATE cart SET quantity = CASE
                                           WHEN quantity > 1 THEN quantity + ${quantity}
@@ -84,7 +90,7 @@ const insertCart = async (req, res, next) => {
           )(req, res);
         }
       } else {
-        const query = `TRUNCATE TABLE cart`;
+        let query = `DELETE from cart WHERE user_id = ? and dish_id = ?`;
         await customRecord(query);
         await insertRecord("cart", cartEntry);
         customResponse("Cart data inserted successfully", 201, true)(req, res);

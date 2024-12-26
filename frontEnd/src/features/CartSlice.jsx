@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const initialState = {
   cartItems: JSON.parse(localStorage.getItem("cart")) || [],
@@ -20,27 +19,45 @@ const cartSlice = createSlice({
     removeItem: (state, action) => {
       const itemId = action.payload;
       state.cartItems = state.cartItems.filter((item) => item.id != itemId);
-      cartSlice.caseReducers.calculateTotals(state);
       toast.error("Product removed from the cart!");
     },
-    updateCartAmount: (state, action) => {
+    updateCartQuantity: (state, action) => {
+      const { dish_id, quantity } = action.payload;
+      const user_id = localStorage.getItem("user_id");
+      const access_token = localStorage.getItem("access_token");
+
+      axios
+        .post(
+          "http://localhost:5000/cart/update",
+          {
+            user_id,
+            dish_id,
+            quantity,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          },
+        )
+        .then((resp) => {
+          toast.success("Cart quantity updated!");
+          console.log(`Cart quantity updated!:`, resp.data);
+        })
+        .catch((err) => {
+          console.log(`Error updating quantity: ${err}`);
+          toast.error("Cart updation failed!");
+        });
+
       const cartItem = state.cartItems.find(
-        (item) => item.id === action.payload.id,
+        (item) => item.dish_id === action.payload.dish_id,
       );
-      cartItem.quantity = Number(action.payload.quantity);
-      cartSlice.caseReducers.calculateTotals(state);
-    },
-    calculateTotals: (state) => {
-      let quantity = 0;
-      let total = 0;
-      state.cartItems.forEach((item) => {
-        quantity += item.quantity;
-        total += item.quantity * item.price;
-      });
-      state.quantity = quantity;
-      state.total = total;
+
+      cartItem.quantity += Number(action.payload.quantity);
+      localStorage.setItem("cart", JSON.stringify(state.cartItems));
     },
     addToCart: (state, action) => {
+      console.log(action.payload, "<===Add To Cart action.payload");
       const access_token = localStorage.getItem("access_token");
       axios
         .post("http://localhost:5000/cart/insert", action.payload, {
@@ -64,7 +81,6 @@ const cartSlice = createSlice({
       } else {
         cartItem.quantity += action.payload.quantity;
       }
-      cartSlice.caseReducers.calculateTotals(state);
       toast.success("Product added to the cart!");
       const localCart = JSON.stringify(state.cartItems);
       localStorage.setItem("cart", localCart);
@@ -75,9 +91,8 @@ const cartSlice = createSlice({
 export const {
   clearCart,
   removeItem,
-  updateCartAmount,
+  updateCartQuantity,
   decrease,
-  calculateTotals,
   addToCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

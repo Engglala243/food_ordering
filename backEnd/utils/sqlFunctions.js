@@ -1,6 +1,5 @@
 const mysql = require("mysql2");
 const config = require("../db/config");
-const { query } = require("express");
 const pool = mysql.createPool(config);
 
 const createTable = (schema) => {

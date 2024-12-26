@@ -16,7 +16,8 @@ const Menu = () => {
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
   const cart = useSelector((state) => state.cart.cartItems);
-  const userId = useSelector((state) => state.auth.userId) || undefined;
+  const user_id =
+    parseInt(useSelector((state) => state.auth.userId)) || undefined;
   const params = useParams();
   const navigate = useNavigate();
   const MAX_DISHES = 8;
@@ -146,7 +147,7 @@ const Menu = () => {
                                 ...data,
                                 quantity: 1,
                                 restaurant_id: dishData.restaurant_id,
-                                user_id: userId,
+                                user_id,
                               }),
                             )
                           }

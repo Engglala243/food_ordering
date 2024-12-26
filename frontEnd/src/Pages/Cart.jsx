@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCartQuantity } from "../features/CartSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
@@ -9,18 +14,9 @@ const Cart = () => {
   }, []);
 
   const updateQuantity = (id, change) => {
-    const updatedCart = cart.map((item) => {
-      if (item.dish_id === id) {
-        const newQuantity = item.quantity + change;
-        return {
-          ...item,
-          quantity: newQuantity > 0 ? newQuantity : 1,
-        };
-      }
-      return item;
-    });
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    dispatch(updateCartQuantity({ dish_id: id, quantity: change }));
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
   };
 
   const removeItem = (id) => {
@@ -29,7 +25,25 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = async () => {
+    const access_token = localStorage.getItem("access_token");
+    const user_id = localStorage.getItem("user_id");
+
+    await axios
+      .post(
+        "http://localhost:5000/order/insert",
+        { cart_data: cart, user_id: user_id },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        },
+      )
+      .then((resp) => {
+        toast.success("Order successful");
+        console.log("Order inserted successful", resp.data);
+      });
+
     setCart([]);
     localStorage.removeItem("cart");
     alert("Thank you for your purchase!");
@@ -79,7 +93,7 @@ const Cart = () => {
                     <span className="px-4">{item.quantity}</span>
                     <button
                       className="bg-gray-300 px-2 py-1 rounded-md ml-2"
-                      onClick={() => updateQuantity(item.dish_id, 1)}
+                      onClick={() => updateQuantity(item.dish_id, +1)}
                     >
                       +
                     </button>
