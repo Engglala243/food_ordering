@@ -16,8 +16,7 @@ const Menu = () => {
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
   const cart = useSelector((state) => state.cart.cartItems);
-  const user_id =
-    parseInt(useSelector((state) => state.auth.userId)) || undefined;
+  const user_id = parseInt(useSelector((state) => state.auth.userId)) || undefined;
   const params = useParams();
   const navigate = useNavigate();
   const MAX_DISHES = 8;
@@ -132,13 +131,13 @@ const Menu = () => {
                         </div>
                       </div>
                       <div className="flex flex-row gap-2 items-center">
-                        <label className="font-bold text-lg">Quantity:</label>
+                        {/* <label className="font-bold text-lg">Quantity:</label>
                         <input
                           type="number"
                           className="rounded-md w-14 h-10 text-center"
                           min="0"
                           defaultValue="0"
-                        />
+                        /> */}
                         <button
                           className="text-base bg-blue-600 p-2 px-4 rounded-md text-white"
                           onClick={() =>

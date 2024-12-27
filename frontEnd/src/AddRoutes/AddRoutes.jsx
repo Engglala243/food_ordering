@@ -18,6 +18,7 @@ import UserRegister from "../Pages/UserRegister";
 import Test from "../Pages/Test";
 import RestaurantMenu from "../Pages/RestaurantMenu";
 import Cart from "../Pages/Cart";
+import Order from "../Pages/Order";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: "/restaurant/menu", element: <RestaurantMenu /> },
       { path: "/restaurant/cart", element: <Cart /> },
       { path: "/menu/:id", element: <Menu /> },
+      { path: "/order", element: <Order /> },
       { path: "/test", element: <Test /> },
     ],
   },

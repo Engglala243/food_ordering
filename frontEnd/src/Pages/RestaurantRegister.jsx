@@ -15,6 +15,7 @@ const RestaurantRegister = () => {
   const [enteredOtp, setEnteredOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [qrCode, setQrCode] = useState("");
 
   useEffect(() => {
     const allCountries = Country.getAllCountries();
@@ -84,11 +85,31 @@ const RestaurantRegister = () => {
         .then((response) => {
           alert("Registration  successful.");
           console.log(response.data);
+
+          const qrData = `Restaurant Name: ${values.restaurant_name}`;
+          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
+            qrData
+          )}&size=200x200`;
+          setQrCode(qrUrl);
+          setQrDownloadLink(qrUrl);
+          showAlertWithQrCode(qrUrl);
+        }).catch((err) => {
+          alert("Registration  Fail: " + err.message);
         });
 
       resetForm();
     },
   });
+
+  const handleDownloadQrCode = () => {
+    if (!qrCode) return;
+
+    const qr_code = document.createElement("a");
+    qr_code.href = qrCode;
+    qr_code.download = "Restaurant QR-Code.png";
+    qr_code.click();
+  };
+  
 
   const handleSendOtp = (error) => {
     if (!formik.values.email) {
@@ -159,6 +180,11 @@ const RestaurantRegister = () => {
       }
     }
   };
+  const showAlertWithQrCode = ()=>{
+    alert(
+      `Your restaurant has been registered successfully! \n\nDownload your QR code from below`
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
@@ -391,6 +417,19 @@ const RestaurantRegister = () => {
             </button>
           </div>
         </form>
+        {qrCode && (
+          <div className="text-center mt-6">
+            <h3 className="text-lg font-bold">Your QR Code</h3>
+            <img src={qrCode} alt="QR Code" id="qr-code" className="mx-auto mt-4" />
+            <button
+              onClick={handleDownloadQrCode}
+              className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4"
+            >
+              Download QR Code
+            </button>
+          </div>
+        )}
+
       </div>
     </div>
   );

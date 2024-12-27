@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCartQuantity } from "../features/CartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCartQuantity, removeItem } from "../features/CartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -13,17 +13,32 @@ const Cart = () => {
     setCart(storedCart);
   }, []);
 
-  const updateQuantity = (id, change) => {
-    dispatch(updateCartQuantity({ dish_id: id, quantity: change }));
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(storedCart);
+  const handleUpdateCart = (id, change) => {
+    const updatedCart = cart.map((item) => {
+      if (item.dish_id === id) {
+        const newQuantity = item.quantity + change;
+        return {
+          ...item,
+          quantity: newQuantity > 0 ? newQuantity : 1,
+        };
+      }
+      return item;
+    });
+  
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  
+    dispatch(updateCartQuantity({ dish_id: id, change })); 
   };
+  
 
-  const removeItem = (id) => {
+  const handleRemoveItem = (id) => {
+    dispatch(removeItem(id));
     const updatedCart = cart.filter((item) => item.dish_id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
+  
 
   const handleBuyNow = async () => {
     const access_token = localStorage.getItem("access_token");
@@ -80,20 +95,20 @@ const Cart = () => {
                       ${item.dish_price}
                     </p>
                     <p className="text-lg font-bold text-gray-800">
-                      Total: ${item.dish_price * item.quantity}
+                      Total: ${(item.dish_price * item.quantity).toFixed(2)}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <button
                       className="bg-gray-300 px-2 py-1 rounded-md mr-2"
-                      onClick={() => updateQuantity(item.dish_id, -1)}
+                      onClick={() => handleUpdateCart(item.dish_id, -1)}
                     >
                       -
                     </button>
                     <span className="px-4">{item.quantity}</span>
                     <button
                       className="bg-gray-300 px-2 py-1 rounded-md ml-2"
-                      onClick={() => updateQuantity(item.dish_id, +1)}
+                      onClick={() => handleUpdateCart(item.dish_id, 1)}
                     >
                       +
                     </button>
@@ -101,7 +116,7 @@ const Cart = () => {
                   <div>
                     <button
                       className="bg-red-500 text-white py-1 px-4 rounded-md ml-4"
-                      onClick={() => removeItem(item.dish_id)}
+                      onClick={() => handleRemoveItem(item.dish_id)}
                     >
                       Remove Item
                     </button>

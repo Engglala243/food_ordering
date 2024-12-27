@@ -1,9 +1,28 @@
 .head-img {
-    width: 100vw;
-    height: 90.67vh;
-    object-fit: cover;
-    background-position: center;
-    /* Make the background image cover the area of the <div>, and clip the excess */
-    background-size: cover;
-    filter: brightness(60%);
-  }
+  width: 100vw;
+  height: 90.67vh;
+  object-fit: cover;
+  background-position: center;
+  /* Make the background image cover the area of the <div>, and clip the excess */
+  background-size: cover;
+  filter: brightness(60%);
+}
+.logo-img {
+  transition: transform 0.2s ease-in-out;
+}
+
+.logo-img:hover {
+  transform: scale(1.1);
+}
+
+.upper-head {
+  border-bottom: 1px solid #ccc;
+}
+
+.cart-icon {
+  transition: color 0.2s ease-in-out;
+}
+
+.cart-icon:hover {
+  color: #46a679; 
+}
