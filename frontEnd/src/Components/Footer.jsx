@@ -1,48 +1,91 @@
 import Container from "react-bootstrap/Container";
 import Logo from "../assets/images/logo.png";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <>
-      <Container fluid className="bg-[#46a679]">
-        <div className="flex flex-col justify-center text-white py-4 items-center gap-3">
-          <img
-            alt=""
-            src="https://mayur-panchal-0410.github.io/Themenu.github.io/page1img/sslogo.png"
-            width="100"
-            className="d-inline-block align-top mb-2"
-          />
-          <div className="text-3xl font-bold">ABOUT US</div>
-          <div className="text-md flex text-center">
-            Serving yummy Indian, Italian, and Chinese fast food delicacies in a
-            breathtakingly gorgeous ambience! <br />
-            We offer party decorations to make your special moments extra
-            special!
+      <Container fluid className="bg-[#46a679] p-4">
+        <div className="container mx-auto py-4 gap-6 flex flex-col md:flex-row md:gap-0">
+          {/* First section of footer */}
+          <div className="flex flex-col gap-2 basis-1/2 md:flex-row">
+            <div className="mt-2">
+              <img src={Logo} className="w-20 md:w-24" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="">
+                <div className="text-gray-100 text-2xl font-medium">
+                  Let&apos;s keep in touch
+                </div>
+                <div className="text-gray-200 text-lg">
+                  Find us on any of these platforms, we respond 1-2 business
+                  days.{" "}
+                </div>
+              </div>
+              <div className="flex flex-row gap-2">
+                <div className="flex items-center justify-center text-blue-400 text-2xl rounded-full bg-green-700 w-10 h-10">
+                  <FaTwitter />
+                </div>
+                <div className="flex items-center justify-center text-orange-400 text-2xl rounded-full bg-green-700 w-10 h-10">
+                  <FaInstagram />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="text-3xl font-bold">Average Cost</div>
-          <div className="text-md flex text-center">
-            INR 400 for two people (approx.)
+          {/* Second section of footer */}
+          <div className="flex flex-col basis-1/3">
+            <div className="text-gray-200 text-lg font-medium">
+              USEFUL LINKS
+            </div>
+            <div className="text-base flex flex-col">
+              <Link
+                to="/user/login"
+                style={{ textDecoration: "none" }}
+                className="text-gray-100 hover:text-gray-600"
+              >
+                Login
+              </Link>
+              <Link
+                to="/user/register"
+                style={{ textDecoration: "none" }}
+                className="text-gray-100 hover:text-gray-600"
+              >
+                Register
+              </Link>
+              <Link
+                to="/restaurant/login"
+                style={{ textDecoration: "none" }}
+                className="text-gray-100 hover:text-gray-600"
+              >
+                Restaurant login
+              </Link>
+              <Link
+                to="/restaurant/register"
+                style={{ textDecoration: "none" }}
+                className="text-gray-100 hover:text-gray-600"
+              >
+                Restaurant register
+              </Link>
+            </div>
           </div>
-          <div className="text-3xl font-bold">OPENING HOURS</div>
-          <div className="text-md flex text-center">
-            12:00 PM - 11:00 PM
-            <br />
-            Happily Serving You Everyday!!
-          </div>{" "}
-          <hr className="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
-          <div className="text-3xl font-bold">CONTACT US</div>
-          <div className="text-md flex text-center">
-            Khandwa Road (Indore) <br />
-            Near By Swami Narayan Mandir
+          {/* Third section of footer */}
+          <div className="flex flex-col basis-1/3">
+            <div className="text-gray-200 text-lg font-medium">ABOUT US</div>
+            <div className="text-base flex flex-col gap-2 text-gray-100">
+              <div>
+                Serving yummy Indian, Italian, and Chinese fast food delicacies
+                in a breathtakingly gorgeous ambience!
+              </div>
+              <div>
+                We offer party decorations to make your special moments extra
+                special!
+              </div>
+            </div>
           </div>
-          <div className="text-3xl font-bold">FOLLOW US</div>
-          <hr className="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
-          <div className="text-md flex text-center gap-x-4">
-            <FaInstagram className="text-5xl" />
-            <FaTwitter className="text-5xl" />
-          </div>
-          <hr className="w-full h-px bg-gray-200 border-0 dark:bg-white-700" />
+        </div>
+        <div className="container mx-auto">
+          <hr className="w-full text-gray-100 border-2" />
           <div className="flex text-center text-sm text-gray-200 flex-col">
             © 2024 Shiv Sagar Food Villa
             <div className="font-bold">

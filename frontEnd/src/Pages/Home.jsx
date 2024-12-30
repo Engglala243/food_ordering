@@ -5,11 +5,13 @@ import Footer from "../Components/Footer.jsx";
 const Home = () => {
   return (
     <>
-      <Header />
-      <div className="">
-        <Outlet />
+      <div className="flex flex-col min-h-screen justify-between">
+        <Header />
+        <div className="flex-grow">
+          <Outlet />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

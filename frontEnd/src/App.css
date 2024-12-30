@@ -22,3 +22,7 @@ input:focus {
 body {
   outline: 1px solid transparent; /* Transparent outline */
 }
+
+a {
+  text-decoration: none;
+}

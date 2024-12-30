@@ -37,7 +37,7 @@ function Order() {
   const handleGenerateQrCode = () => {
     const paymentData = `Final Amount (incl. GST): $${calculateTotal()}`;
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
-      paymentData
+      paymentData,
     )}&size=200x200`;
     setQrCode(qrUrl);
   };
@@ -80,24 +80,24 @@ function Order() {
       doc.text(
         `${index + 1}. ${item.name} (x${item.quantity}) - $${item.price} each`,
         20,
-        30 + index * 10
+        30 + index * 10,
       );
     });
 
     doc.text(
       `Subtotal: $${calculateSubtotal()}`,
       20,
-      30 + cartItems.length * 10 + 10
+      30 + cartItems.length * 10 + 10,
     );
     doc.text(
       `GST (18%): $${calculateGst()}`,
       20,
-      30 + cartItems.length * 10 + 20
+      30 + cartItems.length * 10 + 20,
     );
     doc.text(
       `Grand Total: $${calculateTotal()}`,
       20,
-      30 + cartItems.length * 10 + 30
+      30 + cartItems.length * 10 + 30,
     );
 
     doc.save("Final-Bill.pdf");
@@ -145,7 +145,8 @@ function Order() {
 
   return (
     <>
-      <div className="space-y-4">
+      <div className="container mx-auto my-4 space-y-4">
+        <div className="text-xl font-bold">Order History</div>
         {orderData.map((item, index) => (
           <div key={index} className="border border-gray-300 rounded-md">
             <button
@@ -196,7 +197,7 @@ function Order() {
 
                     <tbody className="divide-y divide-gray-200">
                       {item.dish_data.map((data, inx) => (
-                        <tr>
+                        <tr key={inx}>
                           <td className="whitespace-nowrap px-4 py-2 text-gray-900">
                             {inx + 1}
                           </td>
@@ -213,20 +214,16 @@ function Order() {
                       ))}
                     </tbody>
                     <tbody>
-                    <tr>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-900">
-                         
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-700">
-                           
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700 self-end">
-                            <span className="font-bold">Amount paid:</span>
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {item.amount_paid}
-                          </td>
-                        </tr>
+                      <tr>
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-900"></td>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-700"></td>
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 self-end">
+                          <span className="font-bold">Amount paid:</span>
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                          {item.amount_paid}
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

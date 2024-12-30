@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateCartQuantity, removeItem } from "../features/CartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -24,13 +24,12 @@ const Cart = () => {
       }
       return item;
     });
-  
+
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-  
-    dispatch(updateCartQuantity({ dish_id: id, change })); 
+
+    dispatch(updateCartQuantity({ dish_id: id, change }));
   };
-  
 
   const handleRemoveItem = (id) => {
     dispatch(removeItem(id));
@@ -38,7 +37,6 @@ const Cart = () => {
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
-  
 
   const handleBuyNow = async () => {
     const access_token = localStorage.getItem("access_token");
@@ -71,7 +69,7 @@ const Cart = () => {
       .toFixed(2);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="p-6">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">Your Cart</h2>
         {cart.length > 0 ? (
