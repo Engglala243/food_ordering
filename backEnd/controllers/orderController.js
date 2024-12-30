@@ -12,8 +12,10 @@ const fetchOrder = async (req, res) => {
                     o.status,
                     o.table_no,
                     o.user_id,
-                    o.dish_data,
-                    r.restaurant_name
+                    o.amount_paid,
+                    r.restaurant_name,
+                    o.created_at,
+                    o.dish_data
                   FROM
                     orders o
                   JOIN
@@ -32,7 +34,7 @@ const fetchOrder = async (req, res) => {
 const insertOrder = async (req, res) => {
   // initiating user_id and cartData with req.body
   // variables values
-  const { user_id, cart_data } = req.body;
+  const { user_id, cart_data, amount_paid } = req.body;
   const restaurant_id = req.body.cart_data[0].restaurant_id;
   const table_no = 2;
 
@@ -57,7 +59,9 @@ const insertOrder = async (req, res) => {
     user_id,
     restaurant_id,
     dish_data: JSON.stringify(dish_data),
+    amount_paid,
     table_no,
+    created_by: user_id,
   };
 
   console.log(orderEntry, "<===orderEntry");

@@ -43,11 +43,12 @@ const Cart = () => {
   const handleBuyNow = async () => {
     const access_token = localStorage.getItem("access_token");
     const user_id = localStorage.getItem("user_id");
+    const amount_paid = calculateTotal();
 
     await axios
       .post(
         "http://localhost:5000/order/insert",
-        { cart_data: cart, user_id: user_id },
+        { cart_data: cart, user_id: user_id, amount_paid },
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
