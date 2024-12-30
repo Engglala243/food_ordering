@@ -4,10 +4,9 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/images/logo.png";
 import { LiaShoppingCartSolid } from "react-icons/lia";
-import "./header.css"; 
 
 const Header = ({ headingName }) => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   headingName = "We-Menu";
   return (
     <>
@@ -18,7 +17,11 @@ const Header = ({ headingName }) => {
       </Container>
       <div className="upper-head border-1">
         <Navbar className="p-0 bg-[#ecefed]">
-          <Navbar.Brand onClick={() => navigate("/")} href="#home" className="mx-3 flex items-center cursor-pointer">
+          <Navbar.Brand
+            onClick={() => navigate("/")}
+            href="#home"
+            className="mx-3 flex items-center cursor-pointer"
+          >
             <img
               alt="Logo"
               src={Logo}
@@ -30,9 +33,9 @@ const Header = ({ headingName }) => {
             </div>
           </Navbar.Brand>
           <div className="ml-auto mr-4">
-            <LiaShoppingCartSolid 
-              size={36} 
-              className="cart-icon cursor-pointer #bef264" 
+            <LiaShoppingCartSolid
+              size={36}
+              className="cart-icon cursor-pointer #bef264"
               onClick={() => navigate("/restaurant/cart")}
             />
           </div>

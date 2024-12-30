@@ -16,6 +16,7 @@ const verifyToken = (req, res, next) => {
         status: 401,
         message: "Unauthorized access",
       });
+    req.user = user;
     next();
   });
 };

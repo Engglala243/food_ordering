@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { jsPDF } from "jspdf";
+import axios from "axios";
 
 function Order() {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
   const [isPaid, setIsPaid] = useState(false);
   const [qrCode, setQrCode] = useState("");
+  const [orderData, setOrderData] = useState([]);
 
   const calculateSubtotal = () =>
-    cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+    cartItems
+      .reduce((acc, item) => acc + item.price * item.quantity, 0)
+      .toFixed(2);
 
   const calculateGst = () => {
     const subtotal = parseFloat(calculateSubtotal());
@@ -25,21 +29,21 @@ function Order() {
   const handleGenerateQrCode = () => {
     const paymentData = `Final Amount (incl. GST): $${calculateTotal()}`;
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
-      paymentData
+      paymentData,
     )}&size=200x200`;
     setQrCode(qrUrl);
   };
 
   const handlePayment = async () => {
-    const amount = calculateTotal() * 100; 
+    const amount = calculateTotal() * 100;
     const RAZORPAY_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
     const options = {
-      key: "Key", 
-      amount: amount, 
+      key: "Key",
+      amount: amount,
       currency: "INR",
       name: "Your Store Name",
       description: "Order Payment",
-      image: "https://your-logo-url.com/logo.png", 
+      image: "https://your-logo-url.com/logo.png",
       handler: function (response) {
         alert("Payment Successful!");
         setIsPaid(true);
@@ -68,16 +72,45 @@ function Order() {
       doc.text(
         `${index + 1}. ${item.name} (x${item.quantity}) - $${item.price} each`,
         20,
-        30 + index * 10
+        30 + index * 10,
       );
     });
 
-    doc.text(`Subtotal: $${calculateSubtotal()}`, 20, 30 + cartItems.length * 10 + 10);
-    doc.text(`GST (18%): $${calculateGst()}`, 20, 30 + cartItems.length * 10 + 20);
-    doc.text(`Grand Total: $${calculateTotal()}`, 20, 30 + cartItems.length * 10 + 30);
+    doc.text(
+      `Subtotal: $${calculateSubtotal()}`,
+      20,
+      30 + cartItems.length * 10 + 10,
+    );
+    doc.text(
+      `GST (18%): $${calculateGst()}`,
+      20,
+      30 + cartItems.length * 10 + 20,
+    );
+    doc.text(
+      `Grand Total: $${calculateTotal()}`,
+      20,
+      30 + cartItems.length * 10 + 30,
+    );
 
     doc.save("Final-Bill.pdf");
   };
+
+  useEffect(() => {
+    const access_token = localStorage.getItem("access_token");
+    axios
+      .get("http://localhost:5000/order", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then((resp) => {
+        console.log(resp.data.data, "<===This is Order Data");
+        setOrderData(resp.data.data);
+      })
+      .catch((err) => {
+        console.log(`Error fetching order data: ${err}`);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-6">
@@ -95,7 +128,9 @@ function Order() {
                   className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm"
                 >
                   <div>
-                    <h4 className="text-lg font-bold text-gray-800">{item.name}</h4>
+                    <h4 className="text-lg font-bold text-gray-800">
+                      {item.name}
+                    </h4>
                     <p className="text-sm text-gray-600">{item.description}</p>
                     <p className="text-sm text-gray-600">
                       Quantity: {item.quantity} | Price: ${item.price}
@@ -131,7 +166,9 @@ function Order() {
                   </button>
                 ) : (
                   <div className="mt-6">
-                    <h3 className="text-lg font-bold text-gray-800">Scan to Pay</h3>
+                    <h3 className="text-lg font-bold text-gray-800">
+                      Scan to Pay
+                    </h3>
                     <img
                       src={qrCode}
                       alt="QR Code"

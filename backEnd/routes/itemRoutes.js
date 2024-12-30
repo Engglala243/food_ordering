@@ -8,7 +8,10 @@ const {
 } = require("../controllers/cartControllers.js");
 const router = express.Router();
 const { verifyToken } = require("../middlewares/verifyToken.js");
-const { insertOrder } = require("../controllers/orderController.js");
+const {
+  insertOrder,
+  fetchOrder,
+} = require("../controllers/orderController.js");
 
 // menu data route
 router.get("/menu/data", fetchResturants);
@@ -21,5 +24,6 @@ router.post("/cart/delete", verifyToken, deleteCart);
 
 // order routes
 router.post("/order/insert", verifyToken, insertOrder);
+router.get("/order/", verifyToken, fetchOrder);
 
 module.exports = router;

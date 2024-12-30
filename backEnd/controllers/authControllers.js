@@ -12,8 +12,10 @@ const {
 } = require("../utils/sqlFunctions");
 const { customResponse } = require("../utils/customResponse");
 
-const generateAccessToken = (uuid) => {
-  return jwt.sign({ uuid }, process.env.JWT_SECRET, { expiresIn: "7d" });
+const generateAccessToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
 };
 
 const register = async (req, res, next) => {
@@ -63,11 +65,16 @@ const login = async (req, res) => {
       );
 
       if (passwordMatch) {
+        const payload = {
+          uuid: existingUser.uuid,
+          user_id: existingUser.id,
+        };
+
         res.status(200).json({
           uuid: existingUser.uuid,
           user_id: existingUser.id,
           email: existingUser.email,
-          access_token: generateAccessToken(existingUser.uuid),
+          access_token: generateAccessToken(payload),
         });
       } else {
         res.status(401).json({ error: "Invalid credentials " });

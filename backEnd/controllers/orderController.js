@@ -1,17 +1,44 @@
 const { insertRecord, customRecord } = require("../utils/sqlFunctions");
-const { customResponse } = require("../utils/customResponse");
+const { customResponse, APIData } = require("../utils/customResponse");
+
+const fetchOrder = async (req, res) => {
+  // initializing user_id from our JWT decoded token
+  const user_id = req.user.user_id;
+
+  // then fetching the order data by user_id
+  try {
+    let query = `SELECT
+                    o.restaurant_id,
+                    o.status,
+                    o.table_no,
+                    o.user_id,
+                    o.dish_data,
+                    r.restaurant_name
+                  FROM
+                    orders o
+                  JOIN
+                    restaurants r ON r.restaurant_id = o.restaurant_id
+                  WHERE
+                    o.user_id = ?
+                    `;
+    const orderData = await customRecord(query, user_id);
+    APIData(orderData)(req, res);
+  } catch (err) {
+    customResponse(`Data not fetched error: ${err}`, 500, false);
+    console.log(`Data not fetched error: ${err}`);
+  }
+};
 
 const insertOrder = async (req, res) => {
   // initiating user_id and cartData with req.body
   // variables values
-  const user_id = req.body.user_id;
+  const { user_id, cart_data } = req.body;
   const restaurant_id = req.body.cart_data[0].restaurant_id;
-  const cartData = req.body.cart_data;
   const table_no = 2;
 
   // extracting the dishes data only from
   // the cartData
-  const dish_data = cartData.map((data) => {
+  const dish_data = cart_data.map((data) => {
     return {
       dish_id: data.dish_id,
       dish_name: data.dish_name,
@@ -45,4 +72,4 @@ const insertOrder = async (req, res) => {
   }
 };
 
-module.exports = { insertOrder };
+module.exports = { insertOrder, fetchOrder };
