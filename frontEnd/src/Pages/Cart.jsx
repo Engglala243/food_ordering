@@ -65,15 +65,15 @@ const Cart = () => {
 
   const calculateTotal = () => {
     const totalAmt = cart
-    .reduce((acc, item) => acc + item.dish_price * item.quantity, 0)
-    .toFixed(2);
+      .reduce((acc, item) => acc + item.dish_price * item.quantity, 0)
+      .toFixed(2);
     const gst = parseFloat((totalAmt * 0.18).toFixed(2));
     const total = parseFloat(totalAmt);
     return (total + gst).toFixed(2);
-    }
+  };
 
   return (
-    <div className="p-6">
+    <div className="p-6 mt-20">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">Your Cart</h2>
         {cart.length > 0 ? (

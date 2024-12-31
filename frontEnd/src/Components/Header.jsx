@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/images/logo.png";
 import { LiaShoppingCartSolid } from "react-icons/lia";
 
-const Header = ({ headingName }) => {
+const Header = ({ headingName, isHome }) => {
   const navigate = useNavigate();
   headingName = "We-Menu";
   return (
@@ -15,7 +15,7 @@ const Header = ({ headingName }) => {
           Enjoy Yummy Licious Fast Food!
         </div>
       </Container>
-      <div className="upper-head bg-transparent backdrop-blur-md">
+      <div className="bg-transparent backdrop-blur-md">
         <Navbar className="p-0 opacity-100">
           <Navbar.Brand
             onClick={() => navigate("/")}
@@ -28,17 +28,33 @@ const Header = ({ headingName }) => {
               width="40"
               className="d-inline-block align-top"
             />
-            <div className="text-gray-500 font-bold d-inline-block text-[1rem] mx-1.5">
-              {headingName}
-            </div>
+            {isHome ? (
+              <div className="text-gray-200 font-bold d-inline-block text-[1rem] mx-1.5">
+                {headingName}
+              </div>
+            ) : (
+              <div className="text-gray-600 font-bold d-inline-block text-[1rem] mx-1.5">
+                {headingName}
+              </div>
+            )}
           </Navbar.Brand>
-          <div className="ml-auto mr-4 text-gray-500">
-            <LiaShoppingCartSolid
-              size={36}
-              className="cart-icon cursor-pointer #bef264"
-              onClick={() => navigate("/restaurant/cart")}
-            />
-          </div>
+          {isHome ? (
+            <div className="ml-auto mr-4 text-gray-200">
+              <LiaShoppingCartSolid
+                size={36}
+                className="cart-icon cursor-pointer #bef264"
+                onClick={() => navigate("/restaurant/cart")}
+              />
+            </div>
+          ) : (
+            <div className="ml-auto mr-4 text-gray-600">
+              <LiaShoppingCartSolid
+                size={36}
+                className="cart-icon cursor-pointer #bef264"
+                onClick={() => navigate("/restaurant/cart")}
+              />
+            </div>
+          )}
         </Navbar>
       </div>
     </>
