@@ -60,13 +60,17 @@ const Cart = () => {
 
     setCart([]);
     localStorage.removeItem("cart");
-    alert("Thank you for your purchase!");
+    // alert("Thank you for your purchase!");
   };
 
-  const calculateTotal = () =>
-    cart
-      .reduce((acc, item) => acc + item.dish_price * item.quantity, 0)
-      .toFixed(2);
+  const calculateTotal = () => {
+    const totalAmt = cart
+    .reduce((acc, item) => acc + item.dish_price * item.quantity, 0)
+    .toFixed(2);
+    const gst = parseFloat((totalAmt * 0.18).toFixed(2));
+    const total = parseFloat(totalAmt);
+    return (total + gst).toFixed(2);
+    }
 
   return (
     <div className="p-6">
@@ -124,7 +128,7 @@ const Cart = () => {
               </div>
             ))}
             <div className="text-right text-xl font-bold text-gray-800">
-              Grand Total: ${calculateTotal()}
+              Total with tax: ${calculateTotal()}
             </div>
             <button
               className="bg-blue-500 text-white py-2 px-6 rounded-md mt-4"

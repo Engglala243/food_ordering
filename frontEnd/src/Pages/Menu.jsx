@@ -87,7 +87,7 @@ const Menu = () => {
         <Spinner />
       ) : (
         <>
-          <div className="container py-4">
+          <div className="container py-4 mt-20">
             <div className="bg-gray-200 p-4 rounded-md">
               <div className="text-2xl">{dishData.restaurant_name}</div>
               <div className="text-lg">{dishData.restaurant_address}</div>

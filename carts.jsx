@@ -180,3 +180,157 @@ app.listen(3000, () => {
   )}
 </div>
 </div>
+
+// ************************************* Order.jsx
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import axios from "axios";
+
+function Order() {
+  const location = useLocation();
+  const cartItems = location.state?.cartItems || [];
+  const [orderData, setOrderData] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const convertDate = (inputTimestamp) => {
+    const date = new Date(inputTimestamp);
+    return date.toLocaleString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const handleDownloadInvoice = (order) => {
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text("Invoice", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Order ID: ${order.id || "N/A"}`, 20, 30);
+    doc.text(`Order Date: ${convertDate(order.created_at)}`, 20, 40);
+
+    doc.text("Items:", 20, 50);
+    order.dish_data.forEach((item, index) => {
+      doc.text(
+        `${index + 1}. ${item.dish_name} (x${item.quantity}) - $${item.dish_price.toFixed(2)}`,
+        20,
+        60 + index * 10
+      );
+    });
+
+    const totalY = 60 + order.dish_data.length * 10 + 10;
+    doc.text(`Amount Paid: $${order.amount_paid.toFixed(2)}`, 20, totalY);
+
+    doc.save(`Invoice_Order_${order.id || "N/A"}.pdf`);
+  };
+
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      const access_token = localStorage.getItem("access_token");
+      try {
+        setLoading(true);
+        const response = await axios.get("http://localhost:5000/order", {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+        setOrderData(response.data.data || []);
+      } catch (error) {
+        console.error("Error fetching order data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrderData();
+  }, []);
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">My Orders</h1>
+      {loading ? (
+        <p>Loading orders...</p>
+      ) : orderData.length > 0 ? (
+        <div className="space-y-4">
+          {orderData.map((item, index) => (
+            <div key={index} className="border border-gray-300 rounded-md">
+              <button
+                className="w-full text-left p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none"
+                onClick={() => toggleAccordion(index)}
+              >
+                <div className="flex justify-between items-center">
+                  <span className="font-medium">Order #{index + 1}</span>
+                  <span className="text-sm text-gray-500">{convertDate(item.created_at)}</span>
+                  <svg
+                    className={`w-5 h-5 transform transition-transform duration-300 ${
+                      activeIndex === index ? "rotate-180" : "rotate-0"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </div>
+              </button>
+              {activeIndex === index && (
+                <div className="p-4 bg-white">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200 bg-white text-sm">
+                      <thead>
+                        <tr>
+                          <th className="px-4 py-2 text-gray-900">No</th>
+                          <th className="px-4 py-2 text-gray-900">Item Name</th>
+                          <th className="px-4 py-2 text-gray-900">Quantity</th>
+                          <th className="px-4 py-2 text-gray-900">Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {item.dish_data.map((dish, idx) => (
+                          <tr key={idx}>
+                            <td className="px-4 py-2">{idx + 1}</td>
+                            <td className="px-4 py-2">{dish.dish_name}</td>
+                            <td className="px-4 py-2">{dish.quantity}</td>
+                            <td className="px-4 py-2">${(dish.quantity * dish.dish_price).toFixed(2)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="mt-4 text-right">
+                      <span className="font-bold">Total Paid: ${item.amount_paid.toFixed(2)}</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDownloadInvoice(item)}
+                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  >
+                    Download Invoice
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No orders found.</p>
+      )}
+    </div>
+  );
+}
+
+export default Order;

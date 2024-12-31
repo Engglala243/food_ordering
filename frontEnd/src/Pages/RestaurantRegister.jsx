@@ -187,7 +187,7 @@ const RestaurantRegister = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4 mt-20">
       <div className="bg-white w-full max-w-2xl rounded-xl shadow-2xl p-8 space-y-6">
         <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
           Restaurant Registration

@@ -6,7 +6,9 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col min-h-screen justify-between">
-        <Header />
+        <div className="fixed z-3 w-screen">
+        <Header/>
+        </div>
         <div className="flex-grow">
           <Outlet />
         </div>

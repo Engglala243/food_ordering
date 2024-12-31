@@ -9,7 +9,7 @@ const Explore = () => {
           src={Head02}
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 md:gap-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div
             className="text-white text-4xl md:text-5xl z-10"
             style={{ fontFamily: "Quicksand" }}

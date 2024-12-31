@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="container h-screen">
+      <div className="container h-screen mt-20">
         <div className="bg-gray-200 p-4 rounded-md m-4 shadow-md">
           <div className="font-bold text-xl">Login</div>
           <hr className="w-[100%]" />

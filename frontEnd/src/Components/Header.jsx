@@ -11,12 +11,12 @@ const Header = ({ headingName }) => {
   return (
     <>
       <Container fluid className="bg-[#46a679]">
-        <div className="flex justify-center text-black p-2 text-xs md:text-sm text-center">
+        <div className="flex justify-center text-white p-2 text-xs md:text-sm text-center">
           Enjoy Yummy Licious Fast Food!
         </div>
       </Container>
-      <div className="upper-head border-1">
-        <Navbar className="p-0 bg-[#ecefed]">
+      <div className="upper-head bg-transparent backdrop-blur-md">
+        <Navbar className="p-0 opacity-100">
           <Navbar.Brand
             onClick={() => navigate("/")}
             href="#home"
@@ -28,11 +28,11 @@ const Header = ({ headingName }) => {
               width="40"
               className="d-inline-block align-top"
             />
-            <div className="font-bold d-inline-block text-[1rem] mx-1.5">
+            <div className="text-gray-500 font-bold d-inline-block text-[1rem] mx-1.5">
               {headingName}
             </div>
           </Navbar.Brand>
-          <div className="ml-auto mr-4">
+          <div className="ml-auto mr-4 text-gray-500">
             <LiaShoppingCartSolid
               size={36}
               className="cart-icon cursor-pointer #bef264"
