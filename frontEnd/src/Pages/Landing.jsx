@@ -10,14 +10,14 @@ const Landing = () => {
           src={Head02}
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
-        <div className="absolute w-full mt-44 flex flex-col gap-2 items-center justify-center">
+        <div className="absolute w-full mt-44 flex flex-col gap-4 items-center justify-center">
           <div
             className="text-white text-4xl md:text-6xl z-2"
             style={{ fontFamily: "Quicksand" }}
           >
             Explore
           </div>
-          <div className="flex w-80 placeholder-white bg-transparent backdrop-blur-md text-white border border-white rounded-lg p-2 focus:outline-none">
+          <div className="flex placeholder-white bg-transparent backdrop-blur-md text-white border border-white rounded-lg p-2 focus:outline-none md:w-96">
             <label>
               <CiSearch className="font-bold z-10 text-white text-3xl" />
             </label>

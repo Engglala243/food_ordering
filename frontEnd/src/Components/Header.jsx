@@ -34,11 +34,11 @@ const Header = ({ headingName, isHome }) => {
               className="d-inline-block align-top"
             />
             {isHome ? (
-              <div className="text-gray-200 font-bold d-inline-block text-[1rem] mx-1.5">
+              <div className="text-gray-200 font-bold d-inline-block text-lg md:text-[1rem] mx-1.5">
                 {headingName}
               </div>
             ) : (
-              <div className="text-gray-600 font-bold d-inline-block text-[1rem] mx-1.5">
+              <div className="text-gray-600 font-bold d-inline-block text-lg md:text-[1rem] mx-1.5">
                 {headingName}
               </div>
             )}
@@ -78,7 +78,7 @@ const Header = ({ headingName, isHome }) => {
           ) : (
             <>
               {isHome ? (
-                <div className="flex flex-row gap-2 ml-auto px-8 text-xl">
+                <div className="flex flex-row gap-2 ml-auto px-8 text-lg md:text-xl">
                   <button
                     onClick={() => navigate("/user/login")}
                     className="bg-gray-400 text-black p-1 px-2 rounded-md"
@@ -87,7 +87,7 @@ const Header = ({ headingName, isHome }) => {
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-row gap-2 ml-auto px-8 text-xl">
+                <div className="flex flex-row gap-2 ml-auto px-8 text-lg md:text-xl">
                   <button
                     onClick={() => navigate("/user/login")}
                     className="bg-gray-600 text-white p-1 px-2 rounded-md"
