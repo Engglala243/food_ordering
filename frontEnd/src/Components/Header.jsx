@@ -4,9 +4,14 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/images/logo.png";
 import { LiaShoppingCartSolid } from "react-icons/lia";
+import { logoutUser } from "../features/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = ({ headingName, isHome }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   headingName = "We-Menu";
   return (
     <>
@@ -38,22 +43,60 @@ const Header = ({ headingName, isHome }) => {
               </div>
             )}
           </Navbar.Brand>
-          {isHome ? (
-            <div className="ml-auto mr-4 text-gray-200">
-              <LiaShoppingCartSolid
-                size={36}
-                className="cart-icon cursor-pointer #bef264"
-                onClick={() => navigate("/restaurant/cart")}
-              />
-            </div>
+          {isLoggedIn ? (
+            <>
+              {isHome ? (
+                <div className="flex flex-row gap-2 ml-auto px-8 text-gray-200">
+                  <LiaShoppingCartSolid
+                    size={36}
+                    className="cart-icon cursor-pointer #bef264"
+                    onClick={() => navigate("/restaurant/cart")}
+                  />
+                  <button
+                    onClick={() => dispatch(logoutUser())}
+                    className="bg-gray-400 text-black px-2 rounded-md"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-row gap-2 ml-auto px-8 text-gray-600">
+                  <LiaShoppingCartSolid
+                    size={36}
+                    className="cart-icon cursor-pointer #bef264"
+                    onClick={() => navigate("/restaurant/cart")}
+                  />
+                  <button
+                    onClick={() => dispatch(logoutUser())}
+                    className="bg-gray-600 text-white px-2 rounded-md"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
-            <div className="ml-auto mr-4 text-gray-600">
-              <LiaShoppingCartSolid
-                size={36}
-                className="cart-icon cursor-pointer #bef264"
-                onClick={() => navigate("/restaurant/cart")}
-              />
-            </div>
+            <>
+              {isHome ? (
+                <div className="flex flex-row gap-2 ml-auto px-8 text-xl">
+                  <button
+                    onClick={() => navigate("/user/login")}
+                    className="bg-gray-400 text-black p-1 px-2 rounded-md"
+                  >
+                    Login
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-row gap-2 ml-auto px-8 text-xl">
+                  <button
+                    onClick={() => navigate("/user/login")}
+                    className="bg-gray-600 text-white p-1 px-2 rounded-md"
+                  >
+                    Login
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </Navbar>
       </div>

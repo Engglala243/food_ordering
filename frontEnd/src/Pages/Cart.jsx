@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { updateCartQuantity, removeItem } from "../features/CartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cart, setCart] = useState([]);
 
@@ -56,11 +58,14 @@ const Cart = () => {
       .then((resp) => {
         toast.success("Order successful");
         console.log("Order inserted successful", resp.data);
+        setCart([]);
+        localStorage.removeItem("cart");
+        navigate("/order");
+      })
+      .catch((err) => {
+        console.log(`Error while placing the order: ${err}`);
+        toast.error("Error while placing the order");
       });
-
-    setCart([]);
-    localStorage.removeItem("cart");
-    // alert("Thank you for your purchase!");
   };
 
   const calculateTotal = () => {

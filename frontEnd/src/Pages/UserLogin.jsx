@@ -1,17 +1,15 @@
-import React, { useState } from "react";
 import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../features/AuthSlice.jsx";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useSelector, useDispatch } from "react-redux";
-import { loginUser, logoutUser } from "../features/AuthSlice.jsx";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.auth.isLoggedIn);
-  const userId = useSelector((state) => state.auth.userId);
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  const navigate = useNavigate();
 
   const getCartData = async (user_id) => {
     axios
@@ -52,9 +50,11 @@ const UserLogin = () => {
           localStorage.setItem("access_token", response.data.access_token);
           getCartData(response.data.user_id);
           dispatch(loginUser());
+          navigate("/");
+          toast.success("Login Successful!");
         })
         .catch((err) => {
-          alert("Please enter correct email & password");
+          toast.error("Please enter the valid credentials!");
           console.log(err);
         });
       setTimeout(() => {
@@ -67,11 +67,6 @@ const UserLogin = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100 mt-16">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-4">User Login</h2>
-        <div>user id: {userId}</div>
-        <div>user access token: {accessToken}</div>
-        <div>
-          user login status: {loginState ? "It's logged Id" : "It's Logged Out"}
-        </div>
         <hr className="mb-6" />
         <form className="space-y-4" onSubmit={formik.handleSubmit}>
           {/* Email Input */}
@@ -135,13 +130,6 @@ const UserLogin = () => {
             Register Here
           </a>
         </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300"
-          onClick={() => dispatch(logoutUser())}
-        >
-          Logout
-        </button>
       </div>
     </div>
   );

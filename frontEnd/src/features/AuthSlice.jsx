@@ -22,6 +22,7 @@ const authSlice = createSlice({
         state.userId = false;
         state.accessToken = null;
         localStorage.clear();
+        window.location.href = "/";
         toast.success("You have successfully logout");
       }
     },
