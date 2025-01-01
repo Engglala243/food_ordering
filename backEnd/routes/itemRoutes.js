@@ -17,7 +17,7 @@ const {
 router.get("/menu/data", fetchResturants);
 
 // cart routes
-router.get("/cart/:user_id", fetchCart);
+router.get("/cart/", verifyToken, fetchCart);
 router.post("/cart/insert", verifyToken, insertCart);
 router.post("/cart/update", verifyToken, updateCart);
 router.post("/cart/delete", verifyToken, deleteCart);

@@ -11,7 +11,7 @@ const { APIError, AppError } = require("../utils/customErrors");
 const { query } = require("express");
 
 const fetchCart = async (req, res, next) => {
-  const user_id = req.params.user_id;
+  const user_id = req.user.user_id;
   try {
     const query = `
                   SELECT 

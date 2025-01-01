@@ -3,6 +3,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer.jsx";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const location = useLocation();
@@ -14,6 +15,7 @@ const Home = () => {
     } else {
       SetIsHome(false);
     }
+
     window.scrollTo({
       top: 0,
       left: 0,
@@ -21,11 +23,16 @@ const Home = () => {
     });
   }, [location.pathname]);
 
+  console.log(useSelector((state) => state.cart.cartItems.length));
+
   return (
     <>
       <div className="flex flex-col min-h-screen justify-between">
         <div className="fixed z-3 w-screen">
-          <Header isHome={isHome} />
+          <Header
+            isHome={isHome}
+            count={useSelector((state) => state.cart.cartItems.length)}
+          />
         </div>
         <div className="flex-grow">
           <Outlet />

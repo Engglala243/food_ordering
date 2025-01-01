@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,7 +6,7 @@ import { LiaShoppingCartSolid } from "react-icons/lia";
 import { logoutUser } from "../features/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const Header = ({ headingName, isHome }) => {
+const Header = ({ headingName, isHome, count }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -52,9 +51,14 @@ const Header = ({ headingName, isHome }) => {
                     className="cart-icon cursor-pointer #bef264"
                     onClick={() => navigate("/restaurant/cart")}
                   />
+                  {count > 0 && (
+                    <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {count > 99 ? "99+" : count}
+                    </div>
+                  )}
                   <button
                     onClick={() => dispatch(logoutUser())}
-                    className="bg-gray-400 text-black px-2 rounded-md"
+                    className="text-gray-200"
                   >
                     Logout
                   </button>
@@ -66,9 +70,14 @@ const Header = ({ headingName, isHome }) => {
                     className="cart-icon cursor-pointer #bef264"
                     onClick={() => navigate("/restaurant/cart")}
                   />
+                  {count > 0 && (
+                    <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {count > 99 ? "99+" : count}
+                    </div>
+                  )}
                   <button
                     onClick={() => dispatch(logoutUser())}
-                    className="bg-gray-600 text-white px-2 rounded-md"
+                    className="text-gray-600"
                   >
                     Logout
                   </button>
@@ -78,19 +87,19 @@ const Header = ({ headingName, isHome }) => {
           ) : (
             <>
               {isHome ? (
-                <div className="flex flex-row gap-2 ml-auto px-8 text-lg md:text-xl">
+                <div className="flex flex-row gap-2 ml-auto px-8">
                   <button
                     onClick={() => navigate("/user/login")}
-                    className="bg-gray-400 text-black p-1 px-2 rounded-md"
+                    className="text-gray-200"
                   >
                     Login
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-row gap-2 ml-auto px-8 text-lg md:text-xl">
+                <div className="flex flex-row gap-2 ml-auto px-8">
                   <button
                     onClick={() => navigate("/user/login")}
-                    className="bg-gray-600 text-white p-1 px-2 rounded-md"
+                    className="text-gray-600"
                   >
                     Login
                   </button>

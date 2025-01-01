@@ -40,7 +40,7 @@ const RestaurantLogin = () => {
   });
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-10 bg-gray- mt-20">
+    <div className="flex justify-center items-center min-h-screen p-10">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-4">
           Restaurant Login
