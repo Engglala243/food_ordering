@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/images/logo.png";
-import { LiaShoppingCartSolid } from "react-icons/lia";
+import { LiaShoppingCartSolid, LiaFirstOrderAlt } from "react-icons/lia";
 import { logoutUser } from "../features/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -47,6 +47,7 @@ const Header = ({ headingName, isHome, count }) => {
               {isHome ? (
                 <div className="flex flex-row gap-2 ml-auto px-8 text-gray-200">
                   <LiaShoppingCartSolid
+                    title="cart"
                     size={36}
                     className="cart-icon cursor-pointer #bef264"
                     onClick={() => navigate("/restaurant/cart")}
@@ -56,6 +57,12 @@ const Header = ({ headingName, isHome, count }) => {
                       {count > 99 ? "99+" : count}
                     </div>
                   )}
+                  <LiaFirstOrderAlt
+                    size={30}
+                    title="order"
+                    className="cart-icon cursor-pointer #bef264"
+                    onClick={() => navigate("/order")}
+                  />
                   <button
                     onClick={() => dispatch(logoutUser())}
                     className="text-gray-200"
@@ -66,6 +73,7 @@ const Header = ({ headingName, isHome, count }) => {
               ) : (
                 <div className="flex flex-row gap-2 ml-auto px-8 text-gray-600">
                   <LiaShoppingCartSolid
+                    title="cart"
                     size={36}
                     className="cart-icon cursor-pointer #bef264"
                     onClick={() => navigate("/restaurant/cart")}
@@ -75,6 +83,12 @@ const Header = ({ headingName, isHome, count }) => {
                       {count > 99 ? "99+" : count}
                     </div>
                   )}
+                  <LiaFirstOrderAlt
+                    size={30}
+                    title="order"
+                    className="cart-icon cursor-pointer #bef264"
+                    onClick={() => navigate("/order")}
+                  />
                   <button
                     onClick={() => dispatch(logoutUser())}
                     className="text-gray-600"
