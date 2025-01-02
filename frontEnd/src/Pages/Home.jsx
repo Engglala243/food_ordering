@@ -23,7 +23,7 @@ const Home = () => {
     });
   }, [location.pathname]);
 
-  console.log(useSelector((state) => state.cart.cartItems.length));
+  // console.log(useSelector((state) => state.cart.cartItems.length),"<== Home page 26");
 
   return (
     <>

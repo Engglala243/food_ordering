@@ -11,7 +11,7 @@ const { verifyToken } = require("./middlewares/verifyToken.js");
 
 const app = express();
 
-app.use(cors());
+app.use(cors())
 
 connectDB();
 
