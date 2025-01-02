@@ -23,8 +23,6 @@ const Home = () => {
     });
   }, [location.pathname]);
 
-  console.log(useSelector((state) => state.cart.cartItems.length));
-
   return (
     <>
       <div className="flex flex-col min-h-screen justify-between">
