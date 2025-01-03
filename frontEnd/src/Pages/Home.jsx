@@ -29,13 +29,15 @@ const Home = () => {
         <div className="fixed z-3 w-screen">
           <Header
             isHome={isHome}
-            count={useSelector((state) => state.cart.cartItems.length)}
           />
         </div>
         <div className="flex-grow">
           <Outlet />
         </div>
-        <Footer />
+        <Footer 
+            isHome={isHome}
+            count={useSelector((state) => state.cart.cartItems.length)} 
+        />
       </div>
     </>
   );

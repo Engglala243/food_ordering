@@ -1,0 +1,27 @@
+.queue-scroll {
+    animation: scrollQueue 15s linear infinite;
+  }
+  
+  @keyframes scrollQueue {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+
+  .image-queue-scroll {
+    animation: horizontalScroll 5s linear infinite;
+  }
+  
+  @keyframes horizontalScroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  
