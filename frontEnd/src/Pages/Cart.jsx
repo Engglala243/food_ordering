@@ -4,6 +4,7 @@ import { updateCartQuantity, removeItem } from "../features/CartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import PayButton from "../Components/PayButton";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -38,81 +39,6 @@ const Cart = () => {
     const updatedCart = cart.filter((item) => item.dish_id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
-
-  const handleBuyNow = async () => {
-    const access_token = localStorage.getItem("access_token");
-    const user_id = localStorage.getItem("user_id");
-    const amount_paid = calculateTotal();
-
-    //
-
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/payment/create-order",
-        {
-          amount: calculateTotal(),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        },
-      );
-
-      console.log(response);
-
-      const order = await response.data;
-      console.log(order);
-
-      const options = {
-        key: RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        name: "Some Company",
-        description: "Some Description",
-        order_id: order.id,
-
-        handler: async (response) => {
-          try {
-            await axios.post(
-              "http://localhost:5000/payment/verify-payment",
-              {
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${access_token}`,
-                },
-              },
-            );
-
-            console.log("Payment successful!");
-            alert("Payment successful!");
-          } catch (err) {
-            console.log("Payment failed: " + err.message);
-            alert("Payment failed: " + err.message);
-          }
-        },
-        prefill: {
-          name: "John Doe",
-          email: "John@gmail.com",
-          contact: "3432444552",
-        },
-        notes: {
-          address: "Some Cool Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-      const rzpay = new Razorpay(options);
-      rzpay.open(options);
-    } catch (err) {
-      alert("Error creating order:" + err.message);
-    }
   };
 
   const calculateTotal = () => {
@@ -182,12 +108,7 @@ const Cart = () => {
             <div className="text-right text-xl font-bold text-gray-800">
               Total with tax: ${calculateTotal()}
             </div>
-            <button
-              className="bg-blue-500 text-white py-2 px-6 rounded-md mt-4"
-              onClick={handleBuyNow}
-            >
-              Buy Now
-            </button>
+            <PayButton amount={calculateTotal()} />
           </div>
         ) : (
           <p className="text-center text-gray-500">Your cart is empty.</p>
