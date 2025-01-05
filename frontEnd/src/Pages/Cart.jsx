@@ -30,7 +30,6 @@ const Cart = () => {
 
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-
     dispatch(updateCartQuantity({ dish_id: id, change }));
   };
 
@@ -51,71 +50,81 @@ const Cart = () => {
   };
 
   return (
-    <div className="p-6 mt-36 md:mt-20">
-      <div className="container mx-auto mb-20">
-        <h2 className="text-3xl font-bold text-center mb-8">Your Cart</h2>
+    <div className="p-4 sm:p-6 mt-24 sm:mt-28 md:mt-20 lg:mt-24">
+      <div className="container mx-auto max-w-6xl mb-20">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Your Cart</h2>
         {cart.length > 0 ? (
-          <div>
+          <div className="space-y-4">
             {cart.map((item) => (
               <div
                 key={item.dish_id}
-                className="bg-white rounded-lg shadow-md p-4 mb-4"
+                className="bg-white rounded-lg shadow-md p-3 sm:p-4 transition-shadow hover:shadow-lg"
               >
-                <div className="flex items-center text-sm">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                   <img
                     src={`http://localhost:5000/public/${item.dish_image}`}
                     alt={item.dish_name}
-                    className="w-20 h-20 object-cover mr-4"
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-cover rounded-md"
                   />
-                  <div className="flex-grow">
-                    <h3 className="text-lg font-bold md:text-xl">
+                  <div className="flex-grow sm:text-left">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold">
                       {item.dish_name}
                     </h3>
-                    <p className="text-sm text-gray-600 line-clamp-2">
+                    <p className="text-sm sm:text-base text-gray-600 line-clamp-2 mt-1">
                       {item.dish_description}
                     </p>
-                    <p className="text-green-500 font-semibold">
+                    <p className="text-green-500 font-semibold mt-2">
                       ${item.dish_price}
                     </p>
                     <p className="font-bold text-gray-800">
                       Total: ${(item.dish_price * item.quantity).toFixed(2)}
                     </p>
                   </div>
-                  <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-                    <div className="">
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                    <div className="flex items-center bg-gray-100 rounded-lg p-1">
                       <button
-                        className="bg-gray-300 px-2 py-1 rounded-md "
+                        className="bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded-md transition-colors"
                         onClick={() => handleUpdateCart(item.dish_id, -1)}
                       >
                         -
                       </button>
-                      <span className="px-4">{item.quantity}</span>
+                      <span className="px-4 font-medium">{item.quantity}</span>
                       <button
-                        className="bg-gray-300 px-2 py-1 rounded-md"
+                        className="bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded-md transition-colors"
                         onClick={() => handleUpdateCart(item.dish_id, 1)}
                       >
                         +
                       </button>
                     </div>
-                    <div>
-                      <button
-                        className="bg-red-500 text-white py-1 px-4 rounded-md"
-                        onClick={() => handleRemoveItem(item.dish_id)}
-                      >
-                        Remove Item
-                      </button>
-                    </div>
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md transition-colors w-full sm:w-auto"
+                      onClick={() => handleRemoveItem(item.dish_id)}
+                    >
+                      Remove
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
-            <div className="text-right text-lg font-bold text-gray-800 md:text-xl">
-              Total with tax: ${calculateTotal()}
+            <div className="mt-8 space-y-4">
+              <div className="text-right text-xl sm:text-2xl font-bold text-gray-800">
+                Total with tax: ${calculateTotal()}
+              </div>
+              <div className="flex justify-end">
+                <PayButton amount={calculateTotal()} />
+              </div>
             </div>
-            <PayButton amount={calculateTotal()} />
           </div>
         ) : (
-          <p className="text-center text-gray-500">Your cart is empty.</p>
+          <div className="text-center py-12">
+            <p className="text-xl text-gray-500">Your cart is empty.</p>
+            <button
+              onClick={() => navigate("/")}
+              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-colors"
+            >
+              Continue Shopping
+            </button>
+          </div>
         )}
       </div>
     </div>
