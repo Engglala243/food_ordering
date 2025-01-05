@@ -9,8 +9,9 @@ import Button from "react-bootstrap/Button";
 import Logo from "../assets/images/logo.png";
 import QrScanner from "qr-scanner";
 import { FaQrcode, FaBarcode, FaCamera, FaTimes } from "react-icons/fa";
+import { Search } from "lucide-react";
 
-const Header = () => {
+const Header = ({ isHome }) => {
   const navigate = useNavigate();
   const [showScanner, setShowScanner] = useState(false);
   const [scannerMode, setScannerMode] = useState("qr");
@@ -32,7 +33,7 @@ const Header = () => {
           highlightScanRegion: true,
           highlightCodeOutline: true,
           preferredCamera: "environment",
-        }
+        },
       );
       setQrScanner(scanner);
       await scanner.start();
@@ -73,7 +74,10 @@ const Header = () => {
       </Container>
       <div className="bg-transparent backdrop-blur-md shadow-md">
         <Container fluid>
-          <Navbar expand="lg" className="p-1">
+          <Navbar
+            expand="lg"
+            className="p-1 flex flex-col space-between items-center gap-2 md:flex-row"
+          >
             <Navbar.Brand
               onClick={() => navigate("/")}
               className="flex items-center cursor-pointer"
@@ -85,41 +89,41 @@ const Header = () => {
                 height="35"
                 className="d-inline-block align-top"
               />
-              <span className="ml-2 text-lg font-bold text-gray-800">
-                We-Menu
-              </span>
+              {isHome ? (
+                <span className="ml-2 text-lg font-bold text-gray-300">
+                  We-Menu
+                </span>
+              ) : (
+                <span className="ml-2 text-lg font-bold text-gray-800">
+                  We-Menu
+                </span>
+              )}
             </Navbar.Brand>
 
-            <div className="flex-grow flex justify-center mx-4">
-              <InputGroup className="w-full max-w-md">
+            <div className="flex-grow flex justify-center items-center mx-4 text-white rounded-md w-auto">
+              <InputGroup className="w-auto bg-[#46a679] rounded-md">
                 <FormControl
                   placeholder="Search the hotel"
                   aria-label="Search"
                   aria-describedby="search-button"
-                  className="rounded-l-md border border-gray-300"
+                  className="border border-gray-300"
                 />
                 <Button
                   variant="outline-secondary"
                   id="search-button"
-                  className="rounded-r-md bg-[#46a679] text-white"
+                  className="text-white"
                 >
                   Search
                 </Button>
               </InputGroup>
             </div>
 
-            <div className="relative flex items-center">
+            <div className="flex items-center self-center">
               <button
                 onClick={() => setShowScanner(!showScanner)}
-                className="p-1 bg-gray-200 mr-3 rounded-full hover:bg-gray-300 focus:outline-none"
+                className="p-1 border-2 border-gray-400 mr-3 rounded-full hover:bg-gray-300 focus:outline-none"
               >
-                <img
-                  src="https://img.icons8.com/ios-filled/50/000000/search--v1.png"
-                  alt="Scanner"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-middle"
-                />
+                <Search className="text-gray-400" />
               </button>
             </div>
           </Navbar>

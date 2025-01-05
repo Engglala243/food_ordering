@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Spinner from "../Components/Spinner";
 import { addToCart } from "../features/CartSlice";
 import { useSelector, useDispatch } from "react-redux";
+import MenuCategory from "../Components/MenuCategory";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,8 @@ const Menu = () => {
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
   const cart = useSelector((state) => state.cart.cartItems);
-  const user_id = parseInt(useSelector((state) => state.auth.userId)) || undefined;
+  const user_id =
+    parseInt(useSelector((state) => state.auth.userId)) || undefined;
   const params = useParams();
   const navigate = useNavigate();
   const MAX_DISHES = 8;
@@ -80,66 +82,74 @@ const Menu = () => {
     setCurrentPage(1);
   }, [menuCategory]);
 
-  console.log(cart, "<=== Cart");
   return (
     <>
       {isLoading ? (
         <Spinner />
       ) : (
         <>
-          <div className="container py-4 mt-20">
+          <div className="container py-4 mt-36 mb-10 md:mt-20">
             <div className="bg-gray-200 p-4 rounded-md">
               <div className="text-2xl">{dishData.restaurant_name}</div>
               <div className="text-lg">{dishData.restaurant_address}</div>
             </div>
-            <div className="flex flex-row gap-3 justify-start">
-              {Object.keys(dishData.dishes_data).map((menu, inx) => {
-                return (
-                  <button
-                    className="bg-gray-200 rounded-md p-2 px-4 my-2"
-                    onClick={() => handleMenuCategory(menu)}
-                    key={inx + 2}
-                  >
-                    {menu}
-                  </button>
-                );
-              })}
+            <div className="hidden md:block">
+              <div className="flex flex-row gap-3 justify-start">
+                {Object.keys(dishData.dishes_data).map((menu, inx) => {
+                  return (
+                    <button
+                      className="bg-gray-200 rounded-md p-2 px-4 my-2"
+                      onClick={() => handleMenuCategory(menu)}
+                      key={inx + 2}
+                    >
+                      {menu}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
+
+            <div className="block md:hidden">
+              <MenuCategory
+                dishData={dishData}
+                handleMenuCategory={handleMenuCategory}
+                selected={menuCategory}
+              />
+            </div>
+
             {dishData.dishes_data[menuCategory].map((data, inx) => {
               if (inx >= initialIndex && inx < currentPage * MAX_DISHES) {
                 return (
                   <>
                     <div
-                      className="bg-gray-200 p-4 rounded-md flex flex-row items-center gap-4 justify-between my-2"
+                      className="bg-gray-200 p-4 rounded-md flex flex-row items-center gap-4 justify-between my-2 text-sm md:text-lg"
                       key={data.dish_id}
                     >
                       <div className="flex flex-row gap-4 items-center">
                         <img
                           src={`http://localhost:5000/public/${data.dish_image}`}
-                          className="h-32 w-32 rounded-md shadow-lg"
+                          className="h-32 w-32 rounded-md shadow-lg object-fill"
                         />
                         <div className="flex flex-col gap-2">
-                          <div className="text-xl font-bold">
-                            {data.dish_name}
-                          </div>
-                          <div className="text-lg w-96">
+                          <div className="font-bold">{data.dish_name}</div>
+                          <div className="line-clamp-2">
                             {data.dish_description}
                           </div>
-                          <div className="text-lg">
+                          <div className="">
                             <b>Price</b>:{data.dish_price}
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-row gap-2 items-center">
-                        {/* <label className="font-bold text-lg">Quantity:</label>
+                      <div className="flex flex-col gap-2 items-center text-xs md:flex-row md:text-base">
+                        <label className="font-bold">Quantity:</label>
                         <input
                           type="number"
-                          className="rounded-md w-14 h-10 text-center"
+                          className="rounded-md w-14 text-center"
                           min="0"
                           defaultValue="0"
-                        /> */}
+                        />
                         <button
-                          className="text-base bg-blue-600 p-2 px-4 rounded-md text-white"
+                          className="bg-blue-600 p-2 rounded-md text-white whitespace-nowrap overflow-hidden text-ellipsis"
                           onClick={() =>
                             dispatch(
                               addToCart({

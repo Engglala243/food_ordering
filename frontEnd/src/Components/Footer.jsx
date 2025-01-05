@@ -8,8 +8,8 @@ const Footer = ({ isHome, count }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <div className="fixed bottom-0 w-full bg-[#46a679] text-gray-100 shadow-lg">
-      <div className="flex justify-around items-center p-0.5">
+    <div className="fixed bottom-0 w-full bg-[#46a679] text-gray-100 shadow-lg md:relative">
+      <div className="flex justify-around items-center p-2">
         <div
           onClick={() => navigate("/")}
           className="flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
@@ -40,18 +40,21 @@ const Footer = ({ isHome, count }) => {
           {isLoggedIn ? (
             <>
               {isHome ? (
-                <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
+                <div
+                  className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/restaurant/cart")}
+                >
                   <FaShoppingCart
                     title="cart"
                     size={30}
                     className="cart-icon cursor-pointer #bef264"
-                    onClick={() => navigate("/restaurant/cart")}
                   />
                   {count > 0 && (
                     <div className="absolute inline-flex items-center ml-2 justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
                       {count > 99 ? "99+" : count}
                     </div>
                   )}
+                  <span>Cart</span>
                 </div>
               ) : (
                 <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
@@ -66,6 +69,7 @@ const Footer = ({ isHome, count }) => {
                       {count > 99 ? "99+" : count}
                     </div>
                   )}
+                  <span>Cart</span>
                 </div>
               )}
             </>
@@ -73,32 +77,34 @@ const Footer = ({ isHome, count }) => {
             <>
               {isHome ? (
                 <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
-                <FaShoppingCart
-                  title="cart"
-                  size={20}
-                  className="cart-icon cursor-pointer #bef264"
-                  onClick={() => navigate("/restaurant/cart")}
-                />
-                {count > 0 && (
+                  <FaShoppingCart
+                    title="cart"
+                    size={20}
+                    className="cart-icon cursor-pointer #bef264"
+                    onClick={() => navigate("/restaurant/cart")}
+                  />
+                  {count > 0 && (
                     <div className="absolute inline-flex items-center ml-2 justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
                       {count > 99 ? "99+" : count}
                     </div>
                   )}
-              </div>
+                  <span>Cart</span>
+                </div>
               ) : (
                 <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
-                <FaShoppingCart
-                  title="cart"
-                  size={20}
-                  className="cart-icon cursor-pointer #bef264"
-                  onClick={() => navigate("/restaurant/cart")}
-                />
-                {count > 0 && (
+                  <FaShoppingCart
+                    title="cart"
+                    size={20}
+                    className="cart-icon cursor-pointer #bef264"
+                    onClick={() => navigate("/restaurant/cart")}
+                  />
+                  {count > 0 && (
                     <div className="absolute inline-flex items-center ml-2 justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
                       {count > 99 ? "99+" : count}
                     </div>
                   )}
-              </div>
+                  <span>Cart</span>
+                </div>
               )}
             </>
           )}

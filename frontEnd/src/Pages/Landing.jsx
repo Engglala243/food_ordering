@@ -34,7 +34,7 @@ const Landing = () => {
       />
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative h-full flex flex-col">
+      <div className="relative h-full flex flex-col mt-28 md:mt-0">
         <div className="h-1/2 pt-20 px-8">
           <div className="h-full relative overflow-hidden rounded-xl">
             <div className="image-queue-scroll flex h-full">
@@ -66,11 +66,9 @@ const Landing = () => {
                 <div
                   key={index}
                   className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4 flex flex-col justify-between transform transition-all duration-300 cursor-pointer"
-                    onClick={() => navigate("/menu/6")}
+                  onClick={() => navigate("/menu/6")}
                 >
-                  <h3
-                    className="text-white text-lg font-semibold"
-                  >
+                  <h3 className="text-white text-lg font-semibold">
                     {hotel.name}
                   </h3>
                   <div>
