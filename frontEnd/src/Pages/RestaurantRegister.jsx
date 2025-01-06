@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaKey, FaUser, FaPen } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import QRCode from "qrcode";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import emailjs from "emailjs-com";
+import { PDFDocument, rgb } from "pdf-lib";
+import fontkit from "@pdf-lib/fontkit";
 
 const RestaurantRegister = () => {
   const [countries, setCountries] = useState([]);
@@ -16,6 +19,8 @@ const RestaurantRegister = () => {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
   const [qrCode, setQrCode] = useState("");
+  const [startRange, setStartRange] = useState(1);
+  const [endRange, setEndRange] = useState(1);
 
   useEffect(() => {
     const allCountries = Country.getAllCountries();
@@ -53,7 +58,7 @@ const RestaurantRegister = () => {
         .required("Phone number is required")
         .matches(
           /^\+?[1-9]\d{1,14}$/,
-          "Phone number must be valid and include country code (e.g., +123456789)",
+          "Phone number must be valid and include country code (e.g., +123456789)"
         ),
       email: Yup.string()
         .email("Invalid email format.")
@@ -83,33 +88,117 @@ const RestaurantRegister = () => {
       axios
         .post("http://localhost:5000/auth/restaurant/register", registerData)
         .then((response) => {
-          alert("Registration  successful.");
+          alert("Registration successful.");
           console.log(response.data);
 
           const qrData = `Restaurant Name: ${values.restaurant_name}`;
-          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
-            qrData
-          )}&size=200x200`;
-          setQrCode(qrUrl);
-          setQrDownloadLink(qrUrl);
-          showAlertWithQrCode(qrUrl);
-        }).catch((err) => {
-          alert("Registration  Fail: " + err.message);
+
+          QRCode.toDataURL(qrData, {
+            width: 200,
+            margin: 2,
+            color: {
+              dark: "#000000",
+              light: "#ffffff",
+            },
+          })
+            .then((url) => {
+              setQrCode(url);
+              showAlertWithQrCode();
+            })
+            .catch((err) => {
+              console.error("Error generating QR code:", err);
+            });
+        })
+        .catch((err) => {
+          alert("Registration Fail: " + err.message);
         });
 
       resetForm();
     },
   });
 
-  const handleDownloadQrCode = () => {
-    if (!qrCode) return;
+  const generateQRCodePDF = async () => {
+    try {
+      const pdfDoc = await PDFDocument.create();
+      pdfDoc.registerFontkit(fontkit);
 
-    const qr_code = document.createElement("a");
-    qr_code.href = qrCode;
-    qr_code.download = "Restaurant QR-Code.png";
-    qr_code.click();
+      // QR codes for each table
+      for (let tableNo = startRange; tableNo <= endRange; tableNo++) {
+        const page = pdfDoc.addPage([600, 800]);
+
+        const qrData = JSON.stringify({
+          restaurant_name: formik.values.restaurant_name,
+          table_no: tableNo.toString().padStart(2, "0"),
+        });
+
+        const qrDataUrl = await QRCode.toDataURL(qrData, {
+          width: 200,
+          margin: 2,
+          color: {
+            dark: "#000000",
+            light: "#ffffff",
+          },
+        });
+
+        // URL Data
+        const qrImage = await pdfDoc.embedPng(qrDataUrl);
+
+        page.drawText(formik.values.restaurant_name, {
+          x: 50,
+          y: 750,
+          size: 20,
+        });
+
+        page.drawImage(qrImage, {
+          x: 200,
+          y: 400,
+          width: 200,
+          height: 200,
+        });
+
+        page.drawText(`Table No: ${tableNo.toString().padStart(2, "0")}`, {
+          x: 250,
+          y: 350,
+          size: 16,
+        });
+      }
+
+      // Common QR-code 
+      const commonPage = pdfDoc.addPage([600, 800]);
+      const commonQrData = JSON.stringify({
+        restaurant_name: formik.values.restaurant_name,
+      });
+
+      const commonQrDataUrl = await QRCode.toDataURL(commonQrData);
+      const commonQrImage = await pdfDoc.embedPng(commonQrDataUrl);
+
+      commonPage.drawText("Common QR Code", {
+        x: 50,
+        y: 750,
+        size: 20,
+      });
+
+      commonPage.drawImage(commonQrImage, {
+        x: 200,
+        y: 400,
+        width: 200,
+        height: 200,
+      });
+
+      const pdfBytes = await pdfDoc.save();
+
+      // PDF Download
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${formik.values.restaurant_name}_QR_Codes.pdf`;
+      link.click();
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Error generating PDF. Please try again.");
+    }
   };
-  
 
   const handleSendOtp = (error) => {
     if (!formik.values.email) {
@@ -132,7 +221,7 @@ const RestaurantRegister = () => {
         "service_shh1qjq",
         "template_caahy5j",
         templateParams,
-        "DmbJWFOqMCWQR0Fkr",
+        "DmbJWFOqMCWQR0Fkr"
       )
       .then(() => {
         alert("OTP sent to your email.");
@@ -169,7 +258,7 @@ const RestaurantRegister = () => {
     if (pincode.length === 6) {
       try {
         const response = await axios.get(
-          `https://api.postalpincode.in/pincode/${pincode}`,
+          `https://api.postalpincode.in/pincode/${pincode}`
         );
         if (response.data[0].Status === "Success") {
           const cityData = response.data[0].PostOffice[0];
@@ -180,11 +269,11 @@ const RestaurantRegister = () => {
       }
     }
   };
-  const showAlertWithQrCode = ()=>{
+  const showAlertWithQrCode = () => {
     alert(
       `Your restaurant has been registered successfully! \n\nDownload your QR code from below`
-    )
-  }
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4 mt-20">
@@ -405,6 +494,34 @@ const RestaurantRegister = () => {
             </div>
           </div>
 
+          <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 mt-6">
+            <h3 className="text-xl font-semibold text-yellow-800 mb-4 pb-2">
+              QR Code Generation Range
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">Start Range</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={startRange}
+                  onChange={(e) => setStartRange(parseInt(e.target.value))}
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="form-label">End Range</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={endRange}
+                  onChange={(e) => setEndRange(parseInt(e.target.value))}
+                  className="form-input"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="text-center">
             <button
               type="submit"
@@ -420,16 +537,20 @@ const RestaurantRegister = () => {
         {qrCode && (
           <div className="text-center mt-6">
             <h3 className="text-lg font-bold">Your QR Code</h3>
-            <img src={qrCode} alt="QR Code" id="qr-code" className="mx-auto mt-4" />
+            <img
+              src={qrCode}
+              alt="QR Code"
+              id="qr-code"
+              className="mx-auto mt-4"
+            />
             <button
-              onClick={handleDownloadQrCode}
+              onClick={generateQRCodePDF}
               className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4"
             >
-              Download QR Code
+              Download QR Code PDF
             </button>
           </div>
         )}
-
       </div>
     </div>
   );
