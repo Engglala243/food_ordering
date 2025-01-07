@@ -105,7 +105,8 @@ const insertCart = async (req, res, next) => {
 };
 
 const updateCart = async (req, res, next) => {
-  const { user_id, dish_id, quantity } = req.body;
+  const user_id = req.user.user_id;
+  const { dish_id, quantity } = req.body;
 
   try {
     let query;

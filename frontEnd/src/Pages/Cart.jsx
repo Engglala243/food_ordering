@@ -1,43 +1,25 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateCartQuantity, removeItem } from "../features/CartSlice";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import PayButton from "../Components/PayButton";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(storedCart);
-  }, []);
+  const cart = useSelector((state) => state.cart.cartItems);
 
   const handleUpdateCart = (id, change) => {
-    const updatedCart = cart.map((item) => {
-      if (item.dish_id === id) {
-        const newQuantity = item.quantity + change;
-        return {
-          ...item,
-          quantity: newQuantity > 0 ? newQuantity : 1,
-        };
-      }
-      return item;
-    });
-
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    dispatch(updateCartQuantity({ dish_id: id, change }));
+    dispatch(
+      updateCartQuantity({
+        dish_id: id,
+        change,
+        access_token: localStorage.getItem("access_token"),
+      }),
+    );
   };
 
   const handleRemoveItem = (id) => {
     dispatch(removeItem(id));
-    const updatedCart = cart.filter((item) => item.dish_id !== id);
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const calculateTotal = () => {
@@ -52,7 +34,9 @@ const Cart = () => {
   return (
     <div className="p-4 sm:p-6 mt-24 sm:mt-28 md:mt-20 lg:mt-24">
       <div className="container mx-auto max-w-6xl mb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Your Cart</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">
+          Your Cart
+        </h2>
         {cart.length > 0 ? (
           <div className="space-y-4">
             {cart.map((item) => (
