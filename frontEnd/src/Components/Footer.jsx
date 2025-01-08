@@ -20,7 +20,7 @@ const Footer = ({ isHome, count }) => {
 
         {isLoggedIn ? (
           <div
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate("/user/account")}
             className="flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
           >
             <FaUser size={20} />
@@ -57,12 +57,14 @@ const Footer = ({ isHome, count }) => {
                   <span>Cart</span>
                 </div>
               ) : (
-                <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
+                <div
+                  className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/restaurant/cart")}
+                >
                   <FaShoppingCart
                     title="cart"
                     size={30}
                     className="cart-icon cursor-pointer #bef264"
-                    onClick={() => navigate("/restaurant/cart")}
                   />
                   {count > 0 && (
                     <div className="absolute inline-flex items-center ml-2 justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
@@ -76,12 +78,14 @@ const Footer = ({ isHome, count }) => {
           ) : (
             <>
               {isHome ? (
-                <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
+                <div
+                  className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/restaurant/cart")}
+                >
                   <FaShoppingCart
                     title="cart"
                     size={20}
                     className="cart-icon cursor-pointer #bef264"
-                    onClick={() => navigate("/restaurant/cart")}
                   />
                   {count > 0 && (
                     <div className="absolute inline-flex items-center ml-2 justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
@@ -91,12 +95,14 @@ const Footer = ({ isHome, count }) => {
                   <span>Cart</span>
                 </div>
               ) : (
-                <div className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer">
+                <div
+                  className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
+                  onClick={() => navigate("/restaurant/cart")}
+                >
                   <FaShoppingCart
                     title="cart"
                     size={20}
                     className="cart-icon cursor-pointer #bef264"
-                    onClick={() => navigate("/restaurant/cart")}
                   />
                   {count > 0 && (
                     <div className="absolute inline-flex items-center ml-2 justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
