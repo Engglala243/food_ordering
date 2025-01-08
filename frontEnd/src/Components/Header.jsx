@@ -99,7 +99,7 @@ const Header = ({ isHome }) => {
               )}
             </Navbar.Brand>
 
-            <div className="flex-grow flex justify-center items-center mx-4 text-white rounded-md w-auto">
+            <div className="flex-grow justify-center items-center mx-4 text-white rounded-md w-auto hidden md:flex">
               <InputGroup className="w-auto bg-[#46a679] rounded-md">
                 <FormControl
                   placeholder="Search the hotel"
@@ -117,13 +117,41 @@ const Header = ({ isHome }) => {
               </InputGroup>
             </div>
 
-            <div className="flex items-center self-center">
+            <div className="items-center self-center hidden md:flex">
               <button
                 onClick={() => setShowScanner(!showScanner)}
                 className="p-1 border-2 border-gray-400 mr-3 rounded-full hover:bg-gray-300 focus:outline-none"
               >
                 <Search className="text-gray-400" />
               </button>
+            </div>
+            <div className="flex flex-row mb-2 md:hidden">
+              <div className="flex-grow flex justify-center items-center mx-4 text-white rounded-md w-auto">
+                <InputGroup className="w-auto bg-[#46a679] rounded-md">
+                  <FormControl
+                    placeholder="Search the hotel"
+                    aria-label="Search"
+                    aria-describedby="search-button"
+                    className="border border-gray-300"
+                  />
+                  <Button
+                    variant="outline-secondary"
+                    id="search-button"
+                    className="text-white"
+                  >
+                    Search
+                  </Button>
+                </InputGroup>
+              </div>
+
+              <div className="flex items-center self-center">
+                <button
+                  onClick={() => setShowScanner(!showScanner)}
+                  className="p-1 border-2 border-gray-400 mr-3 rounded-full hover:bg-gray-300 focus:outline-none"
+                >
+                  <Search className="text-gray-400" />
+                </button>
+              </div>
             </div>
           </Navbar>
 

@@ -12,7 +12,6 @@ const Menu = () => {
   const [dishData, setDishData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasMoreData, setHasMoreData] = useState(false);
   const [menuCategory, setMenuCategory] = useState("");
   const [menuCategoryLength, setMenuCategoryLength] = useState(null);
   const [initialIndex, setInitialIndex] = useState(0);
@@ -37,6 +36,11 @@ const Menu = () => {
           setDishData(response.data.data);
           setLoading(false);
           setMenuCategory(Object.keys(response.data.data.dishes_data)[0]);
+          setMenuCategoryLength(
+            response.data.data.dishes_data[
+              Object.keys(response.data.data.dishes_data)[0]
+            ].length,
+          );
         }
       })
       .catch((error) => {
@@ -77,9 +81,6 @@ const Menu = () => {
   };
 
   const handlePage = (pageAction) => {
-    if (menuCategoryLength > 8) {
-      setHasMoreData(true);
-    }
     if (pageAction == "next") {
       setCurrentPage(currentPage + 1);
       setInitialIndex(MAX_DISHES * currentPage);
@@ -122,7 +123,7 @@ const Menu = () => {
                     <button
                       className="bg-gray-200 rounded-md p-2 px-4 my-2"
                       onClick={() => handleMenuCategory(menu)}
-                      key={inx + 2}
+                      key={menu}
                     >
                       {menu}
                     </button>
@@ -142,63 +143,61 @@ const Menu = () => {
             {dishData.dishes_data[menuCategory].map((data, inx) => {
               if (inx >= initialIndex && inx < currentPage * MAX_DISHES) {
                 return (
-                  <>
-                    <div
-                      className="bg-gray-200 p-4 rounded-md flex flex-row items-center gap-4 justify-between my-2 text-sm md:text-lg"
-                      key={data.dish_id}
-                    >
-                      <div className="flex flex-row gap-4 items-center">
-                        <img
-                          src={`http://localhost:5000/public/${data.dish_image}`}
-                          className="h-32 w-32 rounded-md shadow-lg object-fill"
-                        />
-                        <div className="flex flex-col gap-2">
-                          <div className="font-bold">{data.dish_name}</div>
-                          <div className="line-clamp-2">
-                            {data.dish_description}
-                          </div>
-                          <div className="">
-                            <b>Price</b>:{data.dish_price}
-                          </div>
+                  <div
+                    className="bg-gray-200 p-4 rounded-md flex flex-row items-center gap-4 justify-between my-2 text-sm md:text-lg"
+                    key={data.dish_id}
+                  >
+                    <div className="flex flex-row gap-4 items-center">
+                      <img
+                        src={`http://localhost:5000/public/${data.dish_image}`}
+                        className="h-32 w-32 rounded-md shadow-lg object-fill"
+                      />
+                      <div className="flex flex-col gap-2">
+                        <div className="font-bold">{data.dish_name}</div>
+                        <div className="line-clamp-2">
+                          {data.dish_description}
                         </div>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center text-xs md:flex-row md:text-base">
-                        <div className="flex items-center bg-gray-100 rounded-lg p-1">
-                          <button
-                            className="bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded-md transition-colors"
-                            onClick={() => handleUpdateCart(data, -1)}
-                          >
-                            -
-                          </button>
-                          <span className="px-4 font-medium">
-                            {cart.find((item) => item.dish_id === data.dish_id)
-                              ?.quantity || 0}
-                          </span>
-                          <button
-                            className="bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded-md transition-colors"
-                            onClick={() => handleUpdateCart(data, 1)}
-                          >
-                            +
-                          </button>
+                        <div className="">
+                          <b>Price</b>:{data.dish_price}
                         </div>
-                        <button
-                          className="bg-blue-600 p-2 rounded-md text-white whitespace-nowrap overflow-hidden text-ellipsis"
-                          onClick={() =>
-                            dispatch(
-                              addToCart({
-                                ...data,
-                                quantity: 1,
-                                restaurant_id: dishData.restaurant_id,
-                                user_id,
-                              }),
-                            )
-                          }
-                        >
-                          Add to Cart
-                        </button>
                       </div>
                     </div>
-                  </>
+                    <div className="flex flex-col gap-2 items-center text-xs md:flex-row md:text-base">
+                      <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                        <button
+                          className="bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded-md transition-colors"
+                          onClick={() => handleUpdateCart(data, -1)}
+                        >
+                          -
+                        </button>
+                        <span className="px-2 font-medium">
+                          {cart.find((item) => item.dish_id === data.dish_id)
+                            ?.quantity || 0}
+                        </span>
+                        <button
+                          className="bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded-md transition-colors"
+                          onClick={() => handleUpdateCart(data, 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                      <button
+                        className="bg-blue-600 p-2 rounded-md text-white whitespace-nowrap overflow-hidden text-ellipsis"
+                        onClick={() =>
+                          dispatch(
+                            addToCart({
+                              ...data,
+                              quantity: 1,
+                              restaurant_id: dishData.restaurant_id,
+                              user_id,
+                            }),
+                          )
+                        }
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
                 );
               }
             })}

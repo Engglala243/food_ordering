@@ -47,6 +47,7 @@ const PayButton = ({ amount }) => {
         description: "Test Transaction",
         order_id: order.id,
         handler: async function (response) {
+          console.log(response, "<===pay response");
           try {
             // Verify payment
             const { data } = await axios.post(
