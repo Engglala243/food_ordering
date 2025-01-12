@@ -2,7 +2,8 @@ import React from "react";
 
 function UserAccount() {
   const user = {
-    image: "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-1024.png", 
+    image:
+      "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-1024.png",
     name: "User Name",
     email: "useremail@gamil.com",
     phone: "+19-1212121213",
@@ -10,7 +11,7 @@ function UserAccount() {
   };
 
   return (
-    <div className="p-6 mt-40 max-w-md mx-auto bg-white shadow-md rounded-lg">
+    <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-lg">
       <div className="flex items-center">
         <img
           src={user.image}

@@ -36,7 +36,7 @@ function Order() {
 
     // Invoice details
     doc.setFontSize(10);
-    doc.text(`Invoice No: ${inx+1}`, 20, 35);
+    doc.text(`Invoice No: ${inx + 1}`, 20, 35);
     doc.text(`Date: ${convertDate(order.created_at)}`, pageWidth - 60, 35);
 
     // Table headers
@@ -47,33 +47,43 @@ function Order() {
 
     // Draw table header
     doc.setFillColor(240, 240, 240);
-    doc.rect(startX, startY - 5, columnWidths.reduce((a, b) => a + b, 0), 10, "F");
+    doc.rect(
+      startX,
+      startY - 5,
+      columnWidths.reduce((a, b) => a + b, 0),
+      10,
+      "F",
+    );
     doc.setFont("helvetica", "bold");
-    
+
     columns.forEach((header, i) => {
-        const x = startX + (i > 0 ? columnWidths.slice(0, i).reduce((a, b) => a + b, 0) : 0);
-        doc.text(header, x, startY);
+      const x =
+        startX +
+        (i > 0 ? columnWidths.slice(0, i).reduce((a, b) => a + b, 0) : 0);
+      doc.text(header, x, startY);
     });
 
     // Table content
     startY += 10;
     doc.setFont("helvetica", "normal");
-    
-    order.dish_data.forEach((item, index) => {
-        const itemTotal = item.quantity * item.dish_price;
-        const row = [
-            (index + 1).toString(),
-            item.dish_name,
-            item.quantity.toString(),
-            `$${item.dish_price}`,
-            `$${itemTotal.toFixed(2)}`
-        ];
 
-        row.forEach((text, i) => {
-            const x = startX + (i > 0 ? columnWidths.slice(0, i).reduce((a, b) => a + b, 0) : 0);
-            doc.text(text, x, startY);
-        });
-        startY += 10;
+    order.dish_data.forEach((item, index) => {
+      const itemTotal = item.quantity * item.dish_price;
+      const row = [
+        (index + 1).toString(),
+        item.dish_name,
+        item.quantity.toString(),
+        `$${item.dish_price}`,
+        `$${itemTotal.toFixed(2)}`,
+      ];
+
+      row.forEach((text, i) => {
+        const x =
+          startX +
+          (i > 0 ? columnWidths.slice(0, i).reduce((a, b) => a + b, 0) : 0);
+        doc.text(text, x, startY);
+      });
+      startY += 10;
     });
 
     // Calculate taxes and totals
@@ -89,28 +99,36 @@ function Order() {
     // Amount details
     startY += 20;
     const amountX = pageWidth - 60;
-    
+
     doc.text("Subtotal:", amountX, startY);
-    doc.text(`$${subtotal.toFixed(2)}`, pageWidth - 20, startY, { align: "right" });
-    
+    doc.text(`$${subtotal.toFixed(2)}`, pageWidth - 20, startY, {
+      align: "right",
+    });
+
     startY += 10;
     doc.text("IGST (18%):", amountX, startY);
-    doc.text(`$${gstAmount.toFixed(2)}`, pageWidth - 20, startY, { align: "right" });
-    
+    doc.text(`$${gstAmount.toFixed(2)}`, pageWidth - 20, startY, {
+      align: "right",
+    });
+
     startY += 10;
     doc.setFont("helvetica", "bold");
     doc.text("Total Amount:", amountX, startY);
-    doc.text(`$${total.toFixed(2)}`, pageWidth - 20, startY, { align: "right" });
+    doc.text(`$${total.toFixed(2)}`, pageWidth - 20, startY, {
+      align: "right",
+    });
 
     // Footer
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
     const footerY = doc.internal.pageSize.height - 20;
-    doc.text("Thank you for your business!", pageWidth / 2, footerY, { align: "center" });
+    doc.text("Thank you for your business!", pageWidth / 2, footerY, {
+      align: "center",
+    });
 
     // Save the PDF
     doc.save(`Invoice_Order_${order.id || "N/A"}.pdf`);
-};
+  };
 
   useEffect(() => {
     const fetchOrderData = async () => {
@@ -134,7 +152,7 @@ function Order() {
   }, []);
 
   return (
-    <div className="p-4 mt-28">
+    <div className="bg-gray-50 px-6 pt-40 pb-20 min-h-screen md:pt-28 md:pb-4">
       <h1 className="text-2xl font-bold mb-4">My Orders</h1>
       {loading ? (
         <p>Loading orders...</p>
@@ -148,7 +166,9 @@ function Order() {
               >
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Order #{index + 1}</span>
-                  <span className="text-sm text-gray-500">{convertDate(item.created_at)}</span>
+                  <span className="text-sm text-gray-500">
+                    {convertDate(item.created_at)}
+                  </span>
                   <svg
                     className={`w-5 h-5 transform transition-transform duration-300 ${
                       activeIndex === index ? "rotate-180" : "rotate-0"
@@ -185,13 +205,17 @@ function Order() {
                             <td className="px-4 py-2">{idx + 1}</td>
                             <td className="px-4 py-2">{dish.dish_name}</td>
                             <td className="px-4 py-2">{dish.quantity}</td>
-                            <td className="px-4 py-2">${(dish.quantity * dish.dish_price).toFixed(2)}</td>
+                            <td className="px-4 py-2">
+                              ${(dish.quantity * dish.dish_price).toFixed(2)}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                     <div className="mt-4 text-right">
-                      <span className="font-bold">Total Paid: ${item.amount_paid.toFixed(2)}</span>
+                      <span className="font-bold">
+                        Total Paid: ${item.amount_paid.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                   <button

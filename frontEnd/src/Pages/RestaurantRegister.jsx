@@ -58,7 +58,7 @@ const RestaurantRegister = () => {
         .required("Phone number is required")
         .matches(
           /^\+?[1-9]\d{1,14}$/,
-          "Phone number must be valid and include country code (e.g., +123456789)"
+          "Phone number must be valid and include country code (e.g., +123456789)",
         ),
       email: Yup.string()
         .email("Invalid email format.")
@@ -163,7 +163,7 @@ const RestaurantRegister = () => {
         });
       }
 
-      // Common QR-code 
+      // Common QR-code
       const commonPage = pdfDoc.addPage([600, 800]);
       const commonQrData = JSON.stringify({
         restaurant_name: formik.values.restaurant_name,
@@ -221,7 +221,7 @@ const RestaurantRegister = () => {
         "service_shh1qjq",
         "template_caahy5j",
         templateParams,
-        "DmbJWFOqMCWQR0Fkr"
+        "DmbJWFOqMCWQR0Fkr",
       )
       .then(() => {
         alert("OTP sent to your email.");
@@ -258,7 +258,7 @@ const RestaurantRegister = () => {
     if (pincode.length === 6) {
       try {
         const response = await axios.get(
-          `https://api.postalpincode.in/pincode/${pincode}`
+          `https://api.postalpincode.in/pincode/${pincode}`,
         );
         if (response.data[0].Status === "Success") {
           const cityData = response.data[0].PostOffice[0];
@@ -271,7 +271,7 @@ const RestaurantRegister = () => {
   };
   const showAlertWithQrCode = () => {
     alert(
-      `Your restaurant has been registered successfully! \n\nDownload your QR code from below`
+      `Your restaurant has been registered successfully! \n\nDownload your QR code from below`,
     );
   };
 

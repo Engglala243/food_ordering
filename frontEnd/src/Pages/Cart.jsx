@@ -32,7 +32,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 mt-24 sm:mt-28 md:mt-20 lg:mt-24">
+    <div className="px-4 bg-gray-50 pt-36 pb-10 md:pt-24">
       <div className="container mx-auto max-w-6xl mb-20">
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">
           Your Cart
@@ -95,7 +95,7 @@ const Cart = () => {
                 Total with tax: ${calculateTotal()}
               </div>
               <div className="flex justify-end">
-                <PayButton amount={calculateTotal()} />
+                <PayButton amount={calculateTotal()} cart_data={cart} />
               </div>
             </div>
           </div>

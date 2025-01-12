@@ -27,16 +27,14 @@ const Home = () => {
     <>
       <div className="flex flex-col min-h-screen justify-between">
         <div className="fixed z-3 w-screen">
-          <Header
-            isHome={isHome}
-          />
+          <Header isHome={isHome} />
         </div>
         <div className="flex-grow">
           <Outlet />
         </div>
-        <Footer 
-            isHome={isHome}
-            count={useSelector((state) => state.cart.cartItems.length)} 
+        <Footer
+          isHome={isHome}
+          count={useSelector((state) => state.cart.cartItems.length)}
         />
       </div>
     </>

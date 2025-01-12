@@ -34,7 +34,7 @@ const fetchOrder = async (req, res) => {
 const insertOrder = async (req, res) => {
   // initiating user_id and cartData with req.body
   // variables values
-  const { user_id, cart_data, amount_paid } = req.body;
+  const { cart_data, amount_paid } = req.body;
   const restaurant_id = req.body.cart_data[0].restaurant_id;
   const table_no = 2;
 
@@ -56,19 +56,19 @@ const insertOrder = async (req, res) => {
   // combining the dishes_data and rest values
   // for order entry for the database
   const orderEntry = {
-    user_id,
+    user_id: req.user.user_id,
     restaurant_id,
     dish_data: JSON.stringify(dish_data),
     amount_paid,
     table_no,
-    created_by: user_id,
+    created_by: req.user.user_id,
   };
 
   console.log(orderEntry, "<===orderEntry");
 
   try {
     await insertRecord("orders", orderEntry);
-    await customRecord(`DELETE FROM cart WHERE user_id = ?`, user_id);
+    await customRecord(`DELETE FROM cart WHERE user_id = ?`, req.user.user_id);
     customResponse("Order successful!", 200, true)(req, res);
   } catch (err) {
     customResponse(`Error in inserting order: ${err}`, 500, false)(req, res);

@@ -1,6 +1,6 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
-const { insertRecord } = require("./sqlFunctions");
+const { insertRecord, customRecord } = require("./sqlFunctions");
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
@@ -9,8 +9,12 @@ const razorpay = new Razorpay({
 
 const createPaymentOrder = async (req, res) => {
   try {
+    console.log(
+      Number(req.body.amount * 100),
+      "<===order amount before creation",
+    );
     const options = {
-      amount: Number(req.body.amount * 100), // amount in smallest currency unit
+      amount: parseInt(req.body.amount * 100), // amount in smallest currency unit
       currency: "INR",
       receipt: `order_${Date.now()}`,
       payment_capture: 1,
@@ -18,8 +22,26 @@ const createPaymentOrder = async (req, res) => {
 
     const order = await razorpay.orders.create(options);
     console.log("Order created:", order);
+
+    const paymentRecord = {
+      user_id: req.user.user_id,
+      amount: req.body.amount,
+      pay_order_id: order.id,
+      status: "pending",
+      created_by: req.user.user_id,
+    };
+
+    await insertRecord("payment_table", paymentRecord);
     res.json(order);
   } catch (error) {
+    const paymentRecord = {
+      user_id: req.user.user_id,
+      amount: Number(req.body.amount),
+      status: "failed",
+      created_by: req.user.user_id,
+    };
+
+    await insertRecord("payment_table", paymentRecord);
     console.error("Order creation error:", error);
     res
       .status(500)
@@ -29,12 +51,8 @@ const createPaymentOrder = async (req, res) => {
 
 const handlePaymentVerification = async (req, res) => {
   try {
-    const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-      order_amount,
-    } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body;
 
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
@@ -42,22 +60,12 @@ const handlePaymentVerification = async (req, res) => {
       .update(sign.toString())
       .digest("hex");
 
-    const razorpay_details = {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-    };
-
-    const paymentRecord = {
-      user_id: req.user.user_id,
-      amount: order_amount / 100,
-      razorpay_details: JSON.stringify(razorpay_details),
-      status: "successful",
-      created_by: req.user.user_id,
-    };
-
     if (razorpay_signature === expectedSign) {
-      await insertRecord("payment_table", paymentRecord);
+      const query = `UPDATE payment_table 
+                     SET status = 'successful'
+                     WHERE pay_order_id = ?`;
+      await customRecord(query, razorpay_order_id);
+
       res.json({ verified: true });
     } else {
       res.status(400).json({ verified: false });

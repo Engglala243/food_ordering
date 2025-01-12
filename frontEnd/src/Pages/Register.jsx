@@ -52,7 +52,7 @@ const Register = () => {
         .required("Phone number is required")
         .matches(
           /^\+?[1-9]\d{1,14}$/,
-          "Phone number must be valid and include country code (e.g., +123456789)"
+          "Phone number must be valid and include country code (e.g., +123456789)",
         ),
       email: Yup.string()
         .email("Invalid email format.")
@@ -67,7 +67,7 @@ const Register = () => {
         .oneOf([Yup.ref("password"), null], "Password should match!")
         .required("Required!"),
     }),
-    
+
     onSubmit: (values, { resetForm }) => {
       if (!isOtpVerified) {
         alert("Please verify your email before registering.");
@@ -105,7 +105,13 @@ const Register = () => {
     console.log(error, "<=========error");
     console.log(generatedOtp, "<=========GOOD");
 
-    emailjs.send('service_shh1qjq', 'template_caahy5j', templateParams, 'DmbJWFOqMCWQR0Fkr')
+    emailjs
+      .send(
+        "service_shh1qjq",
+        "template_caahy5j",
+        templateParams,
+        "DmbJWFOqMCWQR0Fkr",
+      )
       .then(() => {
         alert("OTP sent to your email.");
         setIsOtpSent(true);
@@ -143,7 +149,7 @@ const Register = () => {
     if (pincode.length === 6) {
       try {
         const response = await axios.get(
-          `https://api.postalpincode.in/pincode/${pincode}`
+          `https://api.postalpincode.in/pincode/${pincode}`,
         );
         if (response.data[0].Status === "Success") {
           const cityData = response.data[0].PostOffice[0];
@@ -163,7 +169,6 @@ const Register = () => {
         </h2>
 
         <form onSubmit={formik.handleSubmit} className="space-y-6">
-          
           <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
             <h3 className="text-xl font-semibold text-blue-800 mb-4 pb-2">
               Basic Details
@@ -205,33 +210,33 @@ const Register = () => {
               </div>
 
               {!isOtpVerified && (
-              <>
-                <button
-                  type="button"
-                  onClick={handleSendOtp}
-                  className="bg-blue-500 text-white px-2 py-1 mt-12 ml-14 rounded-md"
-                  disabled={isOtpSent}
-                >
-                  {isOtpSent ? "OTP Sent" : "Send OTP"}
-                </button>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Enter OTP"
-                    value={enteredOtp}
-                    onChange={(e) => setEnteredOtp(e.target.value)}
-                    className="form-input w-full px-3 py-2 border rounded-md"
-                  />
+                <>
                   <button
                     type="button"
-                    onClick={handleVerifyOtp}
-                    className="bg-green-500 text-white px-4 py-2 mt-2 rounded-md"
+                    onClick={handleSendOtp}
+                    className="bg-blue-500 text-white px-2 py-1 mt-12 ml-14 rounded-md"
+                    disabled={isOtpSent}
                   >
-                    Verify OTP
+                    {isOtpSent ? "OTP Sent" : "Send OTP"}
                   </button>
-                </div>
-              </>
-            )}
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Enter OTP"
+                      value={enteredOtp}
+                      onChange={(e) => setEnteredOtp(e.target.value)}
+                      className="form-input w-full px-3 py-2 border rounded-md"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleVerifyOtp}
+                      className="bg-green-500 text-white px-4 py-2 mt-2 rounded-md"
+                    >
+                      Verify OTP
+                    </button>
+                  </div>
+                </>
+              )}
 
               <div>
                 <label htmlFor="phone" className="form-label">
@@ -289,7 +294,6 @@ const Register = () => {
             </h3>
 
             <div className="grid md:grid-cols-2 gap-4">
-
               <div className="md:col-span-2">
                 <label htmlFor="street" className="form-label">
                   Street
@@ -378,15 +382,15 @@ const Register = () => {
           </div>
 
           <div className="text-center">
-          <button
-            type="submit"
-            className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full ${
-              !isOtpVerified ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={!isOtpVerified}
-          >
-            Register Restaurant
-          </button>
+            <button
+              type="submit"
+              className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full ${
+                !isOtpVerified ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={!isOtpVerified}
+            >
+              Register Restaurant
+            </button>
           </div>
         </form>
       </div>

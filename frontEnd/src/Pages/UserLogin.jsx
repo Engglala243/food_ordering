@@ -53,7 +53,7 @@ const UserLogin = () => {
   });
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 mx-4">
         <h2 className="text-2xl font-bold text-center mb-4">User Login</h2>
         <hr className="mb-6" />

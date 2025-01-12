@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const PayButton = ({ amount }) => {
+const PayButton = ({ amount, cart_data }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,6 +13,31 @@ const PayButton = ({ amount }) => {
       script.onerror = () => resolve(false);
       document.body.appendChild(script);
     });
+  };
+
+  const orderInsert = async () => {
+    const access_token = localStorage.getItem("access_token");
+    await axios
+      .post(
+        "http://localhost:5000/order/insert",
+        {
+          cart_data: cart_data,
+          amount_paid: amount,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        },
+      )
+      .then((resp) => {
+        console.log(`Order inserted successfully: ${resp}`);
+        localStorage.setItem("cart", JSON.stringify([]));
+        window.location.href = "/order";
+      })
+      .catch((err) => {
+        console.log(`Order insertion failed: ${err}`);
+      });
   };
 
   const handlePayment = async (amount) => {
@@ -27,7 +52,7 @@ const PayButton = ({ amount }) => {
       }
 
       // Create order
-      const { data: order } = await axios.post(
+      const pay_resp = await axios.post(
         "http://localhost:5000/payment/create-order",
         {
           amount: amount,
@@ -38,6 +63,10 @@ const PayButton = ({ amount }) => {
           },
         },
       );
+
+      console.log(pay_resp, "<===This is the pay response");
+
+      const { data: order } = pay_resp;
 
       const options = {
         key: import.meta.env.RAZORPAY_API_KEY,
@@ -67,6 +96,7 @@ const PayButton = ({ amount }) => {
 
             if (data.verified) {
               alert("Payment successful!");
+              orderInsert();
               // Handle successful payment (e.g., update UI, redirect, etc.)
             }
           } catch (err) {
