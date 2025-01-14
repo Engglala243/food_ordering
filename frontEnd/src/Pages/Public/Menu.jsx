@@ -3,9 +3,9 @@ import { useParams, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { addToCart, updateCartQuantity } from "../features/CartSlice";
-import Spinner from "../Components/Spinner";
-import MenuCategory from "../Components/MenuCategory";
+import { addToCart, updateCartQuantity } from "../../features/CartSlice";
+import Spinner from "../../Components/Spinner";
+import MenuCategory from "../../Components/MenuCategory";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -109,7 +109,7 @@ const Menu = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="min-h-screen bg-gray-50 pt-32 md:pt-24">
+        <div className="min-h-screen bg-gray-50 pt-32 pb-14 md:pt-24">
           <div className="container px-4 md:px-6 py-4 pb-10 mx-auto">
             {/* Restaurant Info */}
             <div className="bg-white rounded-lg p-4 md:p-6 mb-6 md:mb-8 border-l-4 border-[#46a679] max-w-4xl mx-auto">

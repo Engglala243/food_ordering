@@ -1,6 +1,5 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import Head02 from "../assets/images/head02.jpg";
+import Head02 from "../../assets/images/head02.jpg";
 import "./Landing.css";
 
 const Landing = () => {

@@ -1,26 +1,18 @@
-import {
-  createBrowserRouter,
-  Routes,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-import Home from "../Pages/Home";
-import Landing from "../Pages/Landing";
-import NotFound from "../Pages/NotFound";
-import Dashboard from "../Pages/Dashboard";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "../Pages/Public/Home";
+import Landing from "../Pages/Public/Landing";
+import NotFound from "../Pages/Public/NotFound";
 import { ToastContainer } from "react-toastify";
-import Restaurant from "../Pages/Restaurant";
-import Menu from "../Pages/Menu";
-import RestaurantRegister from "../Pages/RestaurantRegister";
-import RestaurantLogin from "../Pages/RestaurantLogin";
-import UserLogin from "../Pages/UserLogin";
-import UserRegister from "../Pages/UserRegister";
-import Test from "../Pages/Test";
-import RestaurantMenu from "../Pages/RestaurantMenu";
-import Cart from "../Pages/Cart";
-import Order from "../Pages/Order";
-import UserAccount from "../Pages/UserAccount";
-import UserProfile from "../Pages/UserProfile";
+import Menu from "../Pages/Public/Menu";
+import RestaurantRegister from "../Pages/Restaurant/RestaurantRegister";
+import RestaurantLogin from "../Pages/Restaurant/RestaurantLogin";
+import UserLogin from "../Pages/User/UserLogin";
+import UserRegister from "../Pages/User/UserRegister";
+import Cart from "../Pages/Public/Cart";
+import Order from "../Pages/User/Order";
+import UserAccount from "../Pages/User/UserAccount";
+import UserProfile from "../Pages/User/UserProfile";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,22 +20,19 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Landing /> },
-      { path: "/dashboard", element: <Dashboard /> },
       { path: "/restaurant/login", element: <RestaurantLogin /> },
       { path: "/restaurant/register", element: <RestaurantRegister /> },
       { path: "/user/login", element: <UserLogin /> },
       { path: "/user/register", element: <UserRegister /> },
-      { path: "/restaurant", element: <Restaurant /> },
-      { path: "/restaurant/menu", element: <RestaurantMenu /> },
-      { path: "/restaurant/cart", element: <Cart /> },
+      { path: "/cart", element: <Cart /> },
       { path: "/menu/:id", element: <Menu /> },
       { path: "/order", element: <Order /> },
       { path: "/user/account", element: <UserAccount /> },
       { path: "/user/profile", element: <UserProfile /> },
-      { path: "/test", element: <Test /> },
     ],
   },
 ]);
+
 const AddRoutes = () => {
   return (
     <>

@@ -42,7 +42,7 @@ const Footer = ({ isHome, count }) => {
               {isHome ? (
                 <div
                   className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
-                  onClick={() => navigate("/restaurant/cart")}
+                  onClick={() => navigate("/cart")}
                 >
                   <FaShoppingCart
                     title="cart"
@@ -59,7 +59,7 @@ const Footer = ({ isHome, count }) => {
               ) : (
                 <div
                   className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
-                  onClick={() => navigate("/restaurant/cart")}
+                  onClick={() => navigate("/cart")}
                 >
                   <FaShoppingCart
                     title="cart"
@@ -80,7 +80,7 @@ const Footer = ({ isHome, count }) => {
               {isHome ? (
                 <div
                   className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
-                  onClick={() => navigate("/restaurant/cart")}
+                  onClick={() => navigate("/cart")}
                 >
                   <FaShoppingCart
                     title="cart"
@@ -97,7 +97,7 @@ const Footer = ({ isHome, count }) => {
               ) : (
                 <div
                   className="relative flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
-                  onClick={() => navigate("/restaurant/cart")}
+                  onClick={() => navigate("/cart")}
                 >
                   <FaShoppingCart
                     title="cart"

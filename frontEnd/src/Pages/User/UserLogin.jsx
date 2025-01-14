@@ -3,10 +3,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../features/AuthSlice.jsx";
+import { loginUser } from "../../features/AuthSlice.jsx";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { fetchCart } from "../features/CartSlice.jsx";
+import { fetchCart } from "../../features/CartSlice.jsx";
 
 const UserLogin = () => {
   const dispatch = useDispatch();

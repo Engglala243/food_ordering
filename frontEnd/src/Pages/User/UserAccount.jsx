@@ -1,6 +1,5 @@
-import React from "react";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../features/AuthSlice";
+import { logoutUser } from "../../features/AuthSlice";
 import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
