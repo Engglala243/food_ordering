@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import Menu from "../Pages/Public/Menu";
 import RestaurantRegister from "../Pages/Restaurant/RestaurantRegister";
 import RestaurantLogin from "../Pages/Restaurant/RestaurantLogin";
+import RestaurantDashboard from "../Pages/Restaurant/RestaurantDashboard";
 import UserLogin from "../Pages/User/UserLogin";
 import UserRegister from "../Pages/User/UserRegister";
 import Cart from "../Pages/Public/Cart";
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { index: true, element: <Landing /> },
       { path: "/restaurant/login", element: <RestaurantLogin /> },
       { path: "/restaurant/register", element: <RestaurantRegister /> },
+      { path: "/restaurant/dashboard", element: <RestaurantDashboard/> },
       { path: "/user/login", element: <UserLogin /> },
       { path: "/user/register", element: <UserRegister /> },
       { path: "/cart", element: <Cart /> },
