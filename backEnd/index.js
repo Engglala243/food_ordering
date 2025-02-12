@@ -11,13 +11,13 @@ const { verifyToken } = require("./middlewares/verifyToken.js");
 
 const app = express();
 
-app.use(cors())
-
 connectDB();
 
 const port = process.env.PORT || 3000;
 
 const jsonParser = bodyParser.json();
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

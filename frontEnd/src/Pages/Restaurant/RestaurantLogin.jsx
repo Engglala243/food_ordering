@@ -2,8 +2,14 @@ import { FaKey, FaUser } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/AuthSlice.jsx";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantLogin = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,9 +30,14 @@ const RestaurantLogin = () => {
         password: values.password,
       };
       axios
-        .post("http://localhost:5000/auth/restaurant/login", loginData)
+        .post("http://192.168.1.18:5000/auth/restaurant/login", loginData, {
+          withCredentials: false,
+        })
         .then((response) => {
-          alert("Login Success");
+          localStorage.setItem("access_token", response.data.access_token);
+          dispatch(loginUser);
+          navigate("/restaurant/dashboard");
+          toast.success("Login Successful!");
           console.log(response.data);
         })
         .catch((err) => {

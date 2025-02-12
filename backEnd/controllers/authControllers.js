@@ -13,9 +13,7 @@ const {
 const { customResponse } = require("../utils/customResponse");
 
 const generateAccessToken = (payload) => {
-  return jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
 };
 
 const register = async (req, res, next) => {
@@ -69,7 +67,6 @@ const login = async (req, res) => {
           uuid: existingUser.uuid,
           user_id: existingUser.id,
         };
-
         res.status(200).json({
           uuid: existingUser.uuid,
           user_id: existingUser.id,
@@ -155,12 +152,16 @@ const restau_login = async (req, res) => {
         existingUser.password,
       );
 
+      const payload = {
+        restaurant_id: existingUser.restaurant_id,
+      };
+
       if (passwordMatch) {
         res.status(200).json({
           uuid: existingUser.uuid,
           restaurant_id: existingUser.restaurant_id,
           email: existingUser.email,
-          access_token: generateAccessToken(existingUser.uuid),
+          access_token: generateAccessToken(payload),
         });
       } else {
         res.status(401).json({ error: "Invalid credentials " });
@@ -169,6 +170,7 @@ const restau_login = async (req, res) => {
       res.status(401).json({ error: "Invalid credentials" });
     }
   } catch (error) {
+    console.log(error, "<==ERRR");
     res.status(500).json({ error: error.message });
   }
 };

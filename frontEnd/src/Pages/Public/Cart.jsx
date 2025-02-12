@@ -46,7 +46,7 @@ const Cart = () => {
               >
                 <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                   <img
-                    src={`http://localhost:5000/public/${item.dish_image}`}
+                    src={`http://192.168.1.18:5000/public/${item.dish_image}`}
                     alt={item.dish_name}
                     className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-cover rounded-md"
                   />

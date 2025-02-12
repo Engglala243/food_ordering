@@ -25,7 +25,7 @@ const Menu = () => {
   // Existing functions remain the same
   const getDishData = () => {
     axios
-      .get(`http://localhost:5000/menu/data?id=${params.id}`)
+      .get(`http://192.168.1.18:5000/menu/data?id=${params.id}`)
       .then((response) => {
         if (response.data.data === null) {
           toast.error("Restaurant data not found!", {
@@ -161,7 +161,7 @@ const Menu = () => {
                           {/* Image */}
                           <div className="w-full md:w-48 h-48 md:h-40 flex-shrink-0">
                             <img
-                              src={`http://localhost:5000/public/${data.dish_image}`}
+                              src={`http://192.168.1.18:5000/public/${data.dish_image}`}
                               className="w-full h-full object-cover"
                               alt={data.dish_name}
                             />

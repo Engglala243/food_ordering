@@ -4,7 +4,6 @@ import { X, Plus, Trash, Image as ImageIcon } from "lucide-react";
 import { Formik, Field, FieldArray, Form } from "formik";
 import * as Yup from "yup";
 import AddMenu from "../../Components/AddMenu";
-import ProductForm from "../../Components/ProductForm";
 
 const dishValidationSchema = Yup.object().shape({
   dishes: Yup.array()
@@ -74,7 +73,6 @@ const Menu = () => {
   return (
     <div className="">
       <AddMenu />
-      <ProductForm />
 
       {isOpen && (
         <div className="z-10 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

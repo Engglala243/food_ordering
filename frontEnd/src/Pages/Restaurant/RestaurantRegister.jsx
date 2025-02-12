@@ -86,7 +86,7 @@ const RestaurantRegister = () => {
       };
 
       axios
-        .post("http://localhost:5000/auth/restaurant/register", registerData)
+        .post("http://192.168.1.18:5000/auth/restaurant/register", registerData)
         .then((response) => {
           alert("Registration successful.");
           console.log(response.data);
@@ -200,6 +200,16 @@ const RestaurantRegister = () => {
     }
   };
 
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
   const handleSendOtp = (error) => {
     if (!formik.values.email) {
       alert("Please enter your email to send the OTP.");
@@ -208,28 +218,6 @@ const RestaurantRegister = () => {
 
     const generatedOtp = Math.random().toString(36).substring(2, 8);
     setOtp(generatedOtp);
-
-    const templateParams = {
-      to_email: formik.values.email,
-      message: `${generatedOtp}`,
-    };
-    console.log(error, "<=========error");
-    console.log(generatedOtp, "<=========GOOD");
-
-    emailjs
-      .send(
-        "service_shh1qjq",
-        "template_caahy5j",
-        templateParams,
-        "DmbJWFOqMCWQR0Fkr",
-      )
-      .then(() => {
-        alert("OTP sent to your email.");
-        setIsOtpSent(true);
-      })
-      .catch((error) => {
-        console.error("Error sending OTP:", error);
-      });
   };
 
   const handleVerifyOtp = () => {
