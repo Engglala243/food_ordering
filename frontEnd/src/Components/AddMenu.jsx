@@ -9,15 +9,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Pencil } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { loadMenu } from "@/features/MenuSlice";
+import Cookies from "js-cookie";
 
 const AddMenu = () => {
-  const [menuData, setMenuData] = useState([]);
+  const menuData = JSON.parse(useSelector((state) => state.menu.menuData));
   const access_token = localStorage.getItem("access_token");
-  const dispatch = useDispatch();
-  const menuLoaded = useSelector((state) => state.menu.menuLoaded);
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +40,7 @@ const AddMenu = () => {
     onSubmit: (values, { resetForm }) => {
       axios
         .post(
-          "http://192.168.1.18:5000/menu",
+          "http://localhost:5000/menu",
           { name: values.name },
           {
             headers: {
@@ -48,32 +56,10 @@ const AddMenu = () => {
     },
   });
 
-  const fetchMenuData = () => {
-    axios
-      .get("http://192.168.1.18:5000/menu", {
-        headers: {
-          Authorization: `Bearer: ${access_token}`,
-        },
-      })
-      .then((resp) => {
-        setMenuData(resp.data.data);
-        dispatch(loadMenu());
-        console.log(resp.data.data, "<===this response");
-      })
-      .catch((err) => {
-        console.log(`Axios Error: ${err}`);
-      });
-  };
-
-  useEffect(() => {
-    if (!menuLoaded) {
-      fetchMenuData();
-    }
-  }, [menuLoaded]);
+  console.log(typeof menuData);
 
   return (
     <>
-      <div></div>
       <Dialog>
         <DialogTrigger className="bg-blue-800 p-2 rounded-md text-white">
           Open
@@ -106,6 +92,41 @@ const AddMenu = () => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+
+      <Table>
+        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">S.No.</TableHead>
+            <TableHead>Category Name</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {menuData.map((data, inx) => (
+            <TableRow key={inx + 100}>
+              <TableCell className="font-medium">{inx + 1}</TableCell>
+              <TableCell>{data.name}</TableCell>
+              <TableCell className="text-right">
+                <Dialog>
+                  <DialogTrigger>
+                    <Pencil />
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Are you absolutely sure?</DialogTitle>
+                      <DialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete your account and remove your data from our
+                        servers.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </>
   );
 };

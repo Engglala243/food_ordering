@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/AuthSlice.jsx";
 import { useNavigate } from "react-router-dom";
+import { fetchMenu } from "@/features/MenuSlice.jsx";
 
 const RestaurantLogin = () => {
   const navigate = useNavigate();
@@ -30,12 +31,13 @@ const RestaurantLogin = () => {
         password: values.password,
       };
       axios
-        .post("http://192.168.1.18:5000/auth/restaurant/login", loginData, {
+        .post("http://localhost:5000/auth/restaurant/login", loginData, {
           withCredentials: false,
         })
         .then((response) => {
           localStorage.setItem("access_token", response.data.access_token);
           dispatch(loginUser);
+          dispatch(fetchMenu(response.data.access_token));
           navigate("/restaurant/dashboard");
           toast.success("Login Successful!");
           console.log(response.data);

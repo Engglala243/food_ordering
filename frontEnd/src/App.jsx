@@ -2,13 +2,16 @@ import "./App.css";
 import AddRoutes from "./AddRoutes/AddRoutes";
 import { Provider } from "react-redux";
 import { store } from "./store.jsx";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
   return (
     <>
-      <Provider store={store}>
-        <AddRoutes />
-      </Provider>
+      <CookiesProvider>
+        <Provider store={store}>
+          <AddRoutes />
+        </Provider>
+      </CookiesProvider>
     </>
   );
 }
