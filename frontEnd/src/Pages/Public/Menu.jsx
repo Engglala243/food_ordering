@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { addToCart, updateCartQuantity } from "../../features/CartSlice";
-import Spinner from "../../Components/Spinner";
-import MenuCategory from "../../Components/MenuCategory";
+import Spinner from "../../components/Spinner";
+import MenuCategory from "../../components/MenuCategory";
 
 const Menu = () => {
   const dispatch = useDispatch();

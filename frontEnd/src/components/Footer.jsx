@@ -8,7 +8,7 @@ const Footer = ({ isHome, count }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <div className="fixed bottom-0 w-full bg-[#46a679] text-gray-100 shadow-lg md:relative">
+    <div className="fixed bottom-0 w-full bg-[#46a679] text-gray-100 shadow-lg ">
       <div className="flex justify-around items-center p-2">
         <div
           onClick={() => navigate("/")}

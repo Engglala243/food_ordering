@@ -3,7 +3,7 @@ import { useState } from "react";
 import { X, Plus, Trash, Image as ImageIcon } from "lucide-react";
 import { Formik, Field, FieldArray, Form } from "formik";
 import * as Yup from "yup";
-import AddMenu from "../../Components/AddMenu";
+import AddMenu from "../../components/AddMenu";
 
 const dishValidationSchema = Yup.object().shape({
   dishes: Yup.array()

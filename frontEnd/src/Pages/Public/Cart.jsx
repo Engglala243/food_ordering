@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartQuantity, removeItem } from "../../features/CartSlice";
 import { useNavigate } from "react-router-dom";
-import PayButton from "../../Components/PayButton";
+import PayButton from "../../components/PayButton";
 
 const Cart = () => {
   const navigate = useNavigate();

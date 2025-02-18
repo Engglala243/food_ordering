@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "../../Components/Header";
-import Footer from "../../Components/Footer.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer.jsx";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";

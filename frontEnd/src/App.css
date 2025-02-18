@@ -35,3 +35,53 @@ body {
 a {
   text-decoration: none;
 }
+
+* {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* Target shadcn components specifically */
+.ring-offset-background {
+  --ring-offset-width: 0px !important;
+  --ring-offset-color: transparent !important;
+  --ring-color: transparent !important;
+  --ring-width: 0px !important;
+}
+
+[data-radix-popper-content-wrapper]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Target all common form elements */
+input,
+button,
+select,
+textarea {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  --ring-width: 0px !important;
+  --ring-offset-width: 0px !important;
+}
