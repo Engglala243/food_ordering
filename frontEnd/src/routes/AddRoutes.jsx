@@ -1,18 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "../Pages/Public/Home";
-import Landing from "../Pages/Public/Landing";
-import NotFound from "../Pages/Public/NotFound";
+import Home from "../pages/public/Home";
+import Landing from "../pages/public/Landing";
+import NotFound from "../pages/public/NotFound";
 import { ToastContainer } from "react-toastify";
-import Menu from "../Pages/Public/Menu";
-import RestaurantRegister from "../Pages/Restaurant/RestaurantRegister";
-import RestaurantLogin from "../Pages/Restaurant/RestaurantLogin";
-import RestaurantDashboard from "../Pages/Restaurant/RestaurantDashboard";
-import UserLogin from "../Pages/User/UserLogin";
-import UserRegister from "../Pages/User/UserRegister";
-import Cart from "../Pages/Public/Cart";
-import Order from "../Pages/User/Order";
-import UserAccount from "../Pages/User/UserAccount";
-import UserProfile from "../Pages/User/UserProfile";
+import Menu from "../pages/public/Menu";
+import RestaurantRegister from "../pages/restaurant/RestaurantRegister";
+import RestaurantLogin from "../pages/restaurant/RestaurantLogin";
+import RestaurantDashboard from "../pages/restaurant/RestaurantDashboard";
+import UserLogin from "../pages/user/UserLogin";
+import UserRegister from "../pages/user/UserRegister";
+import Cart from "../pages/public/Cart";
+import Order from "../pages/user/Order";
+import UserAccount from "../pages/user/UserAccount";
+import UserProfile from "../pages/user/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       { index: true, element: <Landing /> },
       { path: "/restaurant/login", element: <RestaurantLogin /> },
       { path: "/restaurant/register", element: <RestaurantRegister /> },
-      { path: "/restaurant/dashboard", element: <RestaurantDashboard/> },
+      { path: "/restaurant/dashboard", element: <RestaurantDashboard /> },
       { path: "/user/login", element: <UserLogin /> },
       { path: "/user/register", element: <UserRegister /> },
       { path: "/cart", element: <Cart /> },
