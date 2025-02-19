@@ -33,6 +33,7 @@ const menuSlice = createSlice({
     });
     builder.addCase(fetchMenu.fulfilled, (state, action) => {
       Cookies.set("menu_data", JSON.stringify(action.payload));
+      state.menuData = JSON.stringify(action.payload);
       state.menuLoaded = true;
     });
     builder.addCase(fetchMenu.rejected, (state) => {

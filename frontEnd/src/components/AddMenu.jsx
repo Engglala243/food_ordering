@@ -18,7 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pencil } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +25,7 @@ import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
+import AddDishes from "./AddDishes";
 
 // Define the validation schema
 const MenuSchema = Yup.object().shape({
@@ -40,9 +40,13 @@ const MenuSchema = Yup.object().shape({
 });
 
 const AddMenu = () => {
-  const menuData = JSON.parse(useSelector((state) => state.menu.menuData));
+  let menuData = useSelector((state) => state.menu.menuData);
   const access_token = localStorage.getItem("access_token");
   const [menuOne, setMenuOne] = useState(true);
+
+  if (menuData.length > 1) {
+    menuData = JSON.parse(menuData);
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -106,7 +110,6 @@ const AddMenu = () => {
 
   return (
     <>
-      <div></div>
       <Dialog>
         <DialogTrigger className="bg-blue-800 p-2 rounded-md text-white">
           Add Menu
@@ -184,7 +187,7 @@ const AddMenu = () => {
         </DialogContent>
       </Dialog>
 
-      <Table>
+      <Table className="my-4">
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
@@ -198,21 +201,7 @@ const AddMenu = () => {
               <TableCell className="font-medium">{inx + 1}</TableCell>
               <TableCell>{data.name}</TableCell>
               <TableCell className="text-right">
-                <Dialog>
-                  <DialogTrigger>
-                    <Pencil />
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Are you absolutely sure?</DialogTitle>
-                      <DialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete your account and remove your data from our
-                        servers.
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>
+                <AddDishes />
               </TableCell>
             </TableRow>
           ))}

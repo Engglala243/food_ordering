@@ -299,7 +299,7 @@ const RestaurantDashboard = () => {
 
   return (
     <>
-      <div className="flex flex-row pt-36 px-4 gap-2">
+      <div className="flex flex-row pt-36 px-4 gap-2 mb-20">
         <div className="flex flex-col gap-2 bg-gray-200 rounded-md p-4">
           <div
             className="flex flex-row gap-1 text-base cursor-pointer"

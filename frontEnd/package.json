@@ -13,6 +13,7 @@
     "@pdf-lib/fontkit": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-select": "^2.1.6",
     "@reduxjs/toolkit": "^2.4.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
