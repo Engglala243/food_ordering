@@ -201,7 +201,7 @@ const AddMenu = () => {
               <TableCell className="font-medium">{inx + 1}</TableCell>
               <TableCell>{data.name}</TableCell>
               <TableCell className="text-right">
-                <AddDishes />
+                <AddDishes menuId={data.menu_id} />
               </TableCell>
             </TableRow>
           ))}

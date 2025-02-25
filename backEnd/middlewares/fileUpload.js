@@ -1,84 +1,113 @@
 const multer = require("multer");
-const fs = require("fs");
 const path = require("path");
-const { customResponse } = require("../utils/customResponse");
+const fs = require("fs");
+const { customRecord } = require("../utils/sqlFunctions");
 
-const createDirIfNotExists = (dirPath) => {
+// Function to create directory if it doesn't exist
+const ensureDirectoryExists = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
 };
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Get restaurant name and menu category from the request
-    const restaurantName = req.user.restaurant_name.replace(/\s+/g, "_");
-    const menuQuery = `SELECT name FROM menu WHERE menu_id = ?`;
+// Custom storage configuration for dish images
+const dishImageStorage = multer.diskStorage({
+  destination: async function (req, file, cb) {
+    try {
+      // Get restaurant ID from authenticated user
+      const restaurant_id = req.user.restaurant_id;
 
-    req
-      .customRecord(menuQuery, [req.body.menu_id])
-      .then(([menuResult]) => {
-        const categoryName = menuResult.name.replace(/\s+/g, "_");
+      // Get restaurant name for main folder
+      const restaurantQuery = `SELECT restaurant_name FROM restaurants WHERE restaurant_id = ?`;
+      const restaurantResult = await customRecord(restaurantQuery, [
+        restaurant_id,
+      ]);
+      const restaurantName = restaurantResult[0].restaurant_name;
 
-        // Create directory path
-        const baseDir = path.join("public", restaurantName);
-        const categoryDir = path.join(baseDir, categoryName);
+      // Get menu ID from request
+      const menuId = req.body.menuId;
 
-        // Create directories if they don't exist
-        createDirIfNotExists(baseDir);
-        createDirIfNotExists(categoryDir);
+      // Get menu name for category folder
+      const menuQuery = `SELECT name FROM menu WHERE menu_id = ?`;
+      const menuResult = await customRecord(menuQuery, [menuId]);
+      const menuName = menuResult[0].name;
 
-        // Store directory path in request for later use
-        req.uploadDir = categoryDir;
+      // Create directory path
+      const dirPath = path.join(
+        process.cwd(),
+        "public",
+        restaurantName,
+        menuName,
+      );
 
-        cb(null, categoryDir);
-      })
-      .catch((err) => {
-        cb(new Error("Error getting menu category"));
-      });
+      // Ensure directory exists
+      ensureDirectoryExists(dirPath);
+
+      cb(null, dirPath);
+    } catch (error) {
+      cb(error);
+    }
   },
   filename: function (req, file, cb) {
-    // Create unique filename with timestamp
+    // Create unique filename with original extension
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const fileExt = path.extname(file.originalname);
-    cb(null, file.fieldname + "-" + uniqueSuffix + fileExt);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname.replace(/\[|\]/g, "-") + "-" + uniqueSuffix + ext);
   },
 });
 
-// File filter to allow only images
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image/")) {
-    cb(null, true);
+// Filter to allow only image files
+const imageFileFilter = (req, file, cb) => {
+  const allowedFileTypes = /jpeg|jpg|png|gif|webp/;
+  const extname = allowedFileTypes.test(
+    path.extname(file.originalname).toLowerCase(),
+  );
+  const mimetype = allowedFileTypes.test(file.mimetype);
+
+  if (extname && mimetype) {
+    return cb(null, true);
   } else {
-    cb(new Error("Only image files are allowed!"), false);
+    cb(new Error("Only image files are allowed!"));
   }
 };
 
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB limit
-  },
-});
+// Multer middleware for dish image uploads that handles array fields with dynamic names
+const handleDishUpload = (req, res, next) => {
+  // Create dynamic fields array based on the request
+  const fields = [];
+  // We'll determine the actual count in the route handler
+  for (let i = 0; i < 10; i++) {
+    // Support up to 10 dishes
+    fields.push({
+      name: `dish${i}`,
+      maxCount: 1,
+    });
+  }
 
-// Middleware to handle file upload errors
-const handleFileUpload = (req, res, next) => {
-  const uploadMiddleware = upload.single("dish_image");
+  const upload = multer({
+    storage: dishImageStorage,
+    fileFilter: imageFileFilter,
+    limits: {
+      fileSize: 5 * 1024 * 1024, // 5MB max file size
+    },
+  }).fields(fields);
 
-  uploadMiddleware(req, res, function (err) {
+  upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
-      // Multer error (e.g., file too large)
-      return customResponse(err.message, 400, false)(req, res);
+      return res.status(400).json({
+        success: false,
+        message: `Upload error: ${err.message}`,
+      });
     } else if (err) {
-      // Other errors
-      return customResponse(err.message, 500, false)(req, res);
+      return res.status(500).json({
+        success: false,
+        message: `Upload error: ${err.message}`,
+      });
     }
-    // Success - continue to next middleware
     next();
   });
 };
 
 module.exports = {
-  handleFileUpload,
+  handleDishUpload,
 };
