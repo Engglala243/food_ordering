@@ -136,13 +136,71 @@ const updateDish = async (req, res, next) => {
   }
 };
 
-// getDishes and deleteDish functions remain unchanged
 const getDishes = async (req, res, next) => {
-  // ... existing getDishes code ...
+  const { menuId } = req.params;
+  const restaurant_id = req.user.restaurant_id;
+
+  try {
+    // First, verify the menuId belongs to this restaurant
+    const menuQuery = `SELECT * FROM menu WHERE menu_id = ? AND restaurant_id = ?`;
+    const menuResult = await customRecord(menuQuery, [menuId, restaurant_id]);
+
+    if (menuResult.length === 0) {
+      return customResponse(
+        "Menu not found or doesn't belong to this restaurant",
+        404,
+        false,
+      )(req, res);
+    }
+
+    // Get dishes for the menu
+    const query = `SELECT * FROM dishes WHERE menu_id = ? AND is_deleted = 0`;
+    const dishesData = await customRecord(query, [menuId]);
+
+    APIData(dishesData)(req, res);
+  } catch (err) {
+    console.error(`Error fetching dishes: ${err}`);
+    customResponse(`Error: ${err.message}`, 500, false)(req, res);
+  }
 };
 
 const deleteDish = async (req, res, next) => {
-  // ... existing deleteDish code ...
+  const { dishId } = req.params;
+  const restaurant_id = req.user.restaurant_id;
+
+  try {
+    // First, verify the dish belongs to this restaurant
+    const verifyQuery = `
+      SELECT d.* FROM dishes d 
+      JOIN menu m ON d.menu_id = m.menu_id 
+      WHERE d.dish_id = ? AND m.restaurant_id = ? AND d.is_deleted = 0
+    `;
+    const verifyResult = await customRecord(verifyQuery, [
+      dishId,
+      restaurant_id,
+    ]);
+
+    if (verifyResult.length === 0) {
+      return customResponse(
+        "Dish not found or doesn't belong to this restaurant",
+        404,
+        false,
+      )(req, res);
+    }
+
+    // Soft delete the dish
+    const deleteQuery = `
+      UPDATE dishes 
+      SET is_deleted = 1, modified_by = ?, modified_at = NOW() 
+      WHERE dish_id = ?
+    `;
+    await customRecord(deleteQuery, [req.user.email, dishId]);
+
+    customResponse("Dish deleted successfully!", 200, true)(req, res);
+  } catch (err) {
+    console.error(`Error deleting dish: ${err}`);
+    customResponse(`Error: ${err.message}`, 500, false)(req, res);
+  }
 };
 
 module.exports = {
