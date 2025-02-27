@@ -86,7 +86,7 @@ const RestaurantRegister = () => {
       };
 
       axios
-        .post("http://18.205.28.19/auth/restaurant/register", registerData)
+        .post("http://localhost:5000/auth/restaurant/register", registerData)
         .then((response) => {
           alert("Registration successful.");
           console.log(response.data);

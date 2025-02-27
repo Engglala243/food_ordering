@@ -10,7 +10,7 @@ const initialState = {
 
 export const fetchMenu = createAsyncThunk("fetchMenu", async (access_token) => {
   return axios
-    .get(`http://18.205.28.19/menu`, {
+    .get(`http://localhost:5000/menu`, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },

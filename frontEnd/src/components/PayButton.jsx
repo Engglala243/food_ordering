@@ -19,7 +19,7 @@ const PayButton = ({ amount, cart_data }) => {
     const access_token = localStorage.getItem("access_token");
     await axios
       .post(
-        "http://18.205.28.19/order/insert",
+        "http://localhost:5000/order/insert",
         {
           cart_data: cart_data,
           amount_paid: amount,
@@ -53,7 +53,7 @@ const PayButton = ({ amount, cart_data }) => {
 
       // Create order
       const pay_resp = await axios.post(
-        "http://18.205.28.19/payment/create-order",
+        "http://localhost:5000/payment/create-order",
         {
           amount: amount,
         },
@@ -80,7 +80,7 @@ const PayButton = ({ amount, cart_data }) => {
           try {
             // Verify payment
             const { data } = await axios.post(
-              "http://18.205.28.19/payment/verify-payment",
+              "http://localhost:5000/payment/verify-payment",
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,

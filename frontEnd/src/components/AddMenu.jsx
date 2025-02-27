@@ -58,12 +58,16 @@ const AddMenu = () => {
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       console.log(values, "<===these are values");
       try {
-        const response = await axios.post("http://18.205.28.19/menu", values, {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
+        const response = await axios.post(
+          "http://localhost:5000/menu",
+          values,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+            withCredentials: false,
           },
-          withCredentials: false,
-        });
+        );
         console.log(response, "<===Axios response");
         resetForm();
       } catch (error) {

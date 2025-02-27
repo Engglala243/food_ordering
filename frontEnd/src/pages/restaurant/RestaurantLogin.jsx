@@ -31,7 +31,7 @@ const RestaurantLogin = () => {
         password: values.password,
       };
       axios
-        .post("http://18.205.28.19/auth/restaurant/login", loginData, {
+        .post("http://localhost:5000/auth/restaurant/login", loginData, {
           withCredentials: false,
         })
         .then((response) => {
