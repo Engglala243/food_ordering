@@ -43,7 +43,7 @@ const UserRegister = () => {
       }
 
       axios
-        .post("http://localhost:5000/auth/register", values)
+        .post("http://18.205.28.19/auth/register", values)
         .then((response) => {
           alert("Registration  successful.");
           console.log(response.data);

@@ -12,7 +12,7 @@ const initialState = {
 
 export const fetchCart = createAsyncThunk("fetchCart", async (access_token) => {
   return axios
-    .get(`http://localhost:5000/cart/`, {
+    .get(`http://18.205.28.19/cart/`, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
@@ -29,7 +29,7 @@ export const updateCartQuantity = createAsyncThunk(
   async (req) => {
     return axios
       .post(
-        "http://localhost:5000/cart/update",
+        "http://18.205.28.19/cart/update",
         { dish_id: req.dish_id, quantity: req.change },
         {
           headers: {
@@ -100,7 +100,7 @@ const cartSlice = createSlice({
       state.cartItems = updatedCart;
       axios
         .post(
-          "http://localhost:5000/cart/delete",
+          "http://18.205.28.19/cart/delete",
           { user_id, dish_id: itemId },
           {
             headers: {
@@ -120,7 +120,7 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const access_token = localStorage.getItem("access_token");
       axios
-        .post("http://localhost:5000/cart/insert", action.payload, {
+        .post("http://18.205.28.19/cart/insert", action.payload, {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
