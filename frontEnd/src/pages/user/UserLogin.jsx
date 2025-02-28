@@ -32,7 +32,7 @@ const UserLogin = () => {
         password: values.password,
       };
       axios
-        .post("http://localhost:5000/auth/login", loginData)
+        .post("http://54.211.165.0/api/auth/login", loginData)
         .then((response) => {
           localStorage.setItem("access_token", response.data.access_token);
           dispatch(fetchCart(response.data.access_token));

@@ -135,7 +135,7 @@ function Order() {
       const access_token = localStorage.getItem("access_token");
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/order", {
+        const response = await axios.get("http://54.211.165.0/api/order", {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },

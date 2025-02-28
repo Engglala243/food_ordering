@@ -63,7 +63,7 @@ const AddDishes = ({ menuId }) => {
         console.log(Array.from(formData.entries()), "<===Entries");
 
         const response = await axios.post(
-          "http://localhost:5000/dishes/add",
+          "http://54.211.165.0/api/dishes/add",
           formData,
           {
             headers: {

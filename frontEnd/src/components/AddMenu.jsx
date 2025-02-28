@@ -59,7 +59,7 @@ const AddMenu = () => {
       console.log(values, "<===these are values");
       try {
         const response = await axios.post(
-          "http://localhost:5000/menu",
+          "http://54.211.165.0/api/menu",
           values,
           {
             headers: {
