@@ -19,8 +19,26 @@
   src: url("./assets/fonts/OpenSans-VariableFont_wght.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Quicksand"; /* Replace with your font name */
+  src: url("./assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Cabin"; /* Replace with your font name */
+  src: url("./assets/fonts/Cabin/Cabin-VariableFont_wdth_wght.ttf")
+    format("truetype");
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover\:underline:hover {
+    text-decoration-line: underline;
+  }
+}
+
 * {
-  font-family: "Open-Sans";
+  font-family: "Cabin";
 }
 
 input:focus {

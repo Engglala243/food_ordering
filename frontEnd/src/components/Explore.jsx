@@ -16,7 +16,7 @@ const Explore = () => {
           >
             Explore
           </div>
-          <div class="flex w-auto placeholder-white bg-transparent backdrop-blur-md text-white border border-white rounded-lg p-2 focus:outline-none">
+          <div className="flex w-auto placeholder-white bg-transparent backdrop-blur-md text-white border border-white rounded-lg p-2 focus:outline-none">
             <label>
               <CiSearch className="font-bold z-10 text-white text-3xl" />
             </label>

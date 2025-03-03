@@ -66,16 +66,19 @@ const Header = ({ isHome }) => {
 
   return (
     <>
-      <Container fluid className="bg-[#46a679]">
-        <div className="flex justify-center text-white p-0.5 text-xs md:text-sm text-center">
-          Enjoy Yummy Licious Fast Food!
-        </div>
-      </Container>
-      <div className="bg-transparent backdrop-blur-md shadow-md">
-        <Container fluid>
+      {/* <Container fluid className="bg-[#46a679]"> */}
+      {/*   <div className="flex justify-center text-white p-0.5 text-xs md:text-sm text-center"> */}
+      {/*     Enjoy Yummy Licious Fast Food! */}
+      {/*   </div> */}
+      {/* </Container> */}
+      <div className="bg-transparent shadow-md">
+        <Container
+          fluid
+          className="hover:bg-[#46a679] z-10 transition duration-300 hover:text-white"
+        >
           <Navbar
             expand="lg"
-            className="p-1 flex flex-col space-between items-center gap-2 md:flex-row"
+            className="p-1 flex flex-col items-center md:flex-row"
           >
             <Navbar.Brand
               onClick={() => navigate("/")}
@@ -99,25 +102,25 @@ const Header = ({ isHome }) => {
               )}
             </Navbar.Brand>
 
-            <div className="flex-grow justify-center items-center mx-4 text-white rounded-md w-auto hidden md:flex">
+            <div className="items-center text-white rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex">
               <InputGroup className="w-auto bg-[#46a679] rounded-md">
                 <FormControl
                   placeholder="Search the hotel"
                   aria-label="Search"
                   aria-describedby="search-button"
-                  className="border border-gray-300"
+                  className=""
                 />
                 <Button
                   variant="outline-secondary"
                   id="search-button"
-                  className="text-white"
+                  className="text-white hover:!bg-green-900 hover:!border-green-900"
                 >
                   Search
                 </Button>
               </InputGroup>
             </div>
 
-            <div className="items-center self-center hidden md:flex">
+            <div className="items-center hidden absolute right-0 md:flex">
               <button
                 onClick={() => setShowScanner(!showScanner)}
                 className="p-1 border-2 border-gray-400 mr-3 rounded-full hover:bg-gray-300 focus:outline-none"

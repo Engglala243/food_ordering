@@ -161,7 +161,7 @@ const Menu = () => {
                           {/* Image */}
                           <div className="w-full md:w-48 h-48 md:h-40 flex-shrink-0">
                             <img
-                              src={`http://localhost:5000/public/${data.dish_image}`}
+                              src={`http://localhost:5000${data.dish_image}`}
                               className="w-full h-full object-cover"
                               alt={data.dish_name}
                             />

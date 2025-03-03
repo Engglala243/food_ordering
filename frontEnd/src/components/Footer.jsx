@@ -117,7 +117,7 @@ const Footer = ({ isHome, count }) => {
         </div>
 
         <div
-          onClick={() => navigate("/menu/6")}
+          onClick={() => navigate("/menu/1")}
           className="flex flex-col items-center text-sm hover:text-gray-400 cursor-pointer"
         >
           <FaBars size={20} />
